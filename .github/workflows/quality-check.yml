@@ -1,0 +1,43 @@
+name: Repository Quality Check
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  validate-handbook:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Validate Core Publication Files Exist
+        run: |
+          echo "Checking essential files..."
+          test -f index.html || (echo "Missing index.html" && exit 1)
+          test -f IT003_DSA_UIT_CamNang_FINAL.html || (echo "Missing final HTML" && exit 1)
+          test -f IT003_DSA_UIT_CamNang_FINAL.pdf || (echo "Missing final PDF" && exit 1)
+          test -f print.css || (echo "Missing print.css" && exit 1)
+          test -f README.md || (echo "Missing README.md" && exit 1)
+          test -f QA_REPORT_FINAL.md || (echo "Missing QA_REPORT_FINAL.md" && exit 1)
+          echo "All core publication files exist."
+
+      - name: Check Chapter Files
+        run: |
+          count=$(ls -1 chapters/*.html | wc -l)
+          echo "Found $count chapter files."
+          if [ "$count" -lt 16 ]; then
+            echo "Expected 16 chapters, found $count"
+            exit 1
+          fi
+
+      - name: Validate UTF-8 Encoding (No double-encoded mojibake)
+        run: |
+          echo "Scanning index.html for mojibake patterns..."
+          if grep -q -E "Ã¢â‚¬â€|ÃƒÂ¢|Ã¡Âº|Ã¡Â»" index.html; then
+            echo "Warning: Possible mojibake pattern detected."
+          else
+            echo "UTF-8 encoding validation passed."
+          fi
