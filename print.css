@@ -4,8 +4,6 @@
    A4 Print-First, High Information Density, Modern Academic Aesthetics
    ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap');
-
 :root {
   --primary-navy: #0f172a;
   --uit-blue: #1e40af;
@@ -26,18 +24,6 @@
 @page {
   size: A4 portrait;
   margin: 18mm 15mm 18mm 15mm;
-  @bottom-right {
-    content: counter(page);
-    font-family: 'Inter', sans-serif;
-    font-size: 9pt;
-    color: var(--text-muted);
-  }
-  @bottom-left {
-    content: "IT003 DSA UIT — Ultimate Handbook";
-    font-family: 'Inter', sans-serif;
-    font-size: 9pt;
-    color: var(--text-muted);
-  }
 }
 
 * {
@@ -47,7 +33,7 @@
 }
 
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family: "Segoe UI", "Noto Sans", Arial, sans-serif;
   font-size: 10pt;
   line-height: 1.55;
   color: var(--text-main);
@@ -67,11 +53,8 @@ h1 {
   line-height: 1.25;
   border-bottom: 2.5px solid var(--uit-blue);
   padding-bottom: 6pt;
-  break-before: page;
-}
-
-h1:first-of-type {
-  break-before: auto;
+  break-after: avoid;
+  break-inside: avoid;
 }
 
 h2 {
@@ -170,7 +153,11 @@ strong {
   padding: 10pt 12pt;
   margin: 10pt 0;
   border-radius: 0 6px 6px 0;
-  break-inside: avoid;
+  break-inside: auto;
+}
+
+.callout-title {
+  break-after: avoid;
 }
 
 .callout-warning {
@@ -190,6 +177,14 @@ table {
   border-collapse: collapse;
   margin: 12pt 0;
   font-size: 9.5pt;
+  break-inside: auto;
+}
+
+thead {
+  display: table-header-group;
+}
+
+tr {
   break-inside: avoid;
 }
 
@@ -211,7 +206,7 @@ tr:nth-child(even) {
 
 /* Code Blocks */
 pre, code {
-  font-family: 'Fira Code', 'JetBrains Mono', Consolas, monospace;
+  font-family: "Cascadia Code", Consolas, "Liberation Mono", monospace;
 }
 
 code {
@@ -227,11 +222,11 @@ pre {
   color: #f8fafc;
   padding: 10pt 12pt;
   border-radius: 6px;
-  overflow-x: auto;
+  overflow-x: hidden;
   font-size: 8.5pt;
   line-height: 1.45;
   margin: 10pt 0;
-  break-inside: avoid;
+  break-inside: auto;
   border: 1px solid #1e293b;
 }
 
@@ -259,6 +254,115 @@ pre code {
   height: auto;
 }
 
+.cover-page {
+  min-height: 245mm;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  break-after: page;
+}
+
+.cover-inner {
+  width: 100%;
+  max-width: 165mm;
+  text-align: center;
+  padding: 18mm 10mm;
+  border-top: 3px solid var(--uit-blue);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.cover-institution {
+  font-size: 9.5pt;
+  line-height: 1.45;
+  padding: 4px 10px;
+}
+
+.cover-title {
+  font-size: 25pt;
+  margin: 24pt 0 8pt;
+  border: 0;
+  padding: 0;
+}
+
+.cover-subtitle {
+  font-size: 16pt;
+  margin: 0;
+  border: 0;
+}
+
+.cover-deck {
+  font-size: 10.5pt;
+  color: var(--text-muted);
+  margin-top: 18pt;
+  text-align: center;
+}
+
+.cover-author {
+  font-size: 10.5pt;
+  font-weight: 400;
+  color: var(--text-main);
+  margin: 20px 0 0;
+  text-align: center;
+}
+
+.cover-author strong {
+  color: inherit;
+  font-weight: 600;
+}
+
+.toc-container {
+  background: var(--bg-light);
+  padding: 14pt 16pt;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  break-after: page;
+}
+
+.toc-container h2 {
+  margin-top: 0;
+}
+
+.toc-container ol {
+  line-height: 1.5;
+  margin-bottom: 0;
+}
+
+.chapter-header {
+  margin-top: 16pt;
+  padding-top: 10pt;
+  border-top: 3px solid var(--uit-blue);
+  break-inside: avoid;
+  break-after: avoid;
+}
+
+.chapter-header h1 {
+  margin-top: 7pt;
+}
+
+/* The exam toolkit is list-heavy; tighter rhythm avoids a trailing callout-only page. */
+.chapter:last-of-type h2 {
+  margin-top: 14pt;
+  margin-bottom: 6pt;
+}
+
+.chapter:last-of-type h3 {
+  margin-top: 10pt;
+  margin-bottom: 4pt;
+}
+
+.chapter:last-of-type p {
+  margin-bottom: 6pt;
+}
+
+.chapter:last-of-type ul,
+.chapter:last-of-type ol {
+  margin-bottom: 7pt;
+}
+
+.chapter:last-of-type li {
+  margin-bottom: 2pt;
+}
+
 /* Print Optimization */
 @media print {
   body {
@@ -273,6 +377,10 @@ pre code {
 
   pre {
     white-space: pre-wrap;
-    word-wrap: break-word;
+    overflow-wrap: anywhere;
+  }
+
+  .cover-page {
+    min-height: 245mm;
   }
 }
