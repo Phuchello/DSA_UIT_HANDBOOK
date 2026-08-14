@@ -26,18 +26,36 @@ jobs:
 
       - name: Check Chapter Files
         run: |
-          count=$(ls -1 chapters/*.html | wc -l)
+          count=ls -1 chapters/*.html | wc -l
           echo "Found $count chapter files."
           if [ "$count" -lt 16 ]; then
             echo "Expected 16 chapters, found $count"
             exit 1
           fi
 
-      - name: Validate UTF-8 Encoding (No double-encoded mojibake)
+      - name: Validate UTF-8 Encoding and Reject Mojibake
         run: |
-          echo "Scanning index.html for mojibake patterns..."
-          if grep -q -E "Ã¢â‚¬â€|ÃƒÂ¢|Ã¡Âº|Ã¡Â»" index.html; then
-            echo "Warning: Possible mojibake pattern detected."
-          else
-            echo "UTF-8 encoding validation passed."
-          fi
+          python3 -c '
+          import os, sys, re
+
+          # Pattern matching double-encoded UTF-8 sequences (UTF-8 bytes misread as Latin1/CP1252 and re-encoded)
+          mojibake_pattern = re.compile(r"(\u00c3[\u00a0-\u00bf]|\u00c4\u0091|\u00c6\u00b0|\u00e1\u00ba[\u0080-\u00bf]|\u00e1\u00bb[\u0080-\u00bf]|\u00e2\u0080\u0094|\u00f0\u009f)")
+          files_to_check = ["README.md", "CONTRIBUTING.md", "index.html", "IT003_DSA_UIT_CamNang_FINAL.html"]
+          
+          failed = False
+          for filepath in files_to_check:
+              if not os.path.exists(filepath):
+                  continue
+              with open(filepath, "r", encoding="utf-8", errors="surrogateescape") as f:
+                  content = f.read()
+                  matches = mojibake_pattern.findall(content)
+                  if matches:
+                      print(f"ERROR: Found {len(matches)} mojibake occurrences in {filepath}")
+                      failed = True
+                  else:
+                      print(f"PASS: {filepath} encoding clean (0 mojibake).")
+          
+          if failed:
+              sys.exit(1)
+          print("All public-facing files passed UTF-8 validation successfully.")
+          '
