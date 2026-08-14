@@ -26,7 +26,7 @@ jobs:
 
       - name: Check Chapter Files
         run: |
-          count=ls -1 chapters/*.html | wc -l
+          count=$(ls -1 chapters/*.html | wc -l)
           echo "Found $count chapter files."
           if [ "$count" -lt 16 ]; then
             echo "Expected 16 chapters, found $count"

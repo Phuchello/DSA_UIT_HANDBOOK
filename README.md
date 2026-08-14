@@ -29,7 +29,7 @@
 
 * **Trực giác trước cài đặt (Intuition-First):** Mọi cấu trúc dữ liệu và giải thuật đều bắt đầu bằng câu hỏi trực quan *"Vì sao cần cấu trúc này?"* và sơ đồ minh họa trước khi đi vào mã nguồn.
 * **Bảng chạy tay từng bước (Dry-run Tables):** Hướng dẫn chi tiết cách lập bảng theo dõi trạng thái biến, con trỏ và mảng qua từng vòng lặp — kỹ năng trọng tâm của các câu hỏi tự luận trong đề thi IT003.
-* **Chuẩn C++ giáo khoa & STL song hành:** Trình bày song song mã nguồn C++ thuần con trỏ (phục vụ thi cử, hiểu sâu bản chất cấp phát động) và thư viện chuẩn std:: (phục vụ ứng dụng thực tế).
+* **Chuẩn C++ giáo khoa & STL song hành:** Trình bày song song mã nguồn C++ thuần con trỏ (phục vụ thi cử, hiểu sâu bản chất cấp phát động) và thư viện chuẩn `std::` (phục vụ ứng dụng thực tế).
 * **Cảnh báo bẫy học thuật (Pitfalls & Traps):** Làm rõ các lỗi dễ mất điểm như tính chất *Not Stable* của Interchange Sort, điều kiện dừng của tìm kiếm thất bại trên Bảng băm, và quy tắc tách/gộp nút B-Tree bậc 5.
 
 ---
@@ -40,22 +40,22 @@ Handbook bao quát toàn diện chương trình môn học IT003 tại UIT, đư
 
 ### 1. Nền tảng & Tìm kiếm (Foundations & Searching)
 * **Phân tích thuật toán:** Ký pháp tiệm cận Big-O, Big-Omega, Big-Theta, quy tắc cộng/nhân, đếm số phép toán vòng lặp, phân tích độ sâu cây đệ quy và bộ nhớ Call Stack.
-* **Thuật toán tìm kiếm:** Linear Search (Tìm kiếm tuyến tính) và Binary Search (Tìm kiếm nhị phân, điều kiện mảng có thứ tự, phòng tránh tràn số khi tính mid).
+* **Thuật toán tìm kiếm:** Linear Search (Tìm kiếm tuyến tính) và Binary Search (Tìm kiếm nhị phân, điều kiện mảng có thứ tự, phòng tránh tràn số khi tính `mid`).
 
 ### 2. 10 Thuật toán Sắp xếp (Sorting Algorithms)
 * **Nhóm cơ bản O(n²):** Selection Sort, Interchange Sort (đặc thù UIT, *Not Stable*), Bubble Sort (bản thường vs bản tối ưu cờ hiệu), Insertion Sort, Binary Insertion Sort (giảm phép so sánh nhưng tổng thời gian vẫn O(n²)).
-* **Nhóm nâng cao O(n log n):** Shell Sort (phụ thuộc Gap sequence), Heap Sort (với uildHeap chạy trong Theta(n)), Quick Sort (phân hoạch Lomuto chuẩn), Merge Sort (chia để trị, bộ nhớ phụ O(n)).
+* **Nhóm nâng cao O(n log n):** Shell Sort (phụ thuộc Gap sequence), Heap Sort (với `buildHeap` chạy trong Theta(n)), Quick Sort (phân hoạch Lomuto chuẩn), Merge Sort (chia để trị, bộ nhớ phụ O(n)).
 * **Nhóm phi so sánh:** Radix Sort (sắp xếp theo từng chữ số với cơ số k).
 
 ### 3. Cấu trúc Tuyến tính (Linear Data Structures)
-* **Danh sách liên kết (Linked List):** DSLK đơn (Singly Linked List) và DSLK đôi (Doubly Linked List), kỹ thuật quản lý con trỏ pHead, pTail, thao tác thêm/xóa đầu/cuối/giữa và giải phóng bộ nhớ an toàn.
+* **Danh sách liên kết (Linked List):** DSLK đơn (Singly Linked List) và DSLK đôi (Doubly Linked List), kỹ thuật quản lý con trỏ `pHead`, `pTail`, thao tác thêm/xóa đầu/cuối/giữa và giải phóng bộ nhớ an toàn.
 * **Ngăn xếp & Hàng đợi (Stack & Queue):** Cơ chế LIFO/FIFO, cài đặt bằng mảng và danh sách liên kết, Hàng đợi vòng (Circular Queue với phép toán Modulo giải quyết tràn giả), ứng dụng kiểm tra ngoặc hợp lệ và chuyển đổi biểu thức Infix sang Postfix.
 
 ### 4. Cấu trúc Cây (Tree Structures)
 * **Cây nhị phân (Binary Trees):** Định nghĩa nút gốc, nút lá, chiều cao, mức (Level 0), các thứ tự duyệt Pre-order (NLR), In-order (LNR), Post-order (LRN).
 * **Cây nhị phân tìm kiếm (BST):** Bất biến cây tìm kiếm, tìm kiếm, chèn, thao tác xóa nút 2 con dùng phần tử thế mạng cực trái cây con phải (Min-Right) hoặc cực phải cây con trái (Max-Left).
-* **Cây cân bằng AVL (AVL Trees):** Hệ số cân bằng BF = h(left) - h(right), 4 phép xoay chuẩn (Xoay đơn LL, RR và Xoay kép LR, RL) khôi phục độ phức tạp O(log n).
-* **Heap & Hàng đợi ưu tiên (Priority Queue):** Cấu trúc Max-Heap, công thức ánh xạ chỉ số mảng 0-indexed (2i+1, 2i+2, loor((i-1)/2)), thuật toán uildHeap Theta(n) và Heap Sort.
+* **Cây cân bằng AVL (AVL Trees):** Hệ số cân bằng `BF = h(left) - h(right)`, 4 phép xoay chuẩn (Xoay đơn LL, RR và Xoay kép LR, RL) khôi phục độ phức tạp O(log n).
+* **Heap & Hàng đợi ưu tiên (Priority Queue):** Cấu trúc Max-Heap, công thức ánh xạ chỉ số mảng 0-indexed (`2i+1`, `2i+2`, `floor((i-1)/2)`), thuật toán `buildHeap` Theta(n) và Heap Sort.
 * **Cây B-Tree:** Cấu trúc B-Tree bậc 5 (m = 5, tối đa 4 khóa, tối thiểu 2 khóa), quy tắc tràn khóa tách nút đẩy nổi trung vị thứ 3, và quy tắc xóa nút (mượn anh em hoặc gộp nút).
 
 ### 5. Bảng băm, Đồ thị & Luyện thi (Hashing, Graphs & Exam Prep)
@@ -91,7 +91,7 @@ Handbook bao quát toàn diện chương trình môn học IT003 tại UIT, đư
 
 ## 📂 Cấu trúc Repository
 
-`	ext
+```text
 DSA_UIT_HANDBOOK/
 ├── index.html                           # File phục vụ GitHub Pages (bản xuất bản chính thức)
 ├── IT003_DSA_UIT_CamNang_FINAL.html      # Bản HTML độc lập (Offline Standalone)
@@ -109,20 +109,20 @@ DSA_UIT_HANDBOOK/
 ├── SOURCE_AUDIT.md                      # Bảng đối chiếu nguồn tư liệu & tài liệu tham khảo
 ├── QA_REPORT_FINAL.md                   # Báo cáo thẩm định học thuật và kiểm thử giải thuật
 └── CONTRIBUTING.md                      # Hướng dẫn đóng góp & báo lỗi học thuật
-`
+```
 
 ---
 
 ## 🛠️ Hướng dẫn biên dịch tại máy cục bộ (Build Locally)
 
-Nếu bạn muốn chỉnh sửa các chương riêng lẻ trong thư mục chapters/ và biên dịch lại thành file HTML tổng hợp:
+Nếu bạn muốn chỉnh sửa các chương riêng lẻ trong thư mục `chapters/` và biên dịch lại thành file HTML tổng hợp:
 
 1. **Yêu cầu môi trường:** Windows PowerShell 5.1 hoặc PowerShell Core 7+.
 2. **Chạy lệnh biên dịch:**
-   `powershell
+   ```powershell
    powershell -ExecutionPolicy Bypass -File .\build.ps1
-   `
-3. Script sẽ đọc tuần tự 16 chương nguồn và tạo ra file master.html hoàn chỉnh với đầy đủ mục lục, trang bìa và cấu hình KaTeX.
+   ```
+3. Script sẽ đọc tuần tự 16 chương nguồn và tạo ra file `master.html` hoàn chỉnh với đầy đủ mục lục, trang bìa và cấu hình KaTeX.
 
 ---
 
