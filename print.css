@@ -1,0 +1,278 @@
+/* ==========================================================================
+   IT003 DSA UIT - ULTIMATE HANDBOOK
+   PRINT & DISPLAY STYLESHEET (print.css)
+   A4 Print-First, High Information Density, Modern Academic Aesthetics
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  --primary-navy: #0f172a;
+  --uit-blue: #1e40af;
+  --uit-light-blue: #3b82f6;
+  --accent-teal: #0d9488;
+  --alert-red: #b91c1c;
+  --alert-bg: #fef2f2;
+  --badge-bg: #eff6ff;
+  --badge-text: #1e40af;
+  --badge-border: #bfdbfe;
+  --bg-light: #f8fafc;
+  --border-color: #cbd5e1;
+  --text-main: #1e293b;
+  --text-muted: #64748b;
+  --code-bg: #f1f5f9;
+}
+
+@page {
+  size: A4 portrait;
+  margin: 18mm 15mm 18mm 15mm;
+  @bottom-right {
+    content: counter(page);
+    font-family: 'Inter', sans-serif;
+    font-size: 9pt;
+    color: var(--text-muted);
+  }
+  @bottom-left {
+    content: "IT003 DSA UIT — Ultimate Handbook";
+    font-family: 'Inter', sans-serif;
+    font-size: 9pt;
+    color: var(--text-muted);
+  }
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 10pt;
+  line-height: 1.55;
+  color: var(--text-main);
+  background-color: #ffffff;
+  padding: 20px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* Typography */
+h1 {
+  font-size: 20pt;
+  font-weight: 800;
+  color: var(--primary-navy);
+  margin-top: 24pt;
+  margin-bottom: 12pt;
+  line-height: 1.25;
+  border-bottom: 2.5px solid var(--uit-blue);
+  padding-bottom: 6pt;
+  break-before: page;
+}
+
+h1:first-of-type {
+  break-before: auto;
+}
+
+h2 {
+  font-size: 14pt;
+  font-weight: 700;
+  color: var(--uit-blue);
+  margin-top: 18pt;
+  margin-bottom: 8pt;
+  line-height: 1.3;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 4pt;
+  break-after: avoid;
+}
+
+h3 {
+  font-size: 11.5pt;
+  font-weight: 600;
+  color: var(--primary-navy);
+  margin-top: 14pt;
+  margin-bottom: 6pt;
+  break-after: avoid;
+}
+
+h4 {
+  font-size: 10.5pt;
+  font-weight: 600;
+  color: var(--accent-teal);
+  margin-top: 10pt;
+  margin-bottom: 4pt;
+  break-after: avoid;
+}
+
+p {
+  margin-bottom: 8pt;
+  text-align: justify;
+  orphans: 3;
+  widows: 3;
+}
+
+ul, ol {
+  margin-bottom: 10pt;
+  padding-left: 18pt;
+}
+
+li {
+  margin-bottom: 3pt;
+  orphans: 3;
+  widows: 3;
+}
+
+strong {
+  font-weight: 600;
+  color: var(--primary-navy);
+}
+
+/* Badges */
+.badge {
+  display: inline-block;
+  font-size: 8.5pt;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-right: 6px;
+}
+
+.badge-uit-convention {
+  background-color: #e0f2fe;
+  color: #0369a1;
+  border: 1px solid #7dd3fc;
+}
+
+.badge-exam-style {
+  background-color: #fef3c7;
+  color: #b45309;
+  border: 1px solid #fde68a;
+}
+
+.badge-warning {
+  background-color: #fee2e2;
+  color: #b91c1c;
+  border: 1px solid #fca5a5;
+}
+
+.badge-core {
+  background-color: #dcfce7;
+  color: #15803d;
+  border: 1px solid #86efac;
+}
+
+/* Callout Box */
+.callout {
+  background-color: var(--bg-light);
+  border-left: 4px solid var(--uit-blue);
+  padding: 10pt 12pt;
+  margin: 10pt 0;
+  border-radius: 0 6px 6px 0;
+  break-inside: avoid;
+}
+
+.callout-warning {
+  background-color: var(--alert-bg);
+  border-left-color: var(--alert-red);
+}
+
+.callout-title {
+  font-weight: 700;
+  margin-bottom: 4pt;
+  color: var(--primary-navy);
+}
+
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 12pt 0;
+  font-size: 9.5pt;
+  break-inside: avoid;
+}
+
+th, td {
+  border: 1px solid var(--border-color);
+  padding: 6pt 8pt;
+  text-align: left;
+}
+
+th {
+  background-color: var(--bg-light);
+  color: var(--primary-navy);
+  font-weight: 700;
+}
+
+tr:nth-child(even) {
+  background-color: #f8fafc;
+}
+
+/* Code Blocks */
+pre, code {
+  font-family: 'Fira Code', 'JetBrains Mono', Consolas, monospace;
+}
+
+code {
+  font-size: 9pt;
+  background-color: var(--code-bg);
+  color: #0969da;
+  padding: 2px 5px;
+  border-radius: 3px;
+}
+
+pre {
+  background-color: #0f172a;
+  color: #f8fafc;
+  padding: 10pt 12pt;
+  border-radius: 6px;
+  overflow-x: auto;
+  font-size: 8.5pt;
+  line-height: 1.45;
+  margin: 10pt 0;
+  break-inside: avoid;
+  border: 1px solid #1e293b;
+}
+
+pre code {
+  background-color: transparent;
+  color: inherit;
+  padding: 0;
+}
+
+/* Visual & Diagram Containers */
+.diagram-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 12pt 0;
+  padding: 12pt;
+  background-color: var(--bg-light);
+  border: 1px dashed var(--border-color);
+  border-radius: 6px;
+  break-inside: avoid;
+}
+
+.diagram-container svg {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Print Optimization */
+@media print {
+  body {
+    padding: 0;
+    max-width: 100%;
+  }
+
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+}

@@ -1,0 +1,120 @@
+<section class="chapter" id="ch06">
+    <div class="chapter-header">
+        <span class="badge badge-core">PART VI</span>
+        <h1>CÂY VÀ CÂY NHỊ PHÂN (TREES & BINARY TREES)</h1>
+    </div>
+
+    <h2>1. Intuition (Trực giác & Động lực)</h2>
+    <p>Khác với mảng hay danh sách liên kết là cấu trúc dữ liệu tuyến tính (Linear), Cây (Tree) là cấu trúc dữ liệu phi tuyến (Non-linear) phân cấp. Cây mô phỏng hoàn hảo các hệ thống phân cấp thực tế như cây thư mục máy tính, sơ đồ tổ chức công ty hay cây quyết định.</p>
+
+    <h2>2. Formal Model & Terminology (Định nghĩa & Thuật ngữ)</h2>
+    <ul>
+        <li><strong>Root (Gốc):</strong> Nút duy nhất không có nút cha.</li>
+        <li><strong>Leaf (Nút lá):</strong> Nút không có con nào (bậc của nút bằng 0).</li>
+        <li><strong>Degree (Bậc):</strong> Số nút con của một nút.</li>
+        <li><span class="badge badge-uit-convention">IT003 CONVENTION</span> <strong>Level (Mức):</strong> Nút gốc Root nằm ở <strong>Level 0</strong>. Nút con của Root nằm ở Level 1. Chiều cao của cây $H = \text{max\_level} + 1$.</li>
+    </ul>
+
+    <h2>3. Visual Diagram (Sơ đồ Duyệt Cây Nhị Phân)</h2>
+    <div class="diagram-container">
+        <svg width="500" height="200" viewBox="0 0 500 200" xmlns="http://www.w3.org/2000/svg">
+            <rect width="500" height="200" fill="#f8fafc" rx="8"/>
+            <!-- Edges -->
+            <line x1="250" y1="40" x2="160" y2="100" stroke="#0f172a" stroke-width="2"/>
+            <line x1="250" y1="40" x2="340" y2="100" stroke="#0f172a" stroke-width="2"/>
+            <line x1="160" y1="100" x2="100" y2="160" stroke="#0f172a" stroke-width="2"/>
+            <!-- Tree Nodes -->
+            <g transform="translate(250, 40)">
+                <circle cx="0" cy="0" r="20" fill="#0f172a"/>
+                <text x="0" y="5" fill="#ffffff" font-family="Inter" font-size="14" font-weight="bold" text-anchor="middle">A</text>
+            </g>
+            <g transform="translate(160, 100)">
+                <circle cx="0" cy="0" r="20" fill="#1e40af"/>
+                <text x="0" y="5" fill="#ffffff" font-family="Inter" font-size="14" font-weight="bold" text-anchor="middle">B</text>
+            </g>
+            <g transform="translate(340, 100)">
+                <circle cx="0" cy="0" r="20" fill="#1e40af"/>
+                <text x="0" y="5" fill="#ffffff" font-family="Inter" font-size="14" font-weight="bold" text-anchor="middle">C</text>
+            </g>
+            <g transform="translate(100, 160)">
+                <circle cx="0" cy="0" r="20" fill="#0d9488"/>
+                <text x="0" y="5" fill="#ffffff" font-family="Inter" font-size="14" font-weight="bold" text-anchor="middle">D</text>
+            </g>
+        </svg>
+    </div>
+
+    <h2>4. Algorithm & Mechanics (3 Phép Duyệt Cây)</h2>
+    <ul>
+        <li><strong>NLR (Pre-order / Tiền tự):</strong> Thăm Nút gốc $N  \Rightarrow  $ Duyệt Cây con trái $L  \Rightarrow  $ Duyệt Cây con phải $R$.</li>
+        <li><strong>LNR (In-order / Trung tự):</strong> Duyệt Cây con trái $L  \Rightarrow  $ Thăm Nút gốc $N  \Rightarrow  $ Duyệt Cây con phải $R$.</li>
+        <li><strong>LRN (Post-order / Hậu tự):</strong> Duyệt Cây con trái $L  \Rightarrow  $ Duyệt Cây con phải $\Rightarrow  $ Thăm Nút gốc $N$.</li>
+    </ul>
+
+    <h2>5. C++ Educational & Traversals Code</h2>
+    <pre><code>struct TreeNode {
+    int data;
+    TreeNode* pLeft;
+    TreeNode* pRight;
+};
+
+void preOrder(TreeNode* root) {
+    if (root != nullptr) {
+        std::cout &lt;&lt; root-&gt;data &lt;&lt; " ";
+        preOrder(root-&gt;pLeft);
+        preOrder(root-&gt;pRight);
+    }
+}
+
+void inOrder(TreeNode* root) {
+    if (root != nullptr) {
+        inOrder(root-&gt;pLeft);
+        std::cout &lt;&lt; root-&gt;data &lt;&lt; " ";
+        inOrder(root-&gt;pRight);
+    }
+}
+
+void postOrder(TreeNode* root) {
+    if (root != nullptr) {
+        postOrder(root-&gt;pLeft);
+        postOrder(root-&gt;pRight);
+        std::cout &lt;&lt; root-&gt;data &lt;&lt; " ";
+    }
+}</code></pre>
+
+    <h2>6. Complexity Analysis & Invariants</h2>
+    <p>Tất cả các phép duyệt cây nhị phân đều ghé thăm mỗi nút đúng 1 lần, độ phức tạp là <strong>$\Theta(n)$ thời gian và $\mathcal{O}(h)$ bộ nhớ phụ</strong> (với $h$ là chiều cao cây do gọi đệ quy trên Call Stack).</p>
+
+    <h2>7. Dry Run Table (Trace Phép Duyệt NLR, LNR, LRN)</h2>
+    <p>Cho cây nhị phân: Gốc A, con trái B, con phải C. B có con trái D:</p>
+    <table>
+        <thead>
+            <tr><th>Phép duyệt</th><th>Thứ tự nút được ghé thăm</th></tr>
+        </thead>
+        <tbody>
+            <tr><td><strong>NLR (Tiền tự)</strong></td><td>A $ \Rightarrow  $ B $ \Rightarrow  $ D $ \Rightarrow  $ C</td></tr>
+            <tr><td><strong>LNR (Trung tự)</strong></td><td>D $ \Rightarrow  $ B $ \Rightarrow  $ A $ \Rightarrow  $ C</td></tr>
+            <tr><td><strong>LRN (Hậu tự)</strong></td><td>D $ \Rightarrow  $ B $ \Rightarrow  $ C $ \Rightarrow  $ A</td></tr>
+        </tbody>
+    </table>
+
+    <h2>8. Common Errors & IT003 Exam Style</h2>
+    <div class="callout callout-warning">
+        <span class="badge badge-exam-style">IT003 EXAM STYLE</span>
+        <p><strong>Bẫy Đề Thi:</strong> Xác định chiều cao của cây $H$. Đọc kỹ quy ước trong đề thi! Nếu đề thi tính Root ở Level 0 thì $H = \text{max\_level} + 1$. Nếu tính Root ở Level 1 thì $H = \text{max\_level}$.</p>
+    </div>
+
+    <h2>9. Quick Recall & Exercise Ladder</h2>
+    <ul>
+        <li><strong>Level 0:</strong> Phép duyệt nào trên Cây Nhị Phân Tìm Kiếm (BST) sẽ xuất ra các giá trị khóa theo thứ tự tăng dần?
+            <br><em>Đáp án:</em> Phép duyệt Trung tự <strong>LNR (In-order)</strong>.
+        </li>
+        <li><strong>Level 1:</strong> Tính số nút tối đa của một Cây nhị phân có chiều cao $h$ (Root ở Level 0, height $h = \text{max\_level} + 1$).
+            <br><em>Gợi ý:</em> Số nút tối đa là $2^h - 1$.
+        </li>
+    </ul>
+
+    <div class="callout">
+        <div class="callout-title">📝 Tóm kết Chương 6</div>
+        <p>Nắm vững khái niệm mức (Level), chiều cao và 3 phép duyệt NLR, LNR, LRN là chìa khóa để xử lý toàn bộ các câu hỏi về Cây trong đề thi IT003.</p>
+    </div>
+</section>

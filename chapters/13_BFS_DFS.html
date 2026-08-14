@@ -1,0 +1,103 @@
+<section class="chapter" id="ch13">
+    <div class="chapter-header">
+        <span class="badge badge-core">PART XIII</span>
+        <h1>DUYỆT ĐỒ THỊ (BFS & DFS TRAVERSALS)</h1>
+    </div>
+
+    <h2>1. Intuition (Trực giác & Động lực)</h2>
+    <p>Duyệt đồ thị là quá trình ghé thăm hệ thống tất cả các đỉnh của đồ thị. <strong>BFS (Chiều rộng)</strong> loang dần theo từng lớp khoảng cách từ đỉnh xuất phát (dùng <strong>Queue</strong>). <strong>DFS (Chiều sâu)</strong> đi sâu nhất có thể theo một nhánh trước khi quay lùi (Backtrack) (dùng <strong>Stack</strong> hoặc Đệ quy).</p>
+
+    <h2>2. Formal Model & Algorithms</h2>
+    <ul>
+        <li><strong>BFS Algorithm:</strong> Khởi tạo <code>queue Q</code>, đánh dấu <code>visited[start] = true</code>. Lặp khi Q không rỗng: lấy <code>u = Q.front()</code>, thăm <code>u</code>, với mỗi <code>v</code> kề <code>u</code> chưa ghé thăm: đánh dấu <code>visited[v] = true</code> và <code>Q.push(v)</code>.</li>
+        <li><strong>DFS Algorithm:</strong> Đánh dấu <code>visited[u] = true</code>. Với mỗi <code>v</code> kề <code>u</code> chưa ghé thăm: gọi đệ quy <code>DFS(v)</code>.</li>
+        <li><strong>Xử lý đồ thị không liên thông:</strong> Cần một vòng lặp ngoài duyệt qua toàn bộ $V$ đỉnh. Nếu <code>!visited[i]</code> thì gọi <code>BFS(i)</code> hoặc <code>DFS(i)</code>.</li>
+    </ul>
+
+    <h2>3. Visual Diagram (Mô tả Loang BFS vs Đi sâu DFS)</h2>
+    <div class="diagram-container">
+        <svg width="550" height="130" viewBox="0 0 550 130" xmlns="http://www.w3.org/2000/svg">
+            <rect width="550" height="130" fill="#f8fafc" rx="8"/>
+            <g transform="translate(60, 30)">
+                <rect x="0" y="0" width="180" height="70" fill="#e0f2fe" stroke="#0369a1" stroke-width="2" rx="6"/>
+                <text x="90" y="30" font-family="Inter" font-size="12" font-weight="bold" fill="#0369a1" text-anchor="middle">BFS (Chiều Rộng)</text>
+                <text x="90" y="50" font-family="Inter" font-size="10" fill="#0369a1" text-anchor="middle">Sử dụng QUEUE (FIFO)</text>
+            </g>
+            <g transform="translate(310, 30)">
+                <rect x="0" y="0" width="180" height="70" fill="#fef3c7" stroke="#b45309" stroke-width="2" rx="6"/>
+                <text x="90" y="30" font-family="Inter" font-size="12" font-weight="bold" fill="#b45309" text-anchor="middle">DFS (Chiều Sâu)</text>
+                <text x="90" y="50" font-family="Inter" font-size="10" fill="#b45309" text-anchor="middle">Sử dụng STACK (LIFO)</text>
+            </g>
+        </svg>
+    </div>
+
+    <h2>4. C++ Implementation (BFS & DFS)</h2>
+    <pre><code>#include &lt;vector&gt;
+#include &lt;queue&gt;
+#include &lt;iostream&gt;
+
+void BFS(int start, const std::vector&lt;std::vector&lt;int&gt;&gt;& adj, int V) {
+    std::vector&lt;bool&gt; visited(V, false);
+    std::queue&lt;int&gt; q;
+    visited[start] = true; q.push(start);
+
+    while (!q.empty()) {
+        int u = q.front(); q.pop();
+        std::cout &lt;&lt; u &lt;&lt; " ";
+        for (int v : adj[u]) {
+            if (!visited[v]) {
+                visited[v] = true;
+                q.push(v);
+            }
+        }
+    }
+}
+
+void DFSUtil(int u, const std::vector&lt;std::vector&lt;int&gt;&gt;& adj, std::vector&lt;bool&gt;& visited) {
+    visited[u] = true;
+    std::cout &lt;&lt; u &lt;&lt; " ";
+    for (int v : adj[u]) {
+        if (!visited[v]) DFSUtil(v, adj, visited);
+    }
+}</code></pre>
+
+    <h2>5. Complexity Analysis</h2>
+    <p>Cả BFS và DFS biểu diễn bằng Danh sách kề đều đạt độ phức tạp thời gian <strong>$\Theta(V + E)$</strong> và bộ nhớ phụ <strong>$\Theta(V)$</strong> cho mảng <code>visited</code> và Queue/Stack.</p>
+
+    <h2>6. Dry Run Table (Trace BFS Từ Đỉnh 0)</h2>
+    <p>Đồ thị: adj[0]={1, 2}, adj[1]={0, 3}, adj[2]={0}, adj[3]={1}:</p>
+    <table>
+        <thead>
+            <tr><th>Bước</th><th>Đỉnh u đang xét</th><th>Hành động Hàng đợi Queue</th><th>Thứ tự ghé thăm (Visited)</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>Khởi tạo</td><td>-</td><td>Push(0) $ \Rightarrow  $ Q = [0]</td><td>0</td></tr>
+            <tr><td>1</td><td>Pop 0</td><td>Push con kề chưa thăm: Push(1), Push(2) $ \Rightarrow  $ Q = [1, 2]</td><td>0, 1, 2</td></tr>
+            <tr><td>2</td><td>Pop 1</td><td>Push con kề chưa thăm: Push(3) $ \Rightarrow  $ Q = [2, 3]</td><td>0, 1, 2, 3</td></tr>
+            <tr><td>3</td><td>Pop 2</td><td>Không có con chưa thăm $ \Rightarrow  $ Q = [3]</td><td>0, 1, 2, 3</td></tr>
+            <tr><td>4</td><td>Pop 3</td><td>Queue rỗng $ \Rightarrow  $ Kết thúc BFS</td><td><strong>0, 1, 2, 3</strong></td></tr>
+        </tbody>
+    </table>
+
+    <h2>7. Common Errors & IT003 Exam Style</h2>
+    <div class="callout callout-warning">
+        <span class="badge badge-exam-style">IT003 EXAM STYLE</span>
+        <p><strong>Bẫy Đề Thi 1:</strong> Thứ tự ghé thăm đỉnh kề phụ thuộc vào cấu trúc dữ liệu! Nếu dùng Ma trận kề, các đỉnh kề thường được duyệt theo thứ tự chỉ số tăng dần. Đọc kỹ yêu cầu đề bài về thứ tự ưu tiên (VD: "ưu tiên đỉnh có số thứ tự nhỏ hơn").</p>
+        <p><strong>Bẫy Đề Thi 2:</strong> Trong BFS, phải đánh dấu <code>visited[v] = true</code> <strong>ngay khi push <code>v</code> vào Queue</strong>, không được chờ tới khi pop <code>v</code> ra mới đánh dấu! Đánh dấu trễ sẽ khiến đỉnh <code>v</code> bị push lặp lại nhiều lần vào Queue.</p>
+    </div>
+
+    <h2>8. Quick Recall & Exercise Ladder</h2>
+    <ul>
+        <li><strong>Level 0:</strong> Thuật toán nào giúp tìm đường đi ngắn nhất (số cạnh ít nhất) giữa 2 đỉnh trên đồ thị không trọng số?
+            <br><em>Đáp án:</em> BFS (Breadth-First Search).
+        </li>
+        <li><strong>Level 1:</strong> Cho đồ thị có 4 đỉnh 0, 1, 2, 3 với các cạnh (0-1), (0-2), (1-3). Viết thứ tự duyệt DFS từ đỉnh 0 (ưu tiên đỉnh nhỏ hơn).
+            <br><em>Gợi ý:</em> 0 $ \Rightarrow  $ 1 $ \Rightarrow  $ 3 $ \Rightarrow  $ 2.
+        </li>
+    </ul>
+
+    <div class="callout">
+        <div class="callout-title">📝 Tóm kết Chương 13</div>
+        <p>BFS dùng Queue loang theo tầng, DFS dùng Stack/Đệ quy đi sâu. Nhớ kỹ vị trí đánh dấu <code>visited</code> trong BFS để tránh lặp đỉnh!</p>
+    </div>
+</section>

@@ -1,0 +1,6 @@
+# Large archives
+research/unzipped/
+research/extracted/
+
+*.tmp
+*.log

@@ -1,0 +1,138 @@
+<section class="chapter" id="ch10">
+    <div class="chapter-header">
+        <span class="badge badge-core">PART X</span>
+        <h1>CÂY B-TREE (B-TREES - MULTI-WAY SEARCH TREES)</h1>
+    </div>
+
+    <h2>1. Intuition (Trực giác & Động lực)</h2>
+    <p>Khi dữ liệu quá lớn không thể chứa hết trong RAM mà phải lưu trên đĩa cứng (Hard Drive / SSD), mỗi lần đọc đĩa (Disk I/O) tốn thời gian rất lớn. <strong>B-Tree (Cây tìm kiếm đa đường)</strong> làm giảm chiều cao của cây bằng cách cho phép mỗi nút chứa nhiều khóa và nhiều con, tối ưu hóa tối đa số lần đọc đĩa.</p>
+
+    <h2>2. Formal Model & Rules (Quy tắc B-Tree Bậc $m=5$)</h2>
+    <p><span class="badge badge-uit-convention">IT003 CONVENTION</span>: <strong>B-Tree bậc 5 ($m=5$)</strong> xuất hiện phổ biến trong các bộ đề IT003 đã phân tích với các quy chuẩn:</p>
+    <ul>
+        <li>Số khóa tối đa trong 1 nút: $m - 1 = 4$ khóa.</li>
+        <li>Số con tối đa của 1 nút: $m = 5$ con.</li>
+        <li>Số khóa tối thiểu (nút không phải gốc): $\lceil m/2 \rceil - 1 = \lceil 2.5 \rceil - 1 = 2$ khóa.</li>
+        <li>Số con tối thiểu (nút không phải gốc): $\lceil m/2 \rceil = 3$ con.</li>
+        <li>Tất cả các nút lá đều nằm trên <strong>cùng một mức</strong>.</li>
+    </ul>
+
+    <h2>3. Visual Diagram (Sơ đồ Tách Nút B-Tree Bậc 5)</h2>
+    <div class="diagram-container">
+        <svg width="600" height="140" viewBox="0 0 600 140" xmlns="http://www.w3.org/2000/svg">
+            <rect width="600" height="140" fill="#f8fafc" rx="8"/>
+            <defs>
+                <marker id="arrow-btree" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                    <path d="M0,0 L0,6 L9,3 z" fill="#0f172a" />
+                </marker>
+            </defs>
+            <g transform="translate(30, 40)">
+                <!-- Full Node -->
+                <rect x="0" y="0" width="180" height="40" fill="#fee2e2" stroke="#b91c1c" stroke-width="2"/>
+                <text x="90" y="25" fill="#b91c1c" font-family="Inter" font-size="11" font-weight="bold" text-anchor="middle">[10, 20, 30, 40, 50] (Overflow)</text>
+            </g>
+            <path d="M 230 60 L 310 60" stroke="#0f172a" stroke-width="2" marker-end="url(#arrow-btree)"/>
+            <text x="270" y="50" font-family="Inter" font-size="11" font-style="italic" text-anchor="middle">Tách &amp; Đẩy 30</text>
+            <g transform="translate(330, 20)">
+                <!-- Edges -->
+                <line x1="95" y1="35" x2="40" y2="55" stroke="#1e40af" stroke-width="2"/>
+                <line x1="95" y1="35" x2="150" y2="55" stroke="#1e40af" stroke-width="2"/>
+                <!-- Promoted Key -->
+                <rect x="70" y="0" width="50" height="35" fill="#3b82f6" stroke="#1e40af" stroke-width="2"/>
+                <text x="95" y="22" fill="#ffffff" font-family="Inter" font-size="11" font-weight="bold" text-anchor="middle">30</text>
+                <!-- Left & Right Children -->
+                <rect x="0" y="55" width="80" height="35" fill="#dcfce7" stroke="#15803d" stroke-width="2"/>
+                <text x="40" y="77" fill="#15803d" font-family="Inter" font-size="11" font-weight="bold" text-anchor="middle">[10, 20]</text>
+                <rect x="110" y="55" width="80" height="35" fill="#dcfce7" stroke="#15803d" stroke-width="2"/>
+                <text x="150" y="77" fill="#15803d" font-family="Inter" font-size="11" font-weight="bold" text-anchor="middle">[40, 50]</text>
+            </g>
+        </svg>
+    </div>
+
+    <h2>4. Algorithm & Mechanics (Tách Nút và Xóa Nút)</h2>
+    <h3>Thêm (Insert) & Tách Nút (Split)</h3>
+    <p>Khi chèn vào nút đã có 4 khóa làm xuất hiện khóa thứ 5 ($[k_1, k_2, k_3, k_4, k_5]$): Khóa trung vị $k_3$ được <strong>đẩy nổi (Promote)</strong> lên nút cha. Nút bị <strong>Tách (Split)</strong> thành 2 nút con chứa $[k_1, k_2]$ và $[k_4, k_5]$.</p>
+    
+    <h3>Xóa (Delete) trên B-Tree bậc 5 (m=5)</h3>
+    <ul>
+        <li><strong>Trường hợp 1: Xóa ở nút lá và $\ge$ min keys (Số khóa $\ge 2$)</strong>: Xóa trực tiếp, không vi phạm cấu trúc.</li>
+        <li><strong>Trường hợp 2: Xóa gây Underflow (Số khóa tụt xuống 1)</strong>:
+            <ul>
+                <li><strong>Mượn (Borrow / Redistribution)</strong>: Nếu anh em ruột kề cạnh có $> 2$ khóa, mượn 1 khóa thông qua nút cha. Khóa của anh em lên cha, khóa của cha rớt xuống nút hiện tại.</li>
+                <li><strong>Gộp (Merge)</strong>: Nếu anh em kề cạnh chỉ có đúng $2$ khóa, tiến hành gộp nút hiện tại, nút anh em và 1 khóa từ cha lại thành 1 nút (tổng cộng $1 + 2 + 1 = 4$ khóa).</li>
+            </ul>
+        </li>
+        <li><strong>Xóa ở nút trong (Internal Node)</strong>: Thay thế bằng phần tử tiền nhiệm (Max Left) hoặc kế nhiệm (Min Right) ở nút lá, sau đó tiến hành xóa ở nút lá đó.</li>
+        <li><strong>Trường hợp Đặc biệt (Root)</strong>: Nếu gốc sau khi Merge bị mất hết khóa (chỉ còn 1 con), nút con đó sẽ trở thành Root mới. Chiều cao cây giảm đi 1.</li>
+    </ul>
+
+    <h2>5. C++ Pseudocode Representative Structure</h2>
+    <pre><code>const int M = 5; // B-Tree Order 5
+struct BTreeNode {
+    int keys[M - 1]; // Tối đa 4 khóa
+    BTreeNode* child[M]; // Tối đa 5 con
+    int numKeys;
+    bool isLeaf;
+};</code></pre>
+
+    <h2>6. Complexity Analysis</h2>
+    <p>Thời gian Tìm kiếm, Chèn, Xóa trên B-Tree luôn đạt <strong>$\Theta(\log_m n)$</strong>, giúp giảm số lần đọc đĩa xuống mức tối thiểu.</p>
+
+    <h2>7. Dry Run Table (Trace B-Tree bậc 5)</h2>
+    <p><strong>Trace 1: Thêm Khóa (Split)</strong></p>
+    <p>Chèn $10, 20, 30, 40, 50$ vào B-Tree bậc 5 rỗng:</p>
+    <table>
+        <thead>
+            <tr><th>Khóa chèn</th><th>Trạng thái Nút lá</th><th>Hiện tượng</th><th>Hành động Tách & Đẩy nổi</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>10, 20, 30, 40</td><td>[10, 20, 30, 40]</td><td>Đủ 4 khóa (Bình thường)</td><td>Chưa tách</td></tr>
+            <tr><td>50</td><td>[10, 20, 30, 40, 50]</td><td>Tràn (5 khóa)</td><td>Đẩy nổi 30 lên Root. Tách thành 2 con: [10, 20] và [40, 50]</td></tr>
+        </tbody>
+    </table>
+
+    <p><strong>Trace 2: Xóa Khóa (Borrow / Redistribution)</strong></p>
+    <p>Giả sử Root: [30]. Left: [10, 20]. Right: [40, 50, 60]. Cần xóa 10.</p>
+    <table>
+        <thead>
+            <tr><th>Nút Xóa</th><th>Trạng thái sau xóa</th><th>Khắc phục (Mượn từ Right qua Root)</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>Xóa 10</td><td>Left còn [20] (Underflow, $<2$ khóa)</td><td>Right có 3 khóa (dư dả). 40 đẩy lên Root, 30 rớt xuống Left.</td></tr>
+            <tr><td>Kết quả</td><td>-</td><td>Root: [40]. Left: [20, 30]. Right: [50, 60].</td></tr>
+        </tbody>
+    </table>
+
+    <p><strong>Trace 3: Xóa Khóa (Merge Nodes)</strong></p>
+    <p>Giả sử Root: [30]. Left: [10, 20]. Right: [40, 50]. Cần xóa 10.</p>
+    <table>
+        <thead>
+            <tr><th>Nút Xóa</th><th>Trạng thái sau xóa</th><th>Khắc phục (Gộp với Right & Root)</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>Xóa 10</td><td>Left còn [20] (Underflow). Right chỉ có [40, 50] (không cho mượn được)</td><td>Gộp Left [20], Root [30], Right [40, 50] thành 1 nút.</td></tr>
+            <tr><td>Kết quả</td><td>-</td><td>Root mới: [20, 30, 40, 50]. Chiều cao cây giảm 1.</td></tr>
+        </tbody>
+    </table>
+
+    <h2>8. Common Errors & IT003 Exam Style</h2>
+    <div class="callout callout-warning">
+        <span class="badge badge-exam-style">IT003 EXAM STYLE</span>
+        <p><strong>Bẫy Đề Thi:</strong> Khi tách nút có 5 khóa trong B-Tree bậc 5, khóa ở giữa (vị trí thứ 3) được đưa lên cha. Đừng nhầm lẫn vị trí khóa được đẩy nổi!</p>
+    </div>
+
+    <h2>9. Quick Recall & Exercise Ladder</h2>
+    <ul>
+        <li><strong>Level 0:</strong> B-Tree bậc 5 chứa tối đa bao nhiêu khóa trong 1 nút? Nút không phải gốc chứa tối thiểu bao nhiêu khóa?
+            <br><em>Đáp án:</em> Tối đa $m-1 = 4$ khóa. Tối thiểu $\lceil 5/2 \rceil - 1 = 2$ khóa.
+        </li>
+        <li><strong>Level 1:</strong> Vẽ B-Tree bậc 5 sau khi chèn các số $5, 15, 25, 35, 45, 55$.
+            <br><em>Gợi ý:</em> Sau khi chèn 45, nút tràn $[5, 15, 25, 35, 45]  \Rightarrow  $ Đẩy 25 lên gốc. Sau đó chèn 55 vào nút phải $[35, 45, 55]$.
+        </li>
+    </ul>
+
+    <div class="callout">
+        <div class="callout-title">📝 Tóm kết Chương 10</div>
+        <p>B-Tree bậc 5 quy định chặt chẽ số khóa từ 2 đến 4 khóa per node. Quy tắc Split đẩy nổi khóa thứ 3 là tâm điểm các câu hỏi B-Tree trong đề thi IT003.</p>
+    </div>
+</section>

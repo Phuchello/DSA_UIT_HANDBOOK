@@ -1,0 +1,121 @@
+<section class="chapter" id="ch11">
+    <div class="chapter-header">
+        <span class="badge badge-core">PART XI</span>
+        <h1>BẢNG BĂM (HASH TABLE)</h1>
+    </div>
+
+    <h2>1. Intuition (Trực giác & Động lực)</h2>
+    <p>Bạn có muốn tìm kiếm dữ liệu trong thời gian tức thì $\mathcal{O}(1)$ không? Bảng băm (Hash Table) biến khóa $k$ thành chỉ số mảng thông qua <strong>Hàm Băm (Hash Function)</strong>, cho phép truy xuất dữ liệu gần như ngay lập tức.</p>
+
+    <h2>2. Formal Model & Collision Resolution</h2>
+    <p>Hàm bămModulo: $h(k) = k mod M$ ($M$ là kích thước bảng băm). Đụng độ (Collision) xảy ra khi 2 khóa khác nhau có cùng giá trị băm. Các phương pháp giải quyết đụng độ chuẩn IT003:</p>
+
+    <ul>
+        <li><strong>Linear Probing (Dò tuyến tính):</strong> $h(k, i) = (h(k) + i) mod M$</li>
+        <li><strong>Quadratic Probing (Dò bậc hai):</strong> $h(k, i) = (h(k) + i^2) mod M$</li>
+        <li><strong>Double Hashing (Băm kép):</strong> $h(k, i) = (h_1(k) + i \cdot h_2(k)) \bmod M$ (trong đó $h_2(k)$ là hàm băm thứ hai bắt buộc tuân theo đề bài cho; ví dụ phổ biến: $h_2(k) = R - (k \bmod R)$).</li>
+        <li><strong>Separate Chaining:</strong> Lưu mỗi ô bằng một Danh sách liên kết đơn.</li>
+    </ul>
+
+    <h2>3. Visual Diagram (Sơ đồ Dò Tuyến Tính Hash Probing)</h2>
+    <div class="diagram-container">
+        <svg width="550" height="120" viewBox="0 0 550 120" xmlns="http://www.w3.org/2000/svg">
+            <rect width="550" height="120" fill="#f8fafc" rx="8"/>
+            <g transform="translate(40, 35)">
+                <rect x="0" y="0" width="40" height="40" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+                <text x="20" y="25" font-family="Inter" font-size="11" font-weight="bold" text-anchor="middle">10</text>
+                <text x="20" y="55" font-family="Inter" font-size="10" fill="#64748b" text-anchor="middle">0</text>
+                <rect x="40" y="0" width="40" height="40" fill="#fee2e2" stroke="#b91c1c" stroke-width="2"/>
+                <text x="60" y="25" fill="#b91c1c" font-family="Inter" font-size="11" font-weight="bold" text-anchor="middle">21</text>
+                <text x="60" y="55" font-family="Inter" font-size="10" fill="#64748b" text-anchor="middle">1 (Collision)</text>
+                <rect x="80" y="0" width="40" height="40" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+                <text x="100" y="25" font-family="Inter" font-size="11" font-weight="bold" text-anchor="middle">EMPTY</text>
+                <text x="100" y="55" font-family="Inter" font-size="10" fill="#64748b" text-anchor="middle">2</text>
+            </g>
+        </svg>
+    </div>
+
+    <h2>4. Algorithm & Mechanics (Đếm So Sánh $C_{\text{succ}}$ và $C_{\text{unsucc}}$)</h2>
+    <p><span class="badge badge-uit-convention">IT003 CONVENTION</span>:</p>
+    <ul>
+        <li><strong>Tìm kiếm Thành công ($C_{\text{succ}}$):</strong> Trung bình số phép so sánh để tìm thấy các khóa đang có trong bảng.</li>
+        <li><strong>Tìm kiếm Thất bại ($C_{\text{unsucc}}$):</strong> Trung bình số phép so sánh xuất phát từ mỗi vị trí $i \in [0, M-1]$, lặp theo <strong>đúng chuỗi dò thực tế của phương pháp tương ứng</strong> (Linear / Quadratic / Double Hashing) cho đến khi <strong>gặp ô trống (<code>EMPTY</code>) đầu tiên</strong>. Ô bị xóa (<code>DELETED</code>) <strong>không dừng chuỗi dò</strong>!</li>
+    </ul>
+
+    <h2>5. C++ Educational & STL Code</h2>
+    <pre><code>#include &lt;unordered_map&gt;
+#include &lt;iostream&gt;
+
+void stlHashTable() {
+    std::unordered_map&lt;std::string, int&gt; hashMap;
+    hashMap["UIT"] = 100;
+    if (hashMap.find("UIT") != hashMap.end()) {
+        std::cout &lt;&lt; "Found: " &lt;&lt; hashMap["UIT"] &lt;&lt; "\n";
+    }
+}</code></pre>
+
+    <h2>6. Complexity Analysis</h2>
+    <p>Trung bình: Tìm kiếm / Chèn / Xóa tốn <strong>$\Theta(1)$ thời gian</strong>. Trường hợp tệ nhất (tất cả các khóa bị đụng độ về 1 ô): $\Theta(n)$.</p>
+
+    <h2>7. Dry Run Tables (Minh họa các phương pháp Dò)</h2>
+    <h3>7.1 Linear Probing ($h(k) = k  mod 7$)</h3>
+    <p>Chèn $14, 21, 7$ vào bảng băm $M=7$ rỗng:</p>
+    <table>
+        <thead>
+            <tr><th>Khóa k</th><th>h(k) = k % 7</th><th>Vị trí ô chèn</th><th>Số lần so sánh (Probes)</th><th>Trạng thái bảng băm [0..6]</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>14</td><td>0</td><td>0 (Trống)</td><td>1</td><td>[14, -, -, -, -, -, -]</td></tr>
+            <tr><td>21</td><td>0</td><td>0 (Trùng) $ \Rightarrow  $ ô 1 (Trống)</td><td>2</td><td>[14, 21, -, -, -, -, -]</td></tr>
+            <tr><td>7</td><td>0</td><td>0, 1 (Trùng) $ \Rightarrow  $ ô 2 (Trống)</td><td>3</td><td>[14, 21, 7, -, -, -, -]</td></tr>
+        </tbody>
+    </table>
+
+    <h3>7.2 Quadratic Probing ($h(k, i) = (h(k) + i^2)  mod 7$)</h3>
+    <p>Chèn $14, 21, 28$ vào bảng băm $M=7$ (hàm băm $h(k) = k  mod 7$):</p>
+    <table>
+        <thead>
+            <tr><th>Khóa k</th><th>h(k)</th><th>Chuỗi dò (i=0, 1, 2...)</th><th>Probes</th><th>Trạng thái bảng</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>14</td><td>0</td><td>$0$ (Trống)</td><td>1</td><td>[14, -, -, -, -, -, -]</td></tr>
+            <tr><td>21</td><td>0</td><td>$0 \Rightarrow (0+1^2)\%7=1$ (Trống)</td><td>2</td><td>[14, 21, -, -, -, -, -]</td></tr>
+            <tr><td>28</td><td>0</td><td>$0 \Rightarrow 1 \Rightarrow (0+2^2)\%7=4$ (Trống)</td><td>3</td><td>[14, 21, -, -, 28, -, -]</td></tr>
+        </tbody>
+    </table>
+
+    <h3>7.3 Double Hashing ($h(k, i) = (h_1(k) + i \cdot h_2(k))  mod 7$)</h3>
+    <p>Với $h_1(k) = k  mod 7$ và $h_2(k) = 5 - (k  mod 5)$. Chèn $14, 21, 7$:</p>
+    <table>
+        <thead>
+            <tr><th>Khóa k</th><th>$h_1(k)$, $h_2(k)$</th><th>Chuỗi dò (i=0, 1, 2...)</th><th>Probes</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>14</td><td>0, 1</td><td>$0$ (Trống)</td><td>1</td></tr>
+            <tr><td>21</td><td>0, 4</td><td>$0 \Rightarrow (0+4)\%7=4$ (Trống)</td><td>2</td></tr>
+            <tr><td>7</td><td>0, 3</td><td>$0 \Rightarrow 3$ (Trống)</td><td>2</td></tr>
+        </tbody>
+    </table>
+    <p><strong>Đếm số phép so sánh:</strong> $C_{\text{succ}}$ là trung bình số probes để chèn các khóa thành công (ví dụ trên: $C_{\text{succ}} = (1+2+2)/3 = 1.67$). $C_{\text{unsucc}}$ yêu cầu dò từ từng ô $0 \dots M-1$ đến khi gặp ô <code>EMPTY</code>.</p>
+
+    <h2>8. Common Errors & IT003 Exam Style</h2>
+    <div class="callout callout-warning">
+        <span class="badge badge-exam-style">IT003 EXAM STYLE</span>
+        <p><strong>Bẫy Đề Thi:</strong> Tính số phép so sánh tìm kiếm thất bại $C_{\text{unsucc}}$. Phải duyệt từ từng ô index $0, 1, \dots, M-1$ đếm số bước tới khi gặp ô trống <code>EMPTY</code> đầu tiên, sau đó cộng lại chia cho $M$!</p>
+    </div>
+
+    <h2>9. Quick Recall & Exercise Ladder</h2>
+    <ul>
+        <li><strong>Level 0:</strong> Trong Linear Probing, khi xóa một phần tử, tại sao ta không được gán ô đó thành <code>EMPTY</code> mà phải gán thành <code>DELETED</code>?
+            <br><em>Đáp án:</em> Để không ngắt đoạn chuỗi dò của các phần tử đụng độ được chèn sau đó.
+        </li>
+        <li><strong>Level 1:</strong> Cho $M=5, h(k) = k mod 5$. Chèn $5, 10, 15$ dùng Linear Probing. Tính $C_{\text{succ}}$ trung bình.
+            <br><em>Gợi ý:</em> 5 (1 probe ô 0), 10 (2 probes ô 1), 15 (3 probes ô 2). $C_{\text{succ}} = (1+2+3)/3 = 2$ phép so sánh.
+        </li>
+    </ul>
+
+    <div class="callout">
+        <div class="callout-title">📝 Tóm kết Chương 11</div>
+        <p>Bảng băm mang lại hiệu năng $\mathcal{O}(1)$ lý tưởng. Hãy chú ý kỹ quy tắc dừng khi tìm kiếm thất bại và công thức đếm probe!</p>
+    </div>
+</section>

@@ -1,0 +1,96 @@
+<section class="chapter" id="ch00">
+    <div class="chapter-header">
+        <span class="badge badge-core">PART 0</span>
+        <h1>LÀM SAO ĐỂ CHINH PHỤC IT003? (HOW TO MASTER IT003)</h1>
+    </div>
+
+    <h2>1. Intuition (Trực giác & Tại sao phải học IT003?)</h2>
+    <p>IT003 (Cấu trúc Dữ liệu và Giải thuật) không chỉ là một môn học bắt buộc để ra trường, mà là "ngôn ngữ chung" của mọi kỹ sư phần mềm. Bạn không thể xây dựng một hệ thống chịu tải hàng triệu người dùng nếu không biết phân biệt $\mathcal{O}(n)$ và $\mathcal{O}(\log n)$. Môn học này dạy bạn cách tổ chức dữ liệu một cách thông minh để giải quyết vấn đề hiệu quả nhất.</p>
+
+    <h2>2. Formal Model (Mô hình Syllabus IT003)</h2>
+    <p>Syllabus IT003 tại UIT được chia thành 3 trụ cột chính:</p>
+    <ul>
+        <li><strong>Trụ cột 1 (Tuyến tính & Sắp xếp):</strong> Mảng, Danh sách liên kết, Stack, Queue, 10 Thuật toán Sắp xếp, Tìm kiếm nhị phân.</li>
+        <li><strong>Trụ cột 2 (Cây & Phân cấp):</strong> Cây nhị phân, BST, AVL, B-Tree, Heaps.</li>
+        <li><strong>Trụ cột 3 (Băm & Đồ thị):</strong> Hash Table, Đồ thị, BFS, DFS, Dijkstra.</li>
+    </ul>
+
+    <h2>3. Visual Diagram (Lộ trình chinh phục)</h2>
+    <div class="diagram-container">
+        <svg width="600" height="150" viewBox="0 0 600 150" xmlns="http://www.w3.org/2000/svg">
+            <rect width="600" height="150" fill="#f8fafc" rx="8"/>
+            <defs>
+                <marker id="arrow-ch0" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                    <path d="M0,0 L0,6 L9,3 z" fill="#0f172a" />
+                </marker>
+            </defs>
+            <g transform="translate(50, 50)">
+                <circle cx="0" cy="0" r="25" fill="#1e40af"/>
+                <text x="0" y="5" fill="#ffffff" font-family="Inter" font-size="12" font-weight="bold" text-anchor="middle">Basic</text>
+                <text x="0" y="45" font-family="Inter" font-size="10" fill="#64748b" text-anchor="middle">Mảng, List</text>
+            </g>
+            <path d="M 85 50 L 165 50" stroke="#0f172a" stroke-width="2" marker-end="url(#arrow-ch0)"/>
+            <g transform="translate(200, 50)">
+                <circle cx="0" cy="0" r="25" fill="#15803d"/>
+                <text x="0" y="5" fill="#ffffff" font-family="Inter" font-size="12" font-weight="bold" text-anchor="middle">Tree</text>
+                <text x="0" y="45" font-family="Inter" font-size="10" fill="#64748b" text-anchor="middle">BST, AVL</text>
+            </g>
+            <path d="M 235 50 L 315 50" stroke="#0f172a" stroke-width="2" marker-end="url(#arrow-ch0)"/>
+            <g transform="translate(350, 50)">
+                <circle cx="0" cy="0" r="25" fill="#b91c1c"/>
+                <text x="0" y="5" fill="#ffffff" font-family="Inter" font-size="12" font-weight="bold" text-anchor="middle">Graph</text>
+                <text x="0" y="45" font-family="Inter" font-size="10" fill="#64748b" text-anchor="middle">BFS, DFS</text>
+            </g>
+            <path d="M 385 50 L 465 50" stroke="#0f172a" stroke-width="2" marker-end="url(#arrow-ch0)"/>
+            <g transform="translate(500, 50)">
+                <circle cx="0" cy="0" r="25" fill="#ca8a04"/>
+                <text x="0" y="5" fill="#ffffff" font-family="Inter" font-size="12" font-weight="bold" text-anchor="middle">Exam</text>
+                <text x="0" y="45" font-family="Inter" font-size="10" fill="#64748b" text-anchor="middle">A+</text>
+            </g>
+        </svg>
+    </div>
+
+    <h2>4. Algorithm & Mechanics (Kỹ năng Dry-run)</h2>
+    <p>Kỹ năng quan trọng nhất để qua môn IT003 là <strong>Dry-run (Trace code bằng tay)</strong>. Đừng vội gõ code vào IDE. Hãy lấy một tờ giấy, vẽ các ô vuông tượng trưng cho biến và mảng, rồi dùng bút chì cập nhật giá trị từng bước một khi vòng lặp chạy.</p>
+
+    <h2>5. C++ Code (Thiết lập môi trường)</h2>
+    <pre><code>#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    cout &lt;&lt; "Welcome to IT003 DSA UIT!" &lt;&lt; endl;
+    return 0;
+}</code></pre>
+
+    <h2>6. Complexity Analysis (Tư duy tối ưu)</h2>
+    <p>Không chỉ giải quyết bài toán, bạn phải tự hỏi: "Mình có thể làm nó nhanh hơn không?". Giảm từ $\mathcal{O}(n^2)$ xuống $\mathcal{O}(n \log n)$ là sự khác biệt giữa 1 giây và 10 tiếng đồng hồ khi xử lý dữ liệu lớn.</p>
+
+    <h2>7. Dry Run Table (Mẫu theo dõi biến)</h2>
+    <table>
+        <thead>
+            <tr><th>Vòng lặp</th><th>Biến i</th><th>Biến j</th><th>Trạng thái dữ liệu</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>Khởi tạo</td><td>0</td><td>-</td><td>[3, 1, 4]</td></tr>
+            <tr><td>Lần 1</td><td>0</td><td>1</td><td>So sánh a[0] và a[1]</td></tr>
+        </tbody>
+    </table>
+
+    <h2>8. Common Errors (Những sai lầm thường gặp)</h2>
+    <ul>
+        <li>Học thuộc code thay vì hiểu bản chất thuật toán.</li>
+        <li>Chỉ đọc slide mà không lấy giấy nháp ra vẽ sơ đồ.</li>
+        <li>Không xử lý các trường hợp biên (Null pointer, mảng rỗng).</li>
+    </ul>
+
+    <h2>9. Exam Connection & Practice</h2>
+    <div class="callout callout-warning">
+        <span class="badge badge-exam-style">IT003 EXAM STYLE</span>
+        <p>Đề thi IT003 tập trung rất mạnh vào khả năng Dry-run. Một tỷ lệ đáng kể câu hỏi trong đề thi yêu cầu bạn chạy tay thuật toán từng bước trên một cây, một đồ thị, hoặc một mảng để ra kết quả cuối cùng.</p>
+    </div>
+
+    <div class="callout">
+        <div class="callout-title">📝 Tóm kết Chương 0</div>
+        <p>Bí quyết: Đọc hiểu Intuition -> Vẽ sơ đồ -> Trace tay -> Hiểu Complexity. Cùng bắt đầu hành trình nhé!</p>
+    </div>
+</section>

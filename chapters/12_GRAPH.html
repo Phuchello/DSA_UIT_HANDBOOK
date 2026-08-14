@@ -1,0 +1,95 @@
+<section class="chapter" id="ch12">
+    <div class="chapter-header">
+        <span class="badge badge-core">PART XII</span>
+        <h1>ĐỒ THỊ VÀ BIỂU DIỄN ĐỒ THỊ (GRAPHS & REPRESENTATIONS)</h1>
+    </div>
+
+    <h2>1. Intuition (Trực giác & Động lực)</h2>
+    <p>Đồ thị (Graph) là mô hình tổng quát nhất biểu diễn các mối quan hệ liên kết: mạng xã hội (user là đỉnh, bạn bè là cạnh), bản đồ giao thông (giao lộ là đỉnh, đường đi là cạnh), hay mạng máy tính.</p>
+
+    <h2>2. Formal Model & Definitions</h2>
+    <p>Đồ thị $G = (V, E)$ gồm tập đỉnh $V$ ($|V| = n$) và tập cạnh $E$ ($|E| = m$).</p>
+    <ul>
+        <li><strong>Phân loại:</strong> Vô hướng (Undirected) / Có hướng (Directed), Có trọng số (Weighted) / Không trọng số.</li>
+        <li><strong>Bậc (Degree):</strong> Đối với đồ thị vô hướng, $deg(v)$ là số cạnh nối với đỉnh $v$. Với đồ thị có hướng, chia làm <strong>Bán bậc vào (Indegree)</strong> $deg^-(v)$ (số cạnh đi vào) và <strong>Bán bậc ra (Outdegree)</strong> $deg^+(v)$ (số cạnh đi ra).</li>
+        <li><strong>Thành phần liên thông (Connected Components):</strong> Một đồ thị vô hướng là liên thông nếu có đường đi giữa mọi cặp đỉnh. Nếu không, nó phân rã thành nhiều thành phần liên thông. Đối với đồ thị có hướng, ta xét Liên thông mạnh (Strongly Connected) và Liên thông yếu.</li>
+    </ul>
+
+    <h2>3. Visual Diagram (Ma trận Kề vs Danh sách Kề)</h2>
+    <div class="diagram-container">
+        <svg width="550" height="140" viewBox="0 0 550 140" xmlns="http://www.w3.org/2000/svg">
+            <rect width="550" height="140" fill="#f8fafc" rx="8"/>
+            <g transform="translate(40, 30)">
+                <text x="0" y="15" font-family="Inter" font-size="11" font-weight="bold" fill="#0f172a">Ma trận Kề (Matrix):</text>
+                <text x="0" y="40" font-family="Fira Code" font-size="10">A[u][v] = 1 nếu có cạnh (u,v)</text>
+                <text x="0" y="60" font-family="Inter" font-size="10" fill="#64748b">Bộ nhớ: O(V²)</text>
+            </g>
+            <g transform="translate(300, 30)">
+                <text x="0" y="15" font-family="Inter" font-size="11" font-weight="bold" fill="#0f172a">Danh sách Kề (List):</text>
+                <text x="0" y="40" font-family="Fira Code" font-size="10">adj[u] = {v1, v2, ...}</text>
+                <text x="0" y="60" font-family="Inter" font-size="10" fill="#64748b">Bộ nhớ: O(V + E)</text>
+            </g>
+        </svg>
+    </div>
+
+    <h2>4. Algorithm & Mechanics (Chuyển đổi Biểu diễn)</h2>
+    <p>Chuyển đổi từ Ma trận kề $A[V][V]$ sang Danh sách kề: Duyệt qua từng hàng $i \in [0, V-1]$, nếu $A[i][j] \neq 0$ thì thêm $j$ vào danh sách <code>adj[i]</code>.</p>
+
+    <h2>5. C++ Representations Code</h2>
+    <pre><code>#include &lt;vector&gt;
+#include &lt;iostream&gt;
+
+// Representation via Adjacency List
+void buildGraph(int V) {
+    std::vector&lt;std::vector&lt;int&gt;&gt; adj(V);
+    // Thêm cạnh vô hướng (0, 1)
+    adj[0].push_back(1);
+    adj[1].push_back(0);
+}</code></pre>
+
+    <h2>6. Complexity Analysis Comparison</h2>
+    <table>
+        <thead>
+            <tr><th>Thao tác</th><th>Ma trận Kề (Adjacency Matrix)</th><th>Danh sách Kề (Adjacency List)</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>Bộ nhớ (Space)</td><td>$\Theta(V^2)$</td><td>$\Theta(V + E)$</td></tr>
+            <tr><td>Kiểm tra cạnh $(u, v)$</td><td>$\Theta(1)$</td><td>$\mathcal{O}(\text{degree}(u))$</td></tr>
+            <tr><td>Tìm tất cả đỉnh kề của $u$</td><td>$\Theta(V)$</td><td>$\Theta(\text{degree}(u))$</td></tr>
+        </tbody>
+    </table>
+
+    <h2>7. Dry Run Table (Trace Ma trận Kề $ \Rightarrow  $ Danh sách Kề)</h2>
+    <p>Cho đồ thị 3 đỉnh {0, 1, 2} có Ma trận kề: row0=[0,1,1], row1=[1,0,0], row2=[1,0,0]:</p>
+    <table>
+        <thead>
+            <tr><th>Đỉnh u</th><th>Các cột v có A[u][v] == 1</th><th>Danh sách kề adj[u]</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>0</td><td>1, 2</td><td>adj[0] = {1, 2}</td></tr>
+            <tr><td>1</td><td>0</td><td>adj[1] = {0}</td></tr>
+            <tr><td>2</td><td>0</td><td>adj[2] = {0}</td></tr>
+        </tbody>
+    </table>
+
+    <h2>8. Common Errors & IT003 Exam Style</h2>
+    <div class="callout callout-warning">
+        <span class="badge badge-exam-style">IT003 EXAM STYLE</span>
+        <p><strong>Bẫy Đề Thi:</strong> Phân biệt Đồ thị Có hướng và Vô hướng. Đồ thị Vô hướng có Ma trận kề đối xứng qua đường chéo chính ($A[i][j] = A[j][i]$). Tổng bậc các đỉnh bằng $2E$.</p>
+    </div>
+
+    <h2>9. Quick Recall & Exercise Ladder</h2>
+    <ul>
+        <li><strong>Level 0:</strong> Đồ thị thưa ($E \ll V^2$) nên biểu diễn bằng ma trận kề hay danh sách kề?
+            <br><em>Đáp án:</em> Danh sách kề để tiết kiệm bộ nhớ ($\Theta(V+E)$ thay vì $\Theta(V^2)$).
+        </li>
+        <li><strong>Level 1:</strong> Tính tổng số bậc của tất cả các đỉnh trong đồ thị vô hướng có 5 đỉnh và 7 cạnh.
+            <br><em>Gợi ý:</em> Tổng số bậc $= 2E = 2 \times 7 = 14$.
+        </li>
+    </ul>
+
+    <div class="callout">
+        <div class="callout-title">📝 Tóm kết Chương 12</div>
+        <p>Hiểu rõ 2 cách biểu diễn Ma trận kề và Danh sách kề là nền tảng bắt buộc để cài đặt các thuật toán BFS, DFS và Dijkstra.</p>
+    </div>
+</section>

@@ -1,0 +1,2214 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT003 DSA UIT — Ultimate Handbook</title>
+    <link rel="stylesheet" href="print.css">
+    <!-- KaTeX Math Rendering -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+</head>
+<body>
+
+<div class="cover-page">
+    <div style="text-align: center; padding: 40px 20px;">
+        <span class="badge badge-uit-convention" style="font-size: 11pt; padding: 4px 12px;">ĐẠI HỌC QUỐC GIA TP. HỒ CHÍ MINH — TRƯỜNG ĐẠI HỌC CÔNG NGHỆ THÔNG TIN</span>
+        <h1 style="font-size: 26pt; margin-top: 30px; border-bottom: none; color: #0f172a;">IT003: CẤU TRÚC DỮ LIỆU VÀ GIẢI THUẬT</h1>
+        <h2 style="font-size: 18pt; color: #1e40af; border-bottom: none; margin-top: 0;">ULTIMATE HANDBOOK & EXAM REVISION GUIDE</h2>
+        <p style="font-size: 11pt; color: #64748b; margin-top: 20px;">Tài liệu Giảng dạy, Cẩm nang Tra cứu & Bộ Đề Thi Mẫu Chuẩn UIT</p>
+    </div>
+</div>
+
+<div class="toc-container" style="background: #f8fafc; padding: 20px; border-radius: 8px; margin-bottom: 30px; border: 1px solid #cbd5e1;">
+    <h2 style="margin-top: 0;">MỤC LỤC TỔNG QUAN (TABLE OF CONTENTS)</h2>
+    <ol style="line-height: 1.8;">
+        <li><a href="#ch00"><strong>PART 0</strong>: Cách học và Chinh phục môn IT003 (Roadmap & Progression)</a></li>
+        <li><a href="#ch01"><strong>PART I</strong>: Phân tích Thuật toán & Độ phức tạp (Big-O, Loop Analysis)</a></li>
+        <li><a href="#ch02"><strong>PART II</strong>: Thuật toán Tìm kiếm (Linear & Binary Search)</a></li>
+        <li><a href="#ch03"><strong>PART III</strong>: Các Thuật toán Sắp xếp (10 Sorting Algorithms & Complexity Matrix)</a></li>
+        <li><a href="#ch04"><strong>PART IV</strong>: Danh sách Liên kết (Singly & Doubly Linked List)</a></li>
+        <li><a href="#ch05"><strong>PART V</strong>: Ngăn xếp & Hàng đợi (Stack, Queue & Circular Queue)</a></li>
+        <li><a href="#ch06"><strong>PART VI</strong>: Cây & Cây Nhị phân (Trees & Binary Tree Traversals)</a></li>
+        <li><a href="#ch07"><strong>PART VII</strong>: Cây Nhị phân Tìm kiếm (BST Search, Insert & Deletion)</a></li>
+        <li><a href="#ch08"><strong>PART VIII</strong>: Cây Cân bằng AVL (Balance Factors & 4 Rotations Cheat Sheet)</a></li>
+        <li><a href="#ch09"><strong>PART IX</strong>: Heaps & Hàng đợi Ưu tiên (Max/Min Heap & Array Indexing)</a></li>
+        <li><a href="#ch10"><strong>PART X</strong>: Cây B-Tree (Order 5 B-Tree Split & Promotion Rules)</a></li>
+        <li><a href="#ch11"><strong>PART XI</strong>: Bảng Băm (Hash Table, Probing & Unsuccessful Search Comparisons)</a></li>
+        <li><a href="#ch12"><strong>PART XII</strong>: Đồ thị & Biểu diễn (Adjacency Matrix vs Adjacency List)</a></li>
+        <li><a href="#ch13"><strong>PART XIII</strong>: Duyệt Đồ thị (BFS with Queue & DFS with Stack/Recursion)</a></li>
+        <li><a href="#ch14"><strong>PART XIV</strong>: Đường đi Ngắn nhất (Dijkstra Algorithm & Tracing Table)</a></li>
+        <li><a href="#ch15"><strong>PART XV</strong>: Exam Toolkit & Bộ Đề Ôn Thi Mẫu Chuẩn IT003</a></li>
+    </ol>
+</div>
+<section class="chapter" id="ch00">
+    <div class="chapter-header">
+        <span class="badge badge-core">PART 0</span>
+        <h1>LÀM SAO ĐỂ CHINH PHỤC IT003? (HOW TO MASTER IT003)</h1>
+    </div>
+
+    <h2>1. Intuition (Trực giác & Tại sao phải học IT003?)</h2>
+    <p>IT003 (Cấu trúc Dữ liệu và Giải thuật) không chỉ là một môn học bắt buộc để ra trường, mà là "ngôn ngữ chung" của mọi kỹ sư phần mềm. Bạn không thể xây dựng một hệ thống chịu tải hàng triệu người dùng nếu không biết phân biệt $\mathcal{O}(n)$ và $\mathcal{O}(\log n)$. Môn học này dạy bạn cách tổ chức dữ liệu một cách thông minh để giải quyết vấn đề hiệu quả nhất.</p>
+
+    <h2>2. Formal Model (Mô hình Syllabus IT003)</h2>
+    <p>Syllabus IT003 tại UIT được chia thành 3 trụ cột chính:</p>
+    <ul>
+        <li><strong>Trụ cột 1 (Tuyến tính & Sắp xếp):</strong> Mảng, Danh sách liên kết, Stack, Queue, 10 Thuật toán Sắp xếp, Tìm kiếm nhị phân.</li>
+        <li><strong>Trụ cột 2 (Cây & Phân cấp):</strong> Cây nhị phân, BST, AVL, B-Tree, Heaps.</li>
+        <li><strong>Trụ cột 3 (Băm & Đồ thị):</strong> Hash Table, Đồ thị, BFS, DFS, Dijkstra.</li>
+    </ul>
+
+    <h2>3. Visual Diagram (Lộ trình chinh phục)</h2>
+    <div class="diagram-container">
+        <svg width="600" height="150" viewBox="0 0 600 150" xmlns="http://www.w3.org/2000/svg">
+            <rect width="600" height="150" fill="#f8fafc" rx="8"/>
+            <defs>
+                <marker id="arrow-ch0" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                    <path d="M0,0 L0,6 L9,3 z" fill="#0f172a" />
+                </marker>
+            </defs>
+            <g transform="translate(50, 50)">
+                <circle cx="0" cy="0" r="25" fill="#1e40af"/>
+                <text x="0" y="5" fill="#ffffff" font-family="Inter" font-size="12" font-weight="bold" text-anchor="middle">Basic</text>
+                <text x="0" y="45" font-family="Inter" font-size="10" fill="#64748b" text-anchor="middle">Mảng, List</text>
+            </g>
+            <path d="M 85 50 L 165 50" stroke="#0f172a" stroke-width="2" marker-end="url(#arrow-ch0)"/>
+            <g transform="translate(200, 50)">
+                <circle cx="0" cy="0" r="25" fill="#15803d"/>
+                <text x="0" y="5" fill="#ffffff" font-family="Inter" font-size="12" font-weight="bold" text-anchor="middle">Tree</text>
+                <text x="0" y="45" font-family="Inter" font-size="10" fill="#64748b" text-anchor="middle">BST, AVL</text>
+            </g>
+            <path d="M 235 50 L 315 50" stroke="#0f172a" stroke-width="2" marker-end="url(#arrow-ch0)"/>
+            <g transform="translate(350, 50)">
+                <circle cx="0" cy="0" r="25" fill="#b91c1c"/>
+                <text x="0" y="5" fill="#ffffff" font-family="Inter" font-size="12" font-weight="bold" text-anchor="middle">Graph</text>
+                <text x="0" y="45" font-family="Inter" font-size="10" fill="#64748b" text-anchor="middle">BFS, DFS</text>
+            </g>
+            <path d="M 385 50 L 465 50" stroke="#0f172a" stroke-width="2" marker-end="url(#arrow-ch0)"/>
+            <g transform="translate(500, 50)">
+                <circle cx="0" cy="0" r="25" fill="#ca8a04"/>
+                <text x="0" y="5" fill="#ffffff" font-family="Inter" font-size="12" font-weight="bold" text-anchor="middle">Exam</text>
+                <text x="0" y="45" font-family="Inter" font-size="10" fill="#64748b" text-anchor="middle">A+</text>
+            </g>
+        </svg>
+    </div>
+
+    <h2>4. Algorithm & Mechanics (Kỹ năng Dry-run)</h2>
+    <p>Kỹ năng quan trọng nhất để qua môn IT003 là <strong>Dry-run (Trace code bằng tay)</strong>. Đừng vội gõ code vào IDE. Hãy lấy một tờ giấy, vẽ các ô vuông tượng trưng cho biến và mảng, rồi dùng bút chì cập nhật giá trị từng bước một khi vòng lặp chạy.</p>
+
+    <h2>5. C++ Code (Thiết lập môi trường)</h2>
+    <pre><code>#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    cout &lt;&lt; "Welcome to IT003 DSA UIT!" &lt;&lt; endl;
+    return 0;
+}</code></pre>
+
+    <h2>6. Complexity Analysis (Tư duy tối ưu)</h2>
+    <p>Không chỉ giải quyết bài toán, bạn phải tự hỏi: "Mình có thể làm nó nhanh hơn không?". Giảm từ $\mathcal{O}(n^2)$ xuống $\mathcal{O}(n \log n)$ là sự khác biệt giữa 1 giây và 10 tiếng đồng hồ khi xử lý dữ liệu lớn.</p>
+
+    <h2>7. Dry Run Table (Mẫu theo dõi biến)</h2>
+    <table>
+        <thead>
+            <tr><th>Vòng lặp</th><th>Biến i</th><th>Biến j</th><th>Trạng thái dữ liệu</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>Khởi tạo</td><td>0</td><td>-</td><td>[3, 1, 4]</td></tr>
+            <tr><td>Lần 1</td><td>0</td><td>1</td><td>So sánh a[0] và a[1]</td></tr>
+        </tbody>
+    </table>
+
+    <h2>8. Common Errors (Những sai lầm thường gặp)</h2>
+    <ul>
+        <li>Học thuộc code thay vì hiểu bản chất thuật toán.</li>
+        <li>Chỉ đọc slide mà không lấy giấy nháp ra vẽ sơ đồ.</li>
+        <li>Không xử lý các trường hợp biên (Null pointer, mảng rỗng).</li>
+    </ul>
+
+    <h2>9. Exam Connection & Practice</h2>
+    <div class="callout callout-warning">
+        <span class="badge badge-exam-style">IT003 EXAM STYLE</span>
+        <p>Đề thi IT003 tập trung rất mạnh vào khả năng Dry-run. Một tỷ lệ đáng kể câu hỏi trong đề thi yêu cầu bạn chạy tay thuật toán từng bước trên một cây, một đồ thị, hoặc một mảng để ra kết quả cuối cùng.</p>
+    </div>
+
+    <div class="callout">
+        <div class="callout-title">📝 Tóm kết Chương 0</div>
+        <p>Bí quyết: Đọc hiểu Intuition -> Vẽ sơ đồ -> Trace tay -> Hiểu Complexity. Cùng bắt đầu hành trình nhé!</p>
+    </div>
+</section>
+
+
+<section class="chapter" id="ch01">
+    <div class="chapter-header">
+        <span class="badge badge-core">PART I</span>
+        <h1>PHÂN TÍCH THUẬT TOÁN & ĐỘ PHỨC TẠP (ALGORITHM ANALYSIS)</h1>
+    </div>
+
+    <h2>1. Intuition (Trực giác & Động lực)</h2>
+    <p>Làm sao để biết thuật toán A chạy nhanh hơn thuật toán B mà không cần phải code và chạy thử trên cùng một máy tính? Đo bằng giây (seconds) là không đáng tin cậy vì phụ thuộc vào phần cứng. Do đó, chúng ta đo lường hiệu năng bằng cách đếm số lượng "phép toán cơ bản" dựa trên kích thước dữ liệu đầu vào $n$. Đó là khởi nguồn của Ký pháp Big-O.</p>
+
+    <h2>2. Formal Model (Định nghĩa Big-O, Big-Omega, Big-Theta)</h2>
+    <ul>
+        <li><strong>$\mathcal{O}(f(n))$ (Big-O):</strong> <strong>Cận trên tiệm cận (Upper Bound)</strong>. Tốc độ tăng trưởng không vượt quá $f(n)$.</li>
+        <li><strong>$\Omega(f(n))$ (Big-Omega):</strong> <strong>Cận dưới tiệm cận (Lower Bound)</strong>. Tốc độ tăng trưởng tối thiểu đạt $f(n)$.</li>
+        <li><strong>$\Theta(f(n))$ (Big-Theta):</strong> <strong>Cận chặt tiệm cận (Tight Bound)</strong>. Tốc độ tăng trưởng vừa đúng bằng bậc $f(n)$ (khi cận trên và cận dưới trùng nhau).</li>
+    </ul>
+    <p>Thứ tự độ phức tạp từ Tốt đến Xấu: $\mathcal{O}(1) < \mathcal{O}(\log n) < \mathcal{O}(n) < \mathcal{O}(n \log n) < \mathcal{O}(n^2) < \mathcal{O}(2^n) < \mathcal{O}(n!)$</p>
+
+    <div class="callout callout-warning">
+        <span class="badge badge-uit-convention">IT003 PRECISION NOTE</span>
+        <p><strong>Phân biệt Ký pháp Tiệm cận và Kịch bản Đầu vào:</strong> Big-O, Big-Omega, Big-Theta mô tả <em>cận toán học của hàm số</em>, không đồng nhất với <em>kịch bản dữ liệu đầu vào</em> (Best/Worst/Average Case). Ví dụ: Worst-case của Insertion Sort có độ phức tạp tiệm cận chặt là $\Theta(n^2)$, trong khi Best-case của nó có độ phức tạp tiệm cận chặt là $\Theta(n)$.</p>
+    </div>
+
+    <h2>3. Visual Diagram (Đồ thị Tăng trưởng Hàm số)</h2>
+    <div class="diagram-container">
+        <svg width="500" height="250" viewBox="0 0 500 250" xmlns="http://www.w3.org/2000/svg">
+            <rect width="500" height="250" fill="#f8fafc" rx="8"/>
+            <defs>
+                <marker id="arrow-ch1" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                    <path d="M0,0 L0,6 L9,3 z" fill="#0f172a" />
+                </marker>
+            </defs>
+            <!-- Axes -->
+            <line x1="50" y1="200" x2="450" y2="200" stroke="#0f172a" stroke-width="2" marker-end="url(#arrow-ch1)"/>
+            <line x1="50" y1="200" x2="50" y2="30" stroke="#0f172a" stroke-width="2" marker-end="url(#arrow-ch1)"/>
+            <text x="440" y="220" font-family="Inter" font-size="12">n (Input Size)</text>
+            <text x="10" y="40" font-family="Inter" font-size="12">Operations</text>
+            
+            <!-- Curves -->
+            <path d="M 50 200 Q 150 200 400 180" fill="none" stroke="#15803d" stroke-width="3"/>
+            <text x="410" y="185" font-family="Inter" font-size="12" fill="#15803d" font-weight="bold">O(log n)</text>
+
+            <path d="M 50 200 L 400 50" fill="none" stroke="#3b82f6" stroke-width="3"/>
+            <text x="410" y="55" font-family="Inter" font-size="12" fill="#3b82f6" font-weight="bold">O(n)</text>
+
+            <path d="M 50 200 Q 200 150 250 30" fill="none" stroke="#b91c1c" stroke-width="3"/>
+            <text x="260" y="40" font-family="Inter" font-size="12" fill="#b91c1c" font-weight="bold">O(n^2)</text>
+        </svg>
+    </div>
+
+    <h2>4. Algorithm & Mechanics (Phân tích Vòng lặp)</h2>
+    <p>Quy tắc cộng: Hai khối lệnh nối tiếp nhau $\mathcal{O}(f(n)) + \mathcal{O}(g(n)) = \mathcal{O}(\max(f(n), g(n)))$.</p>
+    <p>Quy tắc nhân: Vòng lặp lồng nhau $\mathcal{O}(f(n)) \times \mathcal{O}(g(n)) = \mathcal{O}(f(n) \cdot g(n))$.</p>
+
+    <h2>5. C++ Educational Implementation (Phân tích Code thực tế)</h2>
+    <pre><code>// Ví dụ 1: O(n)
+for (int i = 0; i &lt; n; i++) {
+    cout &lt;&lt; i; 
+}
+
+// Ví dụ 2: O(n^2)
+for (int i = 0; i &lt; n; i++) {
+    for (int j = 0; j &lt; n; j++) {
+        cout &lt;&lt; i + j;
+    }
+}
+
+// Ví dụ 3: O(log n)
+int k = n;
+while (k &gt; 1) {
+    k = k / 2;
+}</code></pre>
+
+    <h2>6. Complexity Analysis (Phân tích Đệ quy)</h2>
+    <p>Với hàm đệ quy, độ phức tạp không chỉ đếm số lệnh mà còn phụ thuộc vào <strong>Độ sâu của cây đệ quy (Recursion Tree)</strong>. Ví dụ: Tính Fibonacci đệ quy $F(n) = F(n-1) + F(n-2)$ sinh ra một cây nhị phân có chiều cao $n$, dẫn đến độ phức tạp thời gian $\mathcal{O}(2^n)$ vô cùng chậm.</p>
+
+    <h2>7. Dry Run Table (Trace Vòng Lặp Phức Tạp)</h2>
+    <p>Trace code: <code>for (int i = 1; i < n; i = i * 2)</code> với $n = 10$:</p>
+    <table>
+        <thead>
+            <tr><th>Vòng lặp</th><th>Giá trị i</th><th>Biểu diễn toán học</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>1</td><td>1</td><td>$2^0$</td></tr>
+            <tr><td>2</td><td>2</td><td>$2^1$</td></tr>
+            <tr><td>3</td><td>4</td><td>$2^2$</td></tr>
+            <tr><td>4</td><td>8</td><td>$2^3$</td></tr>
+            <tr><td>Kết thúc</td><td>16 (Dừng vì 16 >= 10)</td><td>$2^k \ge n \Rightarrow   k = \lceil \log_2 n \rceil$</td></tr>
+        </tbody>
+    </table>
+
+    <h2>8. Common Errors & Pitfalls</h2>
+    <ul>
+        <li><strong>Bỏ qua hằng số quá sớm:</strong> $\mathcal{O}(100n)$ và $\mathcal{O}(n)$ là giống nhau về lý thuyết, nhưng trong thực tế $100n$ chậm hơn nhiều.</li>
+        <li><strong>Nhầm lẫn giữa Tốt nhất và Xấu nhất:</strong> Tìm kiếm tuyến tính có Best-case là $\Omega(1)$ nếu phần tử ở ngay đầu, nhưng Worst-case là $\mathcal{O}(n)$. Đừng nhầm lẫn!</li>
+    </ul>
+
+    <h2>9. Quick Recall & Exam Style</h2>
+    <div class="callout callout-warning">
+        <span class="badge badge-exam-style">IT003 EXAM STYLE</span>
+        <p><strong>Bẫy Đề Thi:</strong> Khi tính độ phức tạp của hàm đệ quy, sinh viên thường quên tính độ phức tạp Không gian (Space Complexity) của Call Stack. Mọi lệnh gọi đệ quy đều tốn $\mathcal{O}(1)$ bộ nhớ cho mỗi stack frame. Do đó đệ quy sâu $n$ tầng sẽ tốn $\mathcal{O}(n)$ bộ nhớ.</p>
+    </div>
+
+    <ul>
+        <li><strong>Level 0:</strong> Hàm $f(n) = 3n^2 + 5n + 10$ có Big-O là gì?
+            <br><em>Đáp án:</em> $\mathcal{O}(n^2)$ (Bỏ hằng số, lấy bậc cao nhất).
+        </li>
+        <li><strong>Level 1:</strong> Vòng lặp <code>for (int i = 0; i < n; i += 2)</code> có độ phức tạp là bao nhiêu?
+            <br><em>Đáp án:</em> Chạy $n/2$ lần $\Rightarrow   \mathcal{O}(n)$.
+        </li>
+    </ul>
+
+    <div class="callout">
+        <div class="callout-title">📝 Tóm kết Chương 1</div>
+        <p>Big-O là lăng kính để bạn nhìn ra thuật toán nào sẽ trụ vững khi dữ liệu phình to đến hàng triệu phần tử.</p>
+    </div>
+</section>
+
+
+<section class="chapter" id="ch02">
+    <div class="chapter-header">
+        <span class="badge badge-core">PART II</span>
+        <h1>THUẬT TOÁN TÌM KIẾM (SEARCHING ALGORITHMS)</h1>
+    </div>
+
+    <h2>1. Intuition (Trực giác & Động lực)</h2>
+    <p>Tìm kiếm là thao tác cơ bản nhất trong khoa học máy tính. Hãy tưởng tượng việc tìm một từ trong từ điển 1,000 trang: bạn sẽ lật từng trang từ đầu (Linear Search) hay mở đôi cuốn sách ở giữa rồi tiếp tục chia đôi (Binary Search)? Bài toán tìm kiếm quyết định hiệu năng của mọi cơ sở dữ liệu lớn.</p>
+
+    <h2>2. Formal Model (Định nghĩa Thuật toán)</h2>
+    <p>Cho dãy $A = (a_0, a_1, \dots, a_{n-1})$ và giá trị $x$. Tìm vị trí index $i \in [0, n-1]$ sao cho $a_i = x$, hoặc trả về $-1$ nếu $x \notin A$.</p>
+    <p><span class="badge badge-uit-convention">IT003 CONVENTION</span>: Với Tìm kiếm Nhị phân, điều kiện tiên quyết bắt buộc là dãy $A$ phải <strong>được sắp xếp theo một thứ tự xác định (tăng dần hoặc giảm dần)</strong>.</p>
+
+    <h2>3. Visual Diagram (Sơ đồ Tìm kiếm Nhị phân)</h2>
+    <div class="diagram-container">
+        <svg width="600" height="140" viewBox="0 0 600 140" xmlns="http://www.w3.org/2000/svg">
+            <rect width="600" height="140" fill="#f8fafc" rx="8"/>
+            <g transform="translate(40, 40)">
+                <rect x="0" y="0" width="50" height="45" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+                <text x="25" y="27" font-family="Inter" font-size="12" font-weight="bold" text-anchor="middle">3</text>
+                <text x="25" y="62" font-family="Inter" font-size="10" fill="#64748b" text-anchor="middle">0</text>
+                <rect x="50" y="0" width="50" height="45" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+                <text x="75" y="27" font-family="Inter" font-size="12" font-weight="bold" text-anchor="middle">7</text>
+                <text x="75" y="62" font-family="Inter" font-size="10" fill="#64748b" text-anchor="middle">1 (L)</text>
+                <rect x="100" y="0" width="50" height="45" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+                <text x="125" y="27" font-family="Inter" font-size="12" font-weight="bold" text-anchor="middle">11</text>
+                <text x="125" y="62" font-family="Inter" font-size="10" fill="#64748b" text-anchor="middle">2</text>
+                <rect x="150" y="0" width="50" height="45" fill="#3b82f6" stroke="#1e40af" stroke-width="2"/>
+                <text x="175" y="27" fill="#ffffff" font-family="Inter" font-size="13" font-weight="bold" text-anchor="middle">15</text>
+                <text x="175" y="62" font-family="Inter" font-size="10" fill="#1e40af" font-weight="bold" text-anchor="middle">3 (MID)</text>
+                <rect x="200" y="0" width="50" height="45" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+                <text x="225" y="27" font-family="Inter" font-size="12" font-weight="bold" text-anchor="middle">19</text>
+                <text x="225" y="62" font-family="Inter" font-size="10" fill="#64748b" text-anchor="middle">4</text>
+                <rect x="250" y="0" width="50" height="45" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+                <text x="275" y="27" font-family="Inter" font-size="12" font-weight="bold" text-anchor="middle">24</text>
+                <text x="275" y="62" font-family="Inter" font-size="10" fill="#64748b" text-anchor="middle">5 (R)</text>
+                <rect x="300" y="0" width="50" height="45" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+                <text x="325" y="27" font-family="Inter" font-size="12" font-weight="bold" text-anchor="middle">31</text>
+                <text x="325" y="62" font-family="Inter" font-size="10" fill="#64748b" text-anchor="middle">6</text>
+            </g>
+        </svg>
+    </div>
+
+    <h2>4. Algorithm & Mechanics (Cơ chế hoạt động)</h2>
+    <p>So sánh $x$ với phần tử ở giữa <code>mid = left + (right - left) / 2</code>. Nếu $x == a[mid]$, trả về <code>mid</code>. Nếu $x < a[mid]$, thu hẹp phạm vi về bên trái (<code>right = mid - 1</code>). Ngược lại về bên phải (<code>left = mid + 1</code>).</p>
+
+    <h2>5. C++ Educational & STL Code</h2>
+    <pre><code>// Educational Iterative Binary Search
+int binarySearch(int a[], int n, int x) {
+    int left = 0, right = n - 1;
+    while (left &lt;= right) {
+        int mid = left + (right - left) / 2; // Phòng tránh tràn số int
+        if (a[mid] == x) return mid;
+        if (a[mid] &lt; x) left = mid + 1;
+        else right = mid - 1;
+    }
+    return -1;
+}
+
+// STL Implementation Example
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;algorithm&gt;
+
+bool searchSTL(const std::vector&lt;int&gt;& v, int x) {
+    return std::binary_search(v.begin(), v.end(), x);
+}</code></pre>
+
+    <h2>6. Complexity Analysis & Invariants</h2>
+    <ul>
+        <li><strong>Linear Search:</strong> Best Case $\mathcal{O}(1)$, Worst Case $\Theta(n)$, Average Case $\Theta(n)$. Space: $\mathcal{O}(1)$.</li>
+        <li><strong>Binary Search:</strong> Best Case $\mathcal{O}(1)$, Worst Case $\Theta(\log_2 n)$, Average Case $\Theta(\log_2 n)$. Space: $\mathcal{O}(1)$ với lặp, $\mathcal{O}(\log n)$ với đệ quy.</li>
+    </ul>
+
+    <h2>7. Dry Run Table (Chạy tay chi tiết)</h2>
+    <p>Tìm $x = 19$ trong mảng $A = [3, 7, 11, 15, 19, 24, 31]$ ($n=7$):</p>
+    <table>
+        <thead>
+            <tr><th>Bước</th><th>left</th><th>right</th><th>mid</th><th>a[mid]</th><th>So sánh x=19</th><th>Hành động</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>1</td><td>0</td><td>6</td><td>3</td><td>15</td><td>$15 < 19$</td><td><code>left = mid + 1 = 4</code></td></tr>
+            <tr><td>2</td><td>4</td><td>6</td><td>5</td><td>24</td><td>$24 > 19$</td><td><code>right = mid - 1 = 4</code></td></tr>
+            <tr><td>3</td><td>4</td><td>4</td><td>4</td><td>19</td><td>$19 == 19$</td><td><strong>Tìm thấy! Trả về index 4</strong></td></tr>
+        </tbody>
+    </table>
+
+    <h2>8. Common Errors & IT003 Exam Style</h2>
+    <div class="callout callout-warning">
+        <span class="badge badge-exam-style">IT003 EXAM STYLE</span>
+        <p><strong>Lỗi thường gặp:</strong> Tính <code>mid = (left + right) / 2</code> có thể bị tràn số khi <code>left + right > INT_MAX</code>. Luôn dùng <code>left + (right - left) / 2</code>. Ngoài ra, điều kiện vòng lặp phải là <code>left <= right</code> (dấu <code><=</code> bắt buộc để không bỏ sót trường hợp 1 phần tử).</p>
+    </div>
+
+    <h2>9. Quick Recall & Exercise Ladder</h2>
+    <ul>
+        <li><strong>Level 0:</strong> Tìm kiếm Nhị phân có thể áp dụng cho danh sách liên kết đơn được sắp xếp không? Vì sao?
+            <br><em>Đáp án:</em> Không hiệu quả, vì DSLK không hỗ trợ truy xuất ngẫu nhiên $a[mid]$ trong $\mathcal{O}(1)$, làm độ phức tạp tăng lên $\mathcal{O}(n)$.
+        </li>
+        <li><strong>Level 1:</strong> Cho mảng $A = [2, 5, 8, 12, 16, 23, 38, 56, 72, 91]$. Trình bày bảng trace tìm kiếm $x = 23$.
+            <br><em>Gợi ý:</em> Bước 1: mid=4 (16 < 23) $ \Rightarrow  $ Bước 2: mid=7 (56 > 23) $ \Rightarrow  $ Bước 3: mid=5 (23 == 23).
+        </li>
+    </ul>
+
+    <div class="callout">
+        <div class="callout-title">📝 Tóm kết Chương 2</div>
+        <p>Tìm kiếm nhị phân giảm phạm vi tìm kiếm đi một nửa sau mỗi bước ($\mathcal{O}(\log n)$). Hãy luôn nhớ kiểm tra mảng đã sắp xếp trước khi gọi thuật toán!</p>
+    </div>
+</section>
+
+<section class="chapter" id="ch03">
+    <div class="chapter-header">
+        <span class="badge badge-core">PART III</span>
+        <h1>CÁC THUẬT TOÁN SẮP XẾP (SORTING ALGORITHMS)</h1>
+    </div>
+
+    <h2>1. Intuition (Trực giác & Động lực)</h2>
+    <p>Sắp xếp dữ liệu giúp việc tìm kiếm, thống kê và xử lý trở nên dễ dàng và nhanh chóng hơn. Trong thực tế, các thuật toán sắp xếp được chia làm 2 nhóm chính: <strong>Sắp xếp cơ bản ($\mathcal{O}(n^2)$)</strong> dễ cài đặt và <strong>Sắp xếp nâng cao ($\mathcal{O}(n \log n)$)</strong> cho dữ liệu lớn.</p>
+
+    <h2>2. Formal Model & Complexity Matrix</h2>
+    <div class="callout">
+        <div class="callout-title">📊 Bảng Tổng Hợp 10 Thuật Toán Sắp Xếp Chuẩn IT003</div>
+        <table>
+            <thead>
+                <tr><th>Thuật toán</th><th>Best Case</th><th>Average Case</th><th>Worst Case</th><th>Space</th><th>Stable?</th><th>In-Place?</th></tr>
+            </thead>
+            <tbody>
+                <tr><td><strong>Selection Sort</strong></td><td>$\Theta(n^2)$</td><td>$\Theta(n^2)$</td><td>$\Theta(n^2)$</td><td>$\mathcal{O}(1)$</td><td>No</td><td>Yes</td></tr>
+                <tr><td><strong>Interchange Sort</strong></td><td>$\Theta(n^2)$</td><td>$\Theta(n^2)$</td><td>$\Theta(n^2)$</td><td>$\mathcal{O}(1)$</td><td>No</td><td>Yes</td></tr>
+                <tr><td><strong>Bubble Sort (Basic)</strong></td><td>$\Theta(n^2)$</td><td>$\Theta(n^2)$</td><td>$\Theta(n^2)$</td><td>$\mathcal{O}(1)$</td><td>Yes</td><td>Yes</td></tr>
+                <tr><td><strong>Bubble Sort (Optimized)</strong></td><td>$\Theta(n)$</td><td>$\Theta(n^2)$</td><td>$\Theta(n^2)$</td><td>$\mathcal{O}(1)$</td><td>Yes</td><td>Yes</td></tr>
+                <tr><td><strong>Insertion Sort</strong></td><td>$\Theta(n)$</td><td>$\Theta(n^2)$</td><td>$\Theta(n^2)$</td><td>$\mathcal{O}(1)$</td><td>Yes</td><td>Yes</td></tr>
+                <tr><td><strong>Binary Insertion</strong></td><td>$\Theta(n \log n)$*</td><td>$\Theta(n^2)$</td><td>$\Theta(n^2)$</td><td>$\mathcal{O}(1)$</td><td>Yes</td><td>Yes</td></tr>
+                <tr><td><strong>Shell Sort</strong></td><td>$\Theta(n \log n)$</td><td>$\mathcal{O}(n^{1.3})$*</td><td>$\Theta(n^2)$*</td><td>$\mathcal{O}(1)$</td><td>No</td><td>Yes</td></tr>
+                <tr><td><strong>Heap Sort</strong></td><td>$\Theta(n \log n)$</td><td>$\Theta(n \log n)$</td><td>$\Theta(n \log n)$</td><td>$\mathcal{O}(1)$</td><td>No</td><td>Yes</td></tr>
+                <tr><td><strong>Quick Sort</strong></td><td>$\Theta(n \log n)$</td><td>$\Theta(n \log n)$</td><td>$\Theta(n^2)$</td><td>$\mathcal{O}(\log n)$</td><td>No</td><td>Yes</td></tr>
+                <tr><td><strong>Merge Sort</strong></td><td>$\Theta(n \log n)$</td><td>$\Theta(n \log n)$</td><td>$\Theta(n \log n)$</td><td>$\Theta(n)$</td><td>Yes</td><td>No</td></tr>
+                <tr><td><strong>Radix Sort</strong></td><td>$\Theta(d \cdot n)$</td><td>$\Theta(d \cdot n)$</td><td>$\Theta(d \cdot n)$</td><td>$\Theta(n + k)$*</td><td>Yes</td><td>No</td></tr>
+            </tbody>
+        </table>
+        <p style="font-size: 9.5pt; color: #475569; margin-top: 10px;">
+            * <strong>Ghi chú Học thuật:</strong><br>
+            • <em>Interchange Sort:</em> Thuật toán này không ổn định (NOT STABLE) do việc đổi chỗ các phần tử ở xa nhau có thể làm thay đổi thứ tự tương đối của các phần tử bằng nhau.<br>
+            • <em>Binary Insertion:</em> Phép tìm kiếm nhị phân luôn tốn $\Theta(n \log n)$ so sánh ngay cả khi mảng đã sắp xếp (Best Case), dù số lần dời phần tử là 0.<br>
+            • <em>Shell Sort:</em> Độ phức tạp phụ thuộc vào chuỗi khoảng cách (Gap sequence). Dãy Shell gốc ($n/2, n/4, \dots$) có Worst Case $\Theta(n^2)$. Dãy Sedgewick đạt Worst Case $\mathcal{O}(n^{4/3})$.<br>
+            • <em>Radix Sort:</em> $k$ là cơ số của hệ đếm (ví dụ $k=10$ với hệ thập phân).
+        </p>
+    </div>
+
+    <h2>3. Visual Diagram (Sơ đồ Phân hoạch Quick Sort)</h2>
+    <div class="diagram-container">
+        <svg width="620" height="150" viewBox="0 0 620 150" xmlns="http://www.w3.org/2000/svg">
+            <rect width="620" height="150" fill="#f8fafc" rx="8"/>
+            <g transform="translate(30, 40)">
+                <!-- Elements < Pivot -->
+                <rect x="0" y="0" width="180" height="45" fill="#dcfce7" stroke="#15803d" stroke-width="2"/>
+                <text x="90" y="27" fill="#15803d" font-family="Inter" font-size="12" font-weight="bold" text-anchor="middle">Phần tử &le; Pivot</text>
+                <!-- Pivot -->
+                <rect x="190" y="0" width="80" height="45" fill="#3b82f6" stroke="#1e40af" stroke-width="2"/>
+                <text x="230" y="27" fill="#ffffff" font-family="Inter" font-size="12" font-weight="bold" text-anchor="middle">PIVOT</text>
+                <!-- Elements > Pivot -->
+                <rect x="280" y="0" width="280" height="45" fill="#fee2e2" stroke="#b91c1c" stroke-width="2"/>
+                <text x="420" y="27" fill="#b91c1c" font-family="Inter" font-size="12" font-weight="bold" text-anchor="middle">Phần tử &ge; Pivot</text>
+            </g>
+        </svg>
+    </div>
+
+    <h2>4. The 10 Sorting Algorithms</h2>
+
+    <h3>4.1. Selection Sort</h3>
+    <p><strong>Intuition:</strong> Tìm phần tử nhỏ nhất trong mảng chưa sắp xếp và đổi chỗ với phần tử đầu tiên của mảng đó.</p>
+    <pre><code>void selectionSort(int a[], int n) {
+    for (int i = 0; i &lt; n - 1; i++) {
+        int min_idx = i;
+        for (int j = i + 1; j &lt; n; j++)
+            if (a[j] &lt; a[min_idx]) min_idx = j;
+        std::swap(a[i], a[min_idx]);
+    }
+}</code></pre>
+    <p><strong>Complexity:</strong> $\Theta(n^2)$ cho mọi trường hợp. <strong>Stability:</strong> No.</p>
+    <table><tr><th>Bước i</th><th>Mảng</th><th>Thao tác</th></tr><tr><td>0</td><td>[5, 2, 4, 1]</td><td>min=1, swap(5,1) &rarr; [1, 2, 4, 5]</td></tr></table>
+
+    <h3>4.2. Interchange Sort</h3>
+    <p><strong>Intuition:</strong> So sánh cặp $(i, j)$, nếu sai thứ tự thì đổi chỗ ngay lập tức.</p>
+    <pre><code>void interchangeSort(int a[], int n) {
+    for (int i = 0; i &lt; n - 1; i++)
+        for (int j = i + 1; j &lt; n; j++)
+            if (a[i] &gt; a[j]) std::swap(a[i], a[j]);
+}</code></pre>
+    <p><strong>Complexity:</strong> $\Theta(n^2)$. <strong>Stability:</strong> No.</p>
+    <table><tr><th>Bước i</th><th>Mảng</th><th>Thao tác</th></tr><tr><td>0</td><td>[3, 2, 1]</td><td>swap(3,2) &rarr; [2,3,1], swap(2,1) &rarr; [1,3,2]</td></tr></table>
+
+    <h3>4.3. Bubble Sort</h3>
+    <p><strong>Intuition:</strong> Nổi bọt, đẩy phần tử lớn nhất xuống cuối mảng qua từng lượt.</p>
+    <pre><code>void bubbleSort(int a[], int n) {
+    for (int i = 0; i &lt; n - 1; i++) {
+        bool swapped = false;
+        for (int j = 0; j &lt; n - i - 1; j++)
+            if (a[j] &gt; a[j+1]) { std::swap(a[j], a[j+1]); swapped = true; }
+        if (!swapped) break;
+    }
+}</code></pre>
+    <p><strong>Complexity:</strong> Best $\Theta(n)$, Worst $\Theta(n^2)$. <strong>Stability:</strong> Yes.</p>
+    <table><tr><th>Bước i</th><th>Mảng</th><th>Thao tác</th></tr><tr><td>0</td><td>[3, 2, 1]</td><td>swap(3,2), swap(3,1) &rarr; [2, 1, 3]</td></tr></table>
+
+    <h3>4.4. Insertion Sort</h3>
+    <p><strong>Intuition:</strong> Chèn từng phần tử vào vị trí thích hợp trong mảng đã sắp xếp ở phía trước.</p>
+    <pre><code>void insertionSort(int a[], int n) {
+    for (int i = 1; i &lt; n; i++) {
+        int key = a[i], j = i - 1;
+        while (j &gt;= 0 && a[j] &gt; key) { a[j + 1] = a[j]; j--; }
+        a[j + 1] = key;
+    }
+}</code></pre>
+    <p><strong>Complexity:</strong> Best $\Theta(n)$, Worst $\Theta(n^2)$. <strong>Stability:</strong> Yes.</p>
+    <table><tr><th>Bước i</th><th>Mảng</th><th>Thao tác</th></tr><tr><td>1</td><td>[3, 2, 1]</td><td>key=2, dời 3 &rarr; [2, 3, 1]</td></tr></table>
+
+    <h3>4.5. Binary Insertion Sort</h3>
+    <p><strong>Intuition:</strong> Cải tiến Insertion Sort bằng cách dùng tìm kiếm nhị phân để tìm vị trí chèn.</p>
+    <pre><code>void binaryInsertionSort(int a[], int n) {
+    for (int i = 1; i &lt; n; i++) {
+        int key = a[i], left = 0, right = i - 1;
+        while (left &lt;= right) {
+            int mid = (left + right) / 2;
+            if (a[mid] &gt; key) right = mid - 1;
+            else left = mid + 1;
+        }
+        for (int j = i - 1; j &gt;= left; j--) a[j + 1] = a[j];
+        a[left] = key;
+    }
+}</code></pre>
+    <p><strong>Complexity:</strong> $\Theta(n^2)$. <strong>Stability:</strong> Yes.</p>
+    <table><tr><th>Bước i</th><th>Mảng</th><th>Thao tác</th></tr><tr><td>1</td><td>[3, 2, 1]</td><td>key=2, BS tìm pos=0, dời 3 &rarr; [2, 3, 1]</td></tr></table>
+
+    <h3>4.6. Shell Sort</h3>
+    <p><strong>Intuition:</strong> Sắp xếp các phần tử cách nhau một khoảng gap, sau đó giảm dần gap.</p>
+    <pre><code>void shellSort(int a[], int n) {
+    for (int gap = n/2; gap &gt; 0; gap /= 2) {
+        for (int i = gap; i &lt; n; i++) {
+            int temp = a[i], j;
+            for (j = i; j &gt;= gap && a[j - gap] &gt; temp; j -= gap)
+                a[j] = a[j - gap];
+            a[j] = temp;
+        }
+    }
+}</code></pre>
+    <p><strong>Complexity:</strong> Phụ thuộc gap. <strong>Stability:</strong> No.</p>
+    <table><tr><th>Gap</th><th>Mảng</th><th>Thao tác</th></tr><tr><td>2</td><td>[4, 3, 2, 1]</td><td>&rarr; [2, 1, 4, 3]</td></tr></table>
+
+    <h3>4.7. Heap Sort</h3>
+    <p><strong>Intuition:</strong> Xây dựng Max-Heap rồi liên tục lấy phần tử lớn nhất đẩy về cuối.</p>
+    <pre><code>void heapify(int a[], int n, int i) {
+    int largest = i, l = 2*i + 1, r = 2*i + 2;
+    if (l &lt; n && a[l] &gt; a[largest]) largest = l;
+    if (r &lt; n && a[r] &gt; a[largest]) largest = r;
+    if (largest != i) { std::swap(a[i], a[largest]); heapify(a, n, largest); }
+}
+void heapSort(int a[], int n) {
+    for (int i = n / 2 - 1; i &gt;= 0; i--) heapify(a, n, i);
+    for (int i = n - 1; i &gt; 0; i--) { std::swap(a[0], a[i]); heapify(a, i, 0); }
+}</code></pre>
+    <p><strong>Complexity:</strong> $\Theta(n \log n)$. <strong>Stability:</strong> No.</p>
+    <table><tr><th>Phase</th><th>Mảng</th><th>Thao tác</th></tr><tr><td>Build</td><td>[2, 1, 3]</td><td>&rarr; [3, 1, 2]</td></tr></table>
+
+    <h3>4.8. Merge Sort</h3>
+    <p><strong>Intuition:</strong> Chia để trị, chia mảng thành 2 nửa, sắp xếp rồi trộn lại.</p>
+    <pre><code>// Pseudocode Helper: void merge(int a[], int l, int m, int r);
+void mergeSort(int a[], int l, int r) {
+    if (l &lt; r) {
+        int m = l + (r - l) / 2;
+        mergeSort(a, l, m); mergeSort(a, m + 1, r);
+        merge(a, l, m, r); // Hàm trộn
+    }
+}</code></pre>
+    <p><strong>Complexity:</strong> $\Theta(n \log n)$. <strong>Stability:</strong> Yes.</p>
+    <table><tr><th>Bước</th><th>Mảng</th><th>Thao tác</th></tr><tr><td>Trộn</td><td>[2] và [1]</td><td>&rarr; [1, 2]</td></tr></table>
+
+    <h3>4.9. Quick Sort</h3>
+    <p><strong>Intuition:</strong> Chọn pivot, phân hoạch mảng thành phần nhỏ hơn và phần lớn hơn pivot.</p>
+    <pre><code>// Pseudocode Helper: int partitionLomuto(int a[], int low, int high);
+void quickSort(int a[], int low, int high) {
+    if (low &lt; high) {
+        int pi = partitionLomuto(a, low, high);
+        quickSort(a, low, pi - 1);
+        quickSort(a, pi + 1, high);
+    }
+}</code></pre>
+    <p><strong>Complexity:</strong> Avg $\Theta(n \log n)$, Worst $\Theta(n^2)$. <strong>Stability:</strong> No.</p>
+    <table><tr><th>Pivot</th><th>Mảng</th><th>Thao tác</th></tr><tr><td>30</td><td>[25, 40, 8, 30]</td><td>&rarr; [25, 8, 30, 40]</td></tr></table>
+
+    <h3>4.10. Radix Sort</h3>
+    <p><strong>Intuition:</strong> Sắp xếp theo từng chữ số từ hàng đơn vị lên.</p>
+    <pre><code>// Pseudocode Helper: int getMax(int a[], int n);
+// Pseudocode Helper: void countSort(int a[], int n, int exp);
+void radixSort(int a[], int n) {
+    int max_val = getMax(a, n);
+    for (int exp = 1; max_val / exp &gt; 0; exp *= 10)
+        countSort(a, n, exp); // Sắp xếp ổn định
+}</code></pre>
+    <p><strong>Complexity:</strong> $\Theta(d \cdot n)$. <strong>Stability:</strong> Yes.</p>
+    <table><tr><th>Exp</th><th>Mảng</th><th>Thao tác</th></tr><tr><td>1</td><td>[12, 10]</td><td>&rarr; [10, 12]</td></tr></table>
+
+    <h2>8. Common Errors & IT003 Exam Style</h2>
+    <div class="callout callout-warning">
+        <span class="badge badge-exam-style">IT003 EXAM STYLE</span>
+        <p><strong>Bẫy Đề Thi:</strong> Phân biệt Tính Ổn định (Stability) và Tính Tại chỗ (In-place). Quick Sort là <strong>In-place</strong> nhưng <strong>Không ổn định</strong>. Merge Sort <strong>Ổn định</strong> nhưng <strong>Không In-place</strong> ($\mathcal{O}(n)$ bộ nhớ phụ).</p>
+    </div>
+
+    <h2>9. Quick Recall & Exercise Ladder</h2>
+    <ul>
+        <li><strong>Level 0:</strong> Thuật toán nào có số phép so sánh $C = \frac{n(n-1)}{2}$ cố định trong mọi trường hợp?
+            <br><em>Đáp án:</em> Selection Sort và Interchange Sort.
+        </li>
+        <li><strong>Level 1:</strong> Thực hiện chạy tay 2 lượt đầu tiên của Bubble Sort trên mảng $A = [5, 1, 4, 2, 8]$.
+            <br><em>Gợi ý:</em> Lượt 1: $[1, 4, 2, 5, 8]$. Lượt 2: $[1, 2, 4, 5, 8]$.
+        </li>
+    </ul>
+
+    <div class="callout">
+        <div class="callout-title">📝 Tóm kết Chương 3</div>
+        <p>Nắm vững bảng ma trận độ phức tạp 10 thuật toán sắp xếp và kỹ năng chạy tay từng lượt để đạt điểm tối đa câu 1 trong đề thi IT003!</p>
+    </div>
+</section>
+
+<section class="chapter" id="ch04">
+    <div class="chapter-header">
+        <span class="badge badge-core">PART IV</span>
+        <h1>DANH SÁCH LIÊN KẾT (LINKED LIST)</h1>
+    </div>
+
+    <h2>1. Intuition (Trực giác & Động lực)</h2>
+    <p>Mảng tĩnh có kích thước cố định và thao tác chèn/xóa ở giữa tốn $\mathcal{O}(n)$ do phải dời hàng loạt phần tử. Danh sách liên kết (Linked List) giải quyết triệt để vấn đề này bằng cách cấp phát động từng nút (Node) nằm rải rác trên bộ nhớ Heap và liên kết chúng bằng các con trỏ (Pointer).</p>
+
+    <h2>2. Formal Model (Định nghĩa Cấu trúc)</h2>
+    <p>Một <strong>Singly Linked List</strong> gồm tập hợp các nút <code>Node</code>, trong đó mỗi nút chứa 2 thành phần: <code>data</code> (giá trị lưu trữ) và <code>pNext</code> (con trỏ chỉ tới nút kế tiếp). Danh sách được quản lý bởi con trỏ <code>pHead</code> (chỉ nút đầu) và <code>pTail</code> (chỉ nút cuối).</p>
+
+    <h2>3. Visual Diagram (Sơ đồ Bộ nhớ Danh sách Liên kết)</h2>
+    <div class="diagram-container">
+        <svg width="620" height="120" viewBox="0 0 620 120" xmlns="http://www.w3.org/2000/svg">
+            <rect width="620" height="120" fill="#f8fafc" rx="8"/>
+            <g transform="translate(30, 35)">
+                <rect x="0" y="0" width="60" height="40" fill="#0f172a" rx="4"/>
+                <text x="30" y="25" fill="#ffffff" font-family="Inter" font-size="12" font-weight="bold" text-anchor="middle">10</text>
+                <rect x="60" y="0" width="30" height="40" fill="#1e40af" rx="4"/>
+                <circle cx="75" cy="20" r="4" fill="#ffffff"/>
+                <line x1="75" y1="20" x2="135" y2="20" stroke="#1e40af" stroke-width="2" marker-end="url(#arrow-ll)"/>
+            </g>
+            <g transform="translate(170, 35)">
+                <rect x="0" y="0" width="60" height="40" fill="#0f172a" rx="4"/>
+                <text x="30" y="25" fill="#ffffff" font-family="Inter" font-size="12" font-weight="bold" text-anchor="middle">25</text>
+                <rect x="60" y="0" width="30" height="40" fill="#1e40af" rx="4"/>
+                <circle cx="75" cy="20" r="4" fill="#ffffff"/>
+                <line x1="75" y1="20" x2="135" y2="20" stroke="#1e40af" stroke-width="2" marker-end="url(#arrow-ll)"/>
+            </g>
+            <g transform="translate(310, 35)">
+                <rect x="0" y="0" width="60" height="40" fill="#0f172a" rx="4"/>
+                <text x="30" y="25" fill="#ffffff" font-family="Inter" font-size="12" font-weight="bold" text-anchor="middle">40</text>
+                <rect x="60" y="0" width="30" height="40" fill="#64748b" rx="4"/>
+                <text x="75" y="24" fill="#ffffff" font-family="Inter" font-size="10" font-weight="bold" text-anchor="middle">NULL</text>
+            </g>
+            <defs>
+                <marker id="arrow-ll" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <path d="M 0 0 L 10 5 L 0 10 z" fill="#1e40af"/>
+                </marker>
+            </defs>
+        </svg>
+    </div>
+
+    <h2>4. Algorithm & Mechanics (Các Thao tác Con trỏ)</h2>
+    <ul>
+        <li><strong>Add Head:</strong> Tạo <code>pNew</code>. Cho <code>pNew->pNext = pHead</code>. Cập nhật <code>pHead = pNew</code>.</li>
+        <li><strong>Add Tail:</strong> Tạo <code>pNew</code>. Cho <code>pTail->pNext = pNew</code>. Cập nhật <code>pTail = pNew</code>.</li>
+        <li><strong>Delete Head:</strong> Lưu <code>temp = pHead</code>. Cho <code>pHead = pHead->pNext</code>. Giải phóng <code>delete temp</code>.</li>
+        <li><strong>Search:</strong> Duyệt từ đầu, nếu <code>p->data == val</code> thì trả về <code>p</code>.</li>
+        <li><strong>Insert After:</strong> Tìm nút <code>q</code>. Tạo <code>pNew</code>, <code>pNew->pNext = q->pNext</code>, <code>q->pNext = pNew</code>.</li>
+        <li><strong>Count:</strong> Duyệt qua danh sách và tăng biến đếm.</li>
+    </ul>
+
+    <h2>5. C++ Educational & STL Code</h2>
+    <h3>5.1 Singly Linked List</h3>
+    <pre><code>struct Node {
+    int data;
+    Node* pNext;
+};
+struct LinkedList {
+    Node* pHead;
+    Node* pTail;
+};
+void addHead(LinkedList& list, int val) {
+    Node* p = new Node{val, nullptr};
+    if (!list.pHead) list.pHead = list.pTail = p;
+    else { p-&gt;pNext = list.pHead; list.pHead = p; }
+}
+void deleteHead(LinkedList& list) {
+    if (!list.pHead) return;
+    Node* temp = list.pHead;
+    list.pHead = list.pHead-&gt;pNext;
+    if (!list.pHead) list.pTail = nullptr;
+    delete temp;
+}
+Node* search(LinkedList list, int val) {
+    for (Node* p = list.pHead; p != nullptr; p = p-&gt;pNext)
+        if (p-&gt;data == val) return p;
+    return nullptr;
+}
+void insertAfter(LinkedList& list, Node* q, int val) {
+    if (!q) return;
+    Node* p = new Node{val, q-&gt;pNext};
+    q-&gt;pNext = p;
+    if (list.pTail == q) list.pTail = p;
+}
+int countNodes(LinkedList list) {
+    int count = 0;
+    for (Node* p = list.pHead; p != nullptr; p = p-&gt;pNext) count++;
+    return count;
+}
+</code></pre>
+
+    <h3>5.2 Doubly Linked List</h3>
+    <pre><code>struct DNode {
+    int data;
+    DNode* pPrev;
+    DNode* pNext;
+};
+struct DLinkedList {
+    DNode* pHead;
+    DNode* pTail;
+};
+// Tradeoffs: Có thể duyệt 2 chiều dễ dàng, nhưng tốn gấp đôi bộ nhớ cho con trỏ và code thao tác phức tạp hơn.
+void insertHead(DLinkedList& list, int val) {
+    DNode* p = new DNode{val, nullptr, nullptr};
+    if (!list.pHead) list.pHead = list.pTail = p;
+    else { p-&gt;pNext = list.pHead; list.pHead-&gt;pPrev = p; list.pHead = p; }
+}</code></pre>
+
+    <h2>6. Complexity Analysis & Edge Cases</h2>
+    <ul>
+        <li><strong>Chèn/Xóa ở Đầu:</strong> $\Theta(1)$ thời gian, $\mathcal{O}(1)$ bộ nhớ.</li>
+        <li><strong>Truy xuất theo chỉ số / Tìm kiếm:</strong> $\Theta(n)$ thời gian.</li>
+        <li><strong>Edge Cases bắt buộc kiểm tra:</strong> Danh sách rỗng (<code>pHead == nullptr</code>), Danh sách chỉ có 1 nút (<code>pHead == pTail</code>).</li>
+    </ul>
+
+    <h2>7. Dry Run Table (Chạy tay Thao tác Add Head & Delete Head)</h2>
+    <table>
+        <thead>
+            <tr><th>Thao tác</th><th>Trạng thái pHead trước</th><th>Trạng thái pTail trước</th><th>Biến đổi con trỏ</th><th>Trạng thái pHead sau</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>Add Head(10) vào List rỗng</td><td>nullptr</td><td>nullptr</td><td><code>pHead = pTail = pNew</code></td><td>Node(10)</td></tr>
+            <tr><td>Add Head(5) vào List(10)</td><td>Node(10)</td><td>Node(10)</td><td><code>pNew->pNext = pHead; pHead = pNew</code></td><td>Node(5) $ \Rightarrow  $ Node(10)</td></tr>
+            <tr><td>Delete Head trên List(5, 10)</td><td>Node(5)</td><td>Node(10)</td><td><code>temp=pHead; pHead=pHead->pNext; delete temp</code></td><td>Node(10)</td></tr>
+        </tbody>
+    </table>
+
+    <h2>8. Common Errors & IT003 Exam Style</h2>
+    <div class="callout callout-warning">
+        <span class="badge badge-exam-style">IT003 EXAM STYLE</span>
+        <p><strong>Bẫy Đề Thi:</strong> Khi xóa nút duy nhất trong danh sách, nếu chỉ cập nhật <code>pHead = nullptr</code> mà không cập nhật <code>pTail = nullptr</code>, con trỏ <code>pTail</code> sẽ trở thành <strong>Con trỏ rác (Dangling Pointer)</strong> dẫn đến sập chương trình ở các thao tác sau!</p>
+    </div>
+
+    <h2>9. Quick Recall & Exercise Ladder</h2>
+    <ul>
+        <li><strong>Level 0:</strong> Tại sao chèn vào cuối DSLK đơn có con trỏ <code>pTail</code> tốn $\mathcal{O}(1)$ nhưng xóa phần tử cuối vẫn tốn $\Theta(n)$?
+            <br><em>Đáp án:</em> Vì để cập nhật <code>pTail</code> mới, ta phải duyệt từ <code>pHead</code> đến nút áp cuối (nút trước <code>pTail</code>), tốn $\Theta(n)$.
+        </li>
+        <li><strong>Level 1:</strong> Viết hàm đếm số phần tử trong DSLK đơn.
+            <br><em>Gợi ý:</em> Dùng con trỏ chạy <code>Node* p = list.pHead</code>, vừa duyệt vừa tăng biến đếm <code>count++</code> cho đến khi <code>p == nullptr</code>.
+        </li>
+    </ul>
+
+    <div class="callout">
+        <div class="callout-title">📝 Tóm kết Chương 4</div>
+        <p>DSLK cho phép chèn/xóa ở đầu trong $\mathcal{O}(1)$ mà không cần dời bộ nhớ. Luôn chú ý quản lý cả <code>pHead</code> và <code>pTail</code> cùng các trường hợp rỗng/1 nút!</p>
+    </div>
+</section>
+
+<section class="chapter" id="ch05">
+    <div class="chapter-header">
+        <span class="badge badge-core">PART V</span>
+        <h1>NGĂN XẾP VÀ HÀNG ĐỢI (STACK & QUEUE)</h1>
+    </div>
+
+    <h2>1. Intuition (Trực giác & Động lực)</h2>
+    <p><strong>Stack (Ngăn xếp)</strong> giống như một chồng dĩa: dĩa nào đặt vào sau cùng sẽ được lấy ra đầu tiên (<strong>LIFO — Last In, First Out</strong>). <strong>Queue (Hàng đợi)</strong> giống như hàng người xếp hàng mua vé: ai đến trước sẽ được phục vụ trước (<strong>FIFO — First In, First Out</strong>).</p>
+
+    <h2>2. Formal Model (Định nghĩa Cấu trúc)</h2>
+    <ul>
+        <li><strong>Stack ADT:</strong> Các thao tác chính gồm <code>push(x)</code> (thêm vào đỉnh), <code>pop()</code> (lấy khỏi đỉnh), <code>top()</code> (xem đỉnh), <code>isEmpty()</code>.</li>
+        <li><strong>Queue ADT:</strong> Các thao tác chính gồm <code>enqueue(x)</code> (thêm vào đuôi), <code>dequeue()</code> (lấy khỏi đầu), <code>front()</code> (xem đầu), <code>isEmpty()</code>.</li>
+    </ul>
+
+    <h2>3. Visual Diagram (Sơ đồ Tràn Ảo & Hàng Đợi Vòng)</h2>
+    <div class="diagram-container">
+        <svg width="600" height="150" viewBox="0 0 600 150" xmlns="http://www.w3.org/2000/svg">
+            <rect width="600" height="150" fill="#f8fafc" rx="8"/>
+            <defs>
+                <marker id="arrow-ch5" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                    <path d="M0,0 L0,6 L9,3 z" fill="#0f172a" />
+                </marker>
+            </defs>
+            <g transform="translate(50, 40)">
+                <!-- Circular Queue Representation -->
+                <circle cx="100" cy="35" r="45" fill="none" stroke="#3b82f6" stroke-width="4"/>
+                <text x="100" y="30" font-family="Inter" font-size="11" font-weight="bold" text-anchor="middle">CIRCULAR</text>
+                <text x="100" y="45" font-family="Inter" font-size="11" font-weight="bold" text-anchor="middle">QUEUE</text>
+                <path d="M 145 35 A 45 45 0 0 1 100 80" fill="none" stroke="#1e40af" stroke-width="4" marker-end="url(#arrow-ch5)"/>
+            </g>
+            <g transform="translate(280, 30)">
+                <text x="0" y="20" font-family="Inter" font-size="11" font-weight="bold" fill="#0f172a">Công thức Hàng Đợi Vòng (Modulo):</text>
+                <text x="0" y="45" font-family="Fira Code" font-size="11" fill="#1e40af">rear = (rear + 1) % MAX;</text>
+                <text x="0" y="70" font-family="Fira Code" font-size="11" fill="#1e40af">front = (front + 1) % MAX;</text>
+            </g>
+        </svg>
+    </div>
+
+    <h2>4. Applications & Algorithms</h2>
+    <h3>4.1 Hiện tượng Tràn Ảo - False Overflow</h3>
+    <p>Khi dùng mảng tĩnh cho Queue, sau một số thao tác enqueue và dequeue, chỉ số <code>rear</code> tiến tới <code>MAX - 1</code>. Khi này mảng báo đầy (<code>rear == MAX - 1</code>) dù các ô đầu mảng đã bị bỏ trống. Giải pháp là dùng <strong>Circular Queue</strong> với phép toán chia lấy dư <code>% MAX</code>.</p>
+
+    <h3>4.2 Balanced Parentheses Checking</h3>
+    <p>Kiểm tra dấu ngoặc hợp lệ bằng Stack. Gặp mở ngoặc thì push, gặp đóng ngoặc thì pop và kiểm tra khớp loại.</p>
+    <table><tr><th>Char</th><th>Stack</th><th>Thao tác</th></tr><tr><td>'('</td><td>['(']</td><td>Push</td></tr><tr><td>')'</td><td>[]</td><td>Pop và Khớp</td></tr></table>
+
+    <h3>4.3 Infix to Postfix Conversion</h3>
+    <p>Chuyển biểu thức trung tố sang hậu tố dùng Stack lưu toán tử.</p>
+    <table>
+        <tr><th>Ký tự đọc</th><th>Stack</th><th>Output</th></tr>
+        <tr><td>'A'</td><td>[]</td><td>"A"</td></tr>
+        <tr><td>'+'</td><td>['+']</td><td>"A"</td></tr>
+        <tr><td>'B'</td><td>['+']</td><td>"A B"</td></tr>
+        <tr><td>End of String</td><td>[] (Pop '+')</td><td>"A B +"</td></tr>
+    </table>
+
+    <h2>5. Multiple Implementations & STL Code</h2>
+    <h3>5.1 Array Implementation</h3>
+    <pre><code>// Array Stack
+const int MAX = 100;
+struct ArrayStack {
+    int top_idx = -1;
+    int a[MAX];
+    void push(int x) { if (top_idx &lt; MAX-1) a[++top_idx] = x; }
+    int pop() { 
+        if (top_idx &lt; 0) return -1; // Underflow check
+        return a[top_idx--]; 
+    }
+};
+
+// Circular Queue Implementation
+struct CircularQueue {
+    int front = 0, rear = -1, count = 0;
+    int a[MAX];
+    void enqueue(int x) {
+        if (count == MAX) return; // Overflow check
+        rear = (rear + 1) % MAX;
+        a[rear] = x; count++;
+    }
+    int dequeue() {
+        if (count == 0) return -1; // Underflow check
+        int val = a[front];
+        front = (front + 1) % MAX;
+        count--;
+        return val;
+    }
+};</code></pre>
+
+    <h3>5.2 Linked List Implementation</h3>
+    <pre><code>struct Node { int data; Node* next; };
+struct LinkedStack {
+    Node* head = nullptr;
+    void push(int x) { head = new Node{x, head}; }
+    void pop() { 
+        if (head == nullptr) return;
+        Node* t = head; head = head-&gt;next; delete t; 
+    }
+};</code></pre>
+
+    <h3>5.3 C++ STL Standard</h3>
+    <pre><code>#include &lt;stack&gt;
+#include &lt;queue&gt;
+void stlStackQueue() {
+    std::stack&lt;int&gt; s; s.push(10); s.pop();
+    std::queue&lt;int&gt; q; q.push(20); q.pop();
+}</code></pre>
+
+    <h2>6. Complexity Analysis & Invariants</h2>
+    <p>Tất cả các thao tác <code>push</code>, <code>pop</code>, <code>top</code>, <code>enqueue</code>, <code>dequeue</code>, <code>front</code> trên Stack và Queue chuẩn đều đạt độ phức tạp <strong>$\Theta(1)$ thời gian và $\mathcal{O}(1)$ bộ nhớ phụ</strong>.</p>
+
+    <h2>7. Dry Run Table (Trace Chuỗi Thao Tác Circular Queue)</h2>
+    <p>Thực hiện lần lượt: Enqueue(5), Enqueue(8), Dequeue(), Enqueue(12) trên Queue $MAX=3$:</p>
+    <table>
+        <thead>
+            <tr><th>Thao tác</th><th>front</th><th>rear</th><th>count</th><th>Mảng a[0..2]</th><th>Kết quả trả về</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>Ban đầu</td><td>0</td><td>-1</td><td>0</td><td>[-, -, -]</td><td>-</td></tr>
+            <tr><td>Enqueue(5)</td><td>0</td><td>0</td><td>1</td><td>[5, -, -]</td><td>True</td></tr>
+            <tr><td>Enqueue(8)</td><td>0</td><td>1</td><td>2</td><td>[5, 8, -]</td><td>True</td></tr>
+            <tr><td>Dequeue()</td><td>1</td><td>1</td><td>1</td><td>[-, 8, -]</td><td>5</td></tr>
+            <tr><td>Enqueue(12)</td><td>1</td><td>2</td><td>2</td><td>[-, 8, 12]</td><td>True</td></tr>
+        </tbody>
+    </table>
+
+    <h2>8. Common Errors & IT003 Exam Style</h2>
+    <div class="callout callout-warning">
+        <span class="badge badge-exam-style">IT003 EXAM STYLE</span>
+        <p><strong>Bẫy Đề Thi:</strong> Ứng dụng kiểm tra biểu thức ngoặc hợp lệ (Parentheses Matching) hoặc chuyển đổi Hậu tố (Postfix). Luôn nhớ: DFS dùng <strong>Stack</strong>, BFS dùng <strong>Queue</strong>!</p>
+    </div>
+
+    <h2>9. Quick Recall & Exercise Ladder</h2>
+    <ul>
+        <li><strong>Level 0:</strong> Phân biệt nguyên lý hoạt động của Stack và Queue.
+            <br><em>Đáp án:</em> Stack là LIFO (Vào sau Ra trước), Queue là FIFO (Vào trước Ra trước).
+        </li>
+        <li><strong>Level 1:</strong> Cho chuỗi thao tác Stack: <code>Push(3), Push(7), Pop(), Push(5), Pop()</code>. Giá trị còn lại trong Stack là gì?
+            <br><em>Gợi ý:</em> Push 3 $ \Rightarrow  $ Push 7 $ \Rightarrow  $ Pop 7 $ \Rightarrow  $ Push 5 $ \Rightarrow  $ Pop 5 $\Rightarrow  $ Còn lại giá trị 3.
+        </li>
+    </ul>
+
+    <div class="callout">
+        <div class="callout-title">📝 Tóm kết Chương 5</div>
+        <p>Stack và Queue là 2 cấu trúc dữ liệu tuyến tính quan trọng nhất làm tiền đề cho các thuật toán duyệt cây, duyệt đồ thị BFS/DFS.</p>
+    </div>
+</section>
+
+<section class="chapter" id="ch06">
+    <div class="chapter-header">
+        <span class="badge badge-core">PART VI</span>
+        <h1>CÂY VÀ CÂY NHỊ PHÂN (TREES & BINARY TREES)</h1>
+    </div>
+
+    <h2>1. Intuition (Trực giác & Động lực)</h2>
+    <p>Khác với mảng hay danh sách liên kết là cấu trúc dữ liệu tuyến tính (Linear), Cây (Tree) là cấu trúc dữ liệu phi tuyến (Non-linear) phân cấp. Cây mô phỏng hoàn hảo các hệ thống phân cấp thực tế như cây thư mục máy tính, sơ đồ tổ chức công ty hay cây quyết định.</p>
+
+    <h2>2. Formal Model & Terminology (Định nghĩa & Thuật ngữ)</h2>
+    <ul>
+        <li><strong>Root (Gốc):</strong> Nút duy nhất không có nút cha.</li>
+        <li><strong>Leaf (Nút lá):</strong> Nút không có con nào (bậc của nút bằng 0).</li>
+        <li><strong>Degree (Bậc):</strong> Số nút con của một nút.</li>
+        <li><span class="badge badge-uit-convention">IT003 CONVENTION</span> <strong>Level (Mức):</strong> Nút gốc Root nằm ở <strong>Level 0</strong>. Nút con của Root nằm ở Level 1. Chiều cao của cây $H = \text{max\_level} + 1$.</li>
+    </ul>
+
+    <h2>3. Visual Diagram (Sơ đồ Duyệt Cây Nhị Phân)</h2>
+    <div class="diagram-container">
+        <svg width="500" height="200" viewBox="0 0 500 200" xmlns="http://www.w3.org/2000/svg">
+            <rect width="500" height="200" fill="#f8fafc" rx="8"/>
+            <!-- Edges -->
+            <line x1="250" y1="40" x2="160" y2="100" stroke="#0f172a" stroke-width="2"/>
+            <line x1="250" y1="40" x2="340" y2="100" stroke="#0f172a" stroke-width="2"/>
+            <line x1="160" y1="100" x2="100" y2="160" stroke="#0f172a" stroke-width="2"/>
+            <!-- Tree Nodes -->
+            <g transform="translate(250, 40)">
+                <circle cx="0" cy="0" r="20" fill="#0f172a"/>
+                <text x="0" y="5" fill="#ffffff" font-family="Inter" font-size="14" font-weight="bold" text-anchor="middle">A</text>
+            </g>
+            <g transform="translate(160, 100)">
+                <circle cx="0" cy="0" r="20" fill="#1e40af"/>
+                <text x="0" y="5" fill="#ffffff" font-family="Inter" font-size="14" font-weight="bold" text-anchor="middle">B</text>
+            </g>
+            <g transform="translate(340, 100)">
+                <circle cx="0" cy="0" r="20" fill="#1e40af"/>
+                <text x="0" y="5" fill="#ffffff" font-family="Inter" font-size="14" font-weight="bold" text-anchor="middle">C</text>
+            </g>
+            <g transform="translate(100, 160)">
+                <circle cx="0" cy="0" r="20" fill="#0d9488"/>
+                <text x="0" y="5" fill="#ffffff" font-family="Inter" font-size="14" font-weight="bold" text-anchor="middle">D</text>
+            </g>
+        </svg>
+    </div>
+
+    <h2>4. Algorithm & Mechanics (3 Phép Duyệt Cây)</h2>
+    <ul>
+        <li><strong>NLR (Pre-order / Tiền tự):</strong> Thăm Nút gốc $N  \Rightarrow  $ Duyệt Cây con trái $L  \Rightarrow  $ Duyệt Cây con phải $R$.</li>
+        <li><strong>LNR (In-order / Trung tự):</strong> Duyệt Cây con trái $L  \Rightarrow  $ Thăm Nút gốc $N  \Rightarrow  $ Duyệt Cây con phải $R$.</li>
+        <li><strong>LRN (Post-order / Hậu tự):</strong> Duyệt Cây con trái $L  \Rightarrow  $ Duyệt Cây con phải $\Rightarrow  $ Thăm Nút gốc $N$.</li>
+    </ul>
+
+    <h2>5. C++ Educational & Traversals Code</h2>
+    <pre><code>struct TreeNode {
+    int data;
+    TreeNode* pLeft;
+    TreeNode* pRight;
+};
+
+void preOrder(TreeNode* root) {
+    if (root != nullptr) {
+        std::cout &lt;&lt; root-&gt;data &lt;&lt; " ";
+        preOrder(root-&gt;pLeft);
+        preOrder(root-&gt;pRight);
+    }
+}
+
+void inOrder(TreeNode* root) {
+    if (root != nullptr) {
+        inOrder(root-&gt;pLeft);
+        std::cout &lt;&lt; root-&gt;data &lt;&lt; " ";
+        inOrder(root-&gt;pRight);
+    }
+}
+
+void postOrder(TreeNode* root) {
+    if (root != nullptr) {
+        postOrder(root-&gt;pLeft);
+        postOrder(root-&gt;pRight);
+        std::cout &lt;&lt; root-&gt;data &lt;&lt; " ";
+    }
+}</code></pre>
+
+    <h2>6. Complexity Analysis & Invariants</h2>
+    <p>Tất cả các phép duyệt cây nhị phân đều ghé thăm mỗi nút đúng 1 lần, độ phức tạp là <strong>$\Theta(n)$ thời gian và $\mathcal{O}(h)$ bộ nhớ phụ</strong> (với $h$ là chiều cao cây do gọi đệ quy trên Call Stack).</p>
+
+    <h2>7. Dry Run Table (Trace Phép Duyệt NLR, LNR, LRN)</h2>
+    <p>Cho cây nhị phân: Gốc A, con trái B, con phải C. B có con trái D:</p>
+    <table>
+        <thead>
+            <tr><th>Phép duyệt</th><th>Thứ tự nút được ghé thăm</th></tr>
+        </thead>
+        <tbody>
+            <tr><td><strong>NLR (Tiền tự)</strong></td><td>A $ \Rightarrow  $ B $ \Rightarrow  $ D $ \Rightarrow  $ C</td></tr>
+            <tr><td><strong>LNR (Trung tự)</strong></td><td>D $ \Rightarrow  $ B $ \Rightarrow  $ A $ \Rightarrow  $ C</td></tr>
+            <tr><td><strong>LRN (Hậu tự)</strong></td><td>D $ \Rightarrow  $ B $ \Rightarrow  $ C $ \Rightarrow  $ A</td></tr>
+        </tbody>
+    </table>
+
+    <h2>8. Common Errors & IT003 Exam Style</h2>
+    <div class="callout callout-warning">
+        <span class="badge badge-exam-style">IT003 EXAM STYLE</span>
+        <p><strong>Bẫy Đề Thi:</strong> Xác định chiều cao của cây $H$. Đọc kỹ quy ước trong đề thi! Nếu đề thi tính Root ở Level 0 thì $H = \text{max\_level} + 1$. Nếu tính Root ở Level 1 thì $H = \text{max\_level}$.</p>
+    </div>
+
+    <h2>9. Quick Recall & Exercise Ladder</h2>
+    <ul>
+        <li><strong>Level 0:</strong> Phép duyệt nào trên Cây Nhị Phân Tìm Kiếm (BST) sẽ xuất ra các giá trị khóa theo thứ tự tăng dần?
+            <br><em>Đáp án:</em> Phép duyệt Trung tự <strong>LNR (In-order)</strong>.
+        </li>
+        <li><strong>Level 1:</strong> Tính số nút tối đa của một Cây nhị phân có chiều cao $h$ (Root ở Level 0, height $h = \text{max\_level} + 1$).
+            <br><em>Gợi ý:</em> Số nút tối đa là $2^h - 1$.
+        </li>
+    </ul>
+
+    <div class="callout">
+        <div class="callout-title">📝 Tóm kết Chương 6</div>
+        <p>Nắm vững khái niệm mức (Level), chiều cao và 3 phép duyệt NLR, LNR, LRN là chìa khóa để xử lý toàn bộ các câu hỏi về Cây trong đề thi IT003.</p>
+    </div>
+</section>
+
+<section class="chapter" id="ch07">
+    <div class="chapter-header">
+        <span class="badge badge-core">PART VII</span>
+        <h1>CÂY NHỊ PHÂN TÌM KIẾM (BINARY SEARCH TREE - BST)</h1>
+    </div>
+
+    <h2>1. Intuition (Trực giác & Động lực)</h2>
+    <p>Mảng sắp xếp cho phép Tìm kiếm Nhị phân $\mathcal{O}(\log n)$ nhưng chèn/xóa tốn $\mathcal{O}(n)$. Danh sách liên kết cho phép chèn/xóa $\mathcal{O}(1)$ nhưng tìm kiếm tốn $\mathcal{O}(n)$. <strong>Binary Search Tree (BST)</strong> kết hợp ưu điểm của cả hai: cho phép Tìm kiếm, Chèn, Xóa đều đạt trung bình $\mathcal{O}(\log n)$!</p>
+
+    <h2>2. Formal Model & Invariants (Định nghĩa & Bất biến)</h2>
+    <p>BST là cây nhị phân thỏa mãn tính chất bất biến tại mọi nút $X$:</p>
+    <ul>
+        <li>Mọi khóa ở cây con trái của $X$ đều <strong>nhỏ hơn</strong> khóa của $X$ ($\text{key}(Left) < \text{key}(X)$).</li>
+        <li>Mọi khóa ở cây con phải của $X$ đều <strong>lớn hơn</strong> khóa của $X$ ($\text{key}(Right) > \text{key}(X)$).</li>
+    </ul>
+
+    <h2>3. Visual Diagram (Sơ đồ Xóa Nút BST 2 Con)</h2>
+    <div class="diagram-container">
+        <svg width="600" height="230" viewBox="0 0 600 230" xmlns="http://www.w3.org/2000/svg">
+            <rect width="600" height="230" fill="#f8fafc" rx="8"/>
+            <!-- Definitions for Arrow -->
+            <defs>
+                <marker id="arrow-bst" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                    <path d="M0,0 L0,6 L9,3 z" fill="#0f172a" />
+                </marker>
+            </defs>
+            
+            <!-- Edges for Before -->
+            <line x1="150" y1="70" x2="100" y2="120" stroke="#0f172a" stroke-width="2"/>
+            <line x1="150" y1="70" x2="200" y2="120" stroke="#0f172a" stroke-width="2"/>
+            <line x1="200" y1="120" x2="175" y2="170" stroke="#15803d" stroke-width="2" stroke-dasharray="4"/>
+            <!-- Nodes Before -->
+            <g transform="translate(150, 70)">
+                <circle cx="0" cy="0" r="20" fill="#b91c1c"/>
+                <text x="0" y="5" fill="#ffffff" font-family="Inter" font-size="14" font-weight="bold" text-anchor="middle">50</text>
+                <text x="0" y="-25" font-family="Inter" font-size="12" fill="#b91c1c" font-weight="bold" text-anchor="middle">Cần xóa</text>
+            </g>
+            <g transform="translate(100, 120)">
+                <circle cx="0" cy="0" r="20" fill="#0f172a"/>
+                <text x="0" y="5" fill="#ffffff" font-family="Inter" font-size="14" font-weight="bold" text-anchor="middle">30</text>
+            </g>
+            <g transform="translate(200, 120)">
+                <circle cx="0" cy="0" r="20" fill="#0f172a"/>
+                <text x="0" y="5" fill="#ffffff" font-family="Inter" font-size="14" font-weight="bold" text-anchor="middle">70</text>
+            </g>
+            <g transform="translate(175, 170)">
+                <circle cx="0" cy="0" r="20" fill="#15803d"/>
+                <text x="0" y="5" fill="#ffffff" font-family="Inter" font-size="14" font-weight="bold" text-anchor="middle">55</text>
+                <text x="0" y="35" font-family="Inter" font-size="12" fill="#15803d" font-weight="bold" text-anchor="middle">Min Right</text>
+            </g>
+            
+            <!-- Process Arrow -->
+            <path d="M 270 120 L 330 120" stroke="#0f172a" stroke-width="2" marker-end="url(#arrow-bst)"/>
+            <text x="300" y="110" font-family="Inter" font-size="12" font-style="italic" text-anchor="middle">Thế mạng</text>
+
+            <!-- Edges for After -->
+            <line x1="450" y1="70" x2="400" y2="120" stroke="#0f172a" stroke-width="2"/>
+            <line x1="450" y1="70" x2="500" y2="120" stroke="#0f172a" stroke-width="2"/>
+            <!-- Nodes After -->
+            <g transform="translate(450, 70)">
+                <circle cx="0" cy="0" r="20" fill="#15803d"/>
+                <text x="0" y="5" fill="#ffffff" font-family="Inter" font-size="14" font-weight="bold" text-anchor="middle">55</text>
+                <text x="0" y="-25" font-family="Inter" font-size="12" fill="#15803d" font-weight="bold" text-anchor="middle">Gốc mới</text>
+            </g>
+            <g transform="translate(400, 120)">
+                <circle cx="0" cy="0" r="20" fill="#0f172a"/>
+                <text x="0" y="5" fill="#ffffff" font-family="Inter" font-size="14" font-weight="bold" text-anchor="middle">30</text>
+            </g>
+            <g transform="translate(500, 120)">
+                <circle cx="0" cy="0" r="20" fill="#0f172a"/>
+                <text x="0" y="5" fill="#ffffff" font-family="Inter" font-size="14" font-weight="bold" text-anchor="middle">70</text>
+            </g>
+        </svg>
+    </div>
+
+    <h2>4. Algorithm & Mechanics (Các thao tác cơ bản)</h2>
+    <ul>
+        <li><strong>Tìm kiếm (Search):</strong> Duyệt từ gốc, nhỏ sang trái, lớn sang phải. $\mathcal{O}(\log n)$.</li>
+        <li><strong>Thêm (Insert):</strong> Tương tự tìm kiếm để tìm vị trí nút lá thích hợp rồi chèn.</li>
+        <li><strong>Min/Max:</strong> Min nằm ở nút cực trái, Max nằm ở nút cực phải.</li>
+        <li><strong>Duyệt cây (Traversals):</strong> 
+            <ul>
+                <li>Pre-order (NLR): Root $\rightarrow$ Left $\rightarrow$ Right</li>
+                <li>In-order (LNR): Left $\rightarrow$ Root $\rightarrow$ Right (In ra mảng tăng dần)</li>
+                <li>Post-order (LRN): Left $\rightarrow$ Right $\rightarrow$ Root</li>
+            </ul>
+        </li>
+        <li><strong>Xóa (Delete) - 3 Trường hợp:</strong> 
+            <ul>
+                <li><strong>Nút lá:</strong> Xóa trực tiếp nút.</li>
+                <li><strong>Nút có 1 con:</strong> Nối cha của nút cần xóa trực tiếp tới nút con của nó.</li>
+                <li><strong>Nút có 2 con:</strong> <span class="badge badge-uit-convention">IT003 CONVENTION</span> Thay bằng <strong>Nút cực phải của cây con trái (Max Left)</strong> hoặc <strong>Nút cực trái của cây con phải (Min Right)</strong>.</li>
+            </ul>
+        </li>
+    </ul>
+
+    <h2>5. C++ Educational Implementation</h2>
+    <pre><code>// Search (Recursive)
+TreeNode* search(TreeNode* root, int key) {
+    if (!root || root-&gt;data == key) return root;
+    if (key &lt; root-&gt;data) return search(root-&gt;pLeft, key);
+    return search(root-&gt;pRight, key);
+}
+
+// Search (Iterative)
+TreeNode* searchIterative(TreeNode* root, int key) {
+    while (root != nullptr && root-&gt;data != key) {
+        if (key &lt; root-&gt;data) root = root-&gt;pLeft;
+        else root = root-&gt;pRight;
+    }
+    return root;
+}
+
+// LNR Traversal
+void inOrder(TreeNode* root) {
+    if (root) {
+        inOrder(root-&gt;pLeft);
+        std::cout &lt;&lt; root-&gt;data &lt;&lt; " ";
+        inOrder(root-&gt;pRight);
+    }
+}
+
+TreeNode* findMin(TreeNode* root) {
+    while (root && root-&gt;pLeft != nullptr) root = root-&gt;pLeft;
+    return root;
+}
+
+TreeNode* findMax(TreeNode* root) {
+    while (root && root-&gt;pRight != nullptr) root = root-&gt;pRight;
+    return root;
+}
+
+TreeNode* deleteNode(TreeNode* root, int key) {
+    if (root == nullptr) return root;
+
+    if (key &lt; root-&gt;data) root-&gt;pLeft = deleteNode(root-&gt;pLeft, key);
+    else if (key &gt; root-&gt;data) root-&gt;pRight = deleteNode(root-&gt;pRight, key);
+    else {
+        if (root-&gt;pLeft == nullptr) {
+            TreeNode* temp = root-&gt;pRight;
+            delete root; return temp;
+        } else if (root-&gt;pRight == nullptr) {
+            TreeNode* temp = root-&gt;pLeft;
+            delete root; return temp;
+        }
+        TreeNode* temp = findMin(root-&gt;pRight); // Min Right
+        root-&gt;data = temp-&gt;data;
+        root-&gt;pRight = deleteNode(root-&gt;pRight, temp-&gt;data);
+    }
+    return root;
+}</code></pre>
+
+    <h2>6. Complexity Analysis</h2>
+    <p>Các thao tác Tìm kiếm, Chèn, Xóa trên BST có độ phức tạp phụ thuộc trực tiếp vào chiều cao của cây: <strong>$\mathcal{O}(h)$</strong>.</p>
+    <ul>
+        <li><strong>Cây cân bằng tương đối ($h = \Theta(\log n)$):</strong> Các thao tác đạt hiệu năng lý tưởng <strong>$\mathcal{O}(\log n)$</strong>.</li>
+        <li><strong>Cây suy biến tệ nhất (Skewed Tree, $h = n$):</strong> Cây bị suy biến thành Danh sách liên kết, các thao tác tốn <strong>$\mathcal{O}(n)$</strong>.</li>
+    </ul>
+
+    <h2>7. Dry Run Table (Trace Thêm và Xóa Nút)</h2>
+    <p>Trace Thêm lần lượt 50, 30, 70, 20:</p>
+    <table>
+        <thead>
+            <tr><th>Khóa chèn</th><th>Hành động</th><th>Kết quả Cây</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>50</td><td>Cây rỗng, tạo Root 50</td><td>Root: 50</td></tr>
+            <tr><td>30</td><td>30 < 50, chèn trái 50</td><td>50 $\Rightarrow$ L:30</td></tr>
+            <tr><td>70</td><td>70 > 50, chèn phải 50</td><td>50 $\Rightarrow$ L:30, R:70</td></tr>
+            <tr><td>20</td><td>20 < 50 (L), 20 < 30 (L), chèn trái 30</td><td>50 $\Rightarrow$ L:30(L:20), R:70</td></tr>
+        </tbody>
+    </table>
+    <p>Trace Xóa Nút 50 (có 2 con, dùng Min Right):</p>
+    <table>
+        <thead>
+            <tr><th>Bước</th><th>Hành động</th><th>Trạng thái Nút 50</th><th>Nút thế mạng Min Right</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>1</td><td>Tìm nút 50</td><td>Xác định có 2 con (Left 30, Right 70)</td><td>-</td></tr>
+            <tr><td>2</td><td>Tìm Min Right trên cây con 70</td><td>-</td><td>Tìm thấy Nút 55</td></tr>
+            <tr><td>3</td><td>Gán <code>root->data = 55</code></td><td>Dữ liệu đổi thành 55</td><td>-</td></tr>
+            <tr><td>4</td><td>Đệ quy xóa 55 trên cây con phải</td><td>Nút 50 cũ giữ giá trị 55</td><td>Xóa nút 55 ban đầu</td></tr>
+        </tbody>
+    </table>
+
+    <h2>8. Common Errors & IT003 Exam Style</h2>
+    <div class="callout callout-warning">
+        <span class="badge badge-exam-style">IT003 EXAM STYLE</span>
+        <p><strong>Bẫy Đề Thi:</strong> Luôn đọc kỹ yêu cầu bài thi: "Thay bằng phần tử lớn nhất bên cây con trái" (Max Left) hay "nhỏ nhất bên cây con phải" (Min Right). Chọn sai phần tử thế mạng sẽ bị trừ điểm toàn bộ cây kết quả!</p>
+    </div>
+
+    <h2>9. Quick Recall & Exercise Ladder</h2>
+    <ul>
+        <li><strong>Level 0:</strong> BST bị suy biến thành danh sách tuyến tính khi nào?
+            <br><em>Đáp án:</em> Khi chèn các phần tử theo thứ tự đã sắp xếp tăng dần hoặc giảm dần.
+        </li>
+        <li><strong>Level 1:</strong> Vẽ BST kết quả sau khi chèn dãy khóa: $50, 30, 70, 20, 40, 60, 80$.
+            <br><em>Gợi ý:</em> 50 là Root. 30 bên trái 50, 70 bên phải 50, ... thu được cây cân bằng hoàn hảo.
+        </li>
+    </ul>
+
+    <div class="callout">
+        <div class="callout-title">📝 Tóm kết Chương 7</div>
+        <p>BST là nền tảng quan trọng nhất của cấu trúc cây tìm kiếm. Hãy luyện tập thành thạo thao tác xóa nút 2 con trên giấy!</p>
+    </div>
+</section>
+
+<section class="chapter" id="ch08">
+    <div class="chapter-header">
+        <span class="badge badge-core">PART VIII</span>
+        <h1>CÂY CÂN BẰNG AVL (AVL TREES)</h1>
+    </div>
+
+    <h2>1. Intuition (Trực giác & Động lực)</h2>
+    <p>Để khắc phục nhược điểm bị suy biến thành $\mathcal{O}(n)$ của BST thông thường, Adelson-Velsky và Landis (AVL) đã đề xuất cây BST tự cân bằng: tự động thực hiện phép <strong>Xoay (Rotation)</strong> mỗi khi độ lệch chiều cao giữa 2 cây con vượt quá 1.</p>
+
+    <h2>2. Formal Model & Balance Factor</h2>
+    <p>Chỉ số cân bằng của nút $X$:</p>
+    $$BF(X) = h_{left} - h_{right}$$
+    <p>Điều kiện AVL: $BF(X) \in \{-1, 0, +1\}$ với mọi nút $X$. Nếu $|BF(X)| \ge 2$, cây bị mất cân bằng tại $X$.</p>
+
+    <h2>3. Visual Diagram (Cơ chế Xoay Đơn Phải - Right Rotation)</h2>
+    <div class="diagram-container">
+        <svg width="600" height="200" viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg">
+            <rect width="600" height="200" fill="#f8fafc" rx="8"/>
+            <defs>
+                <marker id="arrow-avl" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                    <path d="M0,0 L0,6 L9,3 z" fill="#0f172a" />
+                </marker>
+            </defs>
+            <!-- Before -->
+            <line x1="150" y1="50" x2="100" y2="100" stroke="#0f172a" stroke-width="2"/>
+            <line x1="150" y1="50" x2="200" y2="100" stroke="#0f172a" stroke-width="2"/>
+            <line x1="100" y1="100" x2="60" y2="150" stroke="#0f172a" stroke-width="2"/>
+            <line x1="100" y1="100" x2="140" y2="150" stroke="#15803d" stroke-width="2"/>
+            
+            <g transform="translate(150, 50)">
+                <circle cx="0" cy="0" r="20" fill="#b91c1c"/>
+                <text x="0" y="5" fill="#ffffff" font-family="Inter" font-size="14" font-weight="bold" text-anchor="middle">Y</text>
+            </g>
+            <g transform="translate(100, 100)">
+                <circle cx="0" cy="0" r="20" fill="#0f172a"/>
+                <text x="0" y="5" fill="#ffffff" font-family="Inter" font-size="14" font-weight="bold" text-anchor="middle">X</text>
+            </g>
+            <g transform="translate(60, 150)">
+                <rect x="-15" y="-15" width="30" height="30" fill="#cbd5e1"/>
+                <text x="0" y="5" font-family="Inter" font-size="14" text-anchor="middle">A</text>
+            </g>
+            <g transform="translate(140, 150)">
+                <rect x="-15" y="-15" width="30" height="30" fill="#dcfce7"/>
+                <text x="0" y="5" font-family="Inter" font-size="14" text-anchor="middle">T2</text>
+            </g>
+            <g transform="translate(200, 100)">
+                <rect x="-15" y="-15" width="30" height="30" fill="#cbd5e1"/>
+                <text x="0" y="5" font-family="Inter" font-size="14" text-anchor="middle">C</text>
+            </g>
+
+            <path d="M 250 100 L 330 100" stroke="#0f172a" stroke-width="2" marker-end="url(#arrow-avl)"/>
+            <text x="290" y="90" font-family="Inter" font-size="12" font-style="italic" text-anchor="middle">Rotate Right(Y)</text>
+
+            <!-- After -->
+            <line x1="450" y1="50" x2="400" y2="100" stroke="#0f172a" stroke-width="2"/>
+            <line x1="450" y1="50" x2="500" y2="100" stroke="#0f172a" stroke-width="2"/>
+            <line x1="500" y1="100" x2="460" y2="150" stroke="#15803d" stroke-width="2"/>
+            <line x1="500" y1="100" x2="540" y2="150" stroke="#0f172a" stroke-width="2"/>
+
+            <g transform="translate(450, 50)">
+                <circle cx="0" cy="0" r="20" fill="#1e40af"/>
+                <text x="0" y="5" fill="#ffffff" font-family="Inter" font-size="14" font-weight="bold" text-anchor="middle">X</text>
+            </g>
+            <g transform="translate(400, 100)">
+                <rect x="-15" y="-15" width="30" height="30" fill="#cbd5e1"/>
+                <text x="0" y="5" font-family="Inter" font-size="14" text-anchor="middle">A</text>
+            </g>
+            <g transform="translate(500, 100)">
+                <circle cx="0" cy="0" r="20" fill="#b91c1c"/>
+                <text x="0" y="5" fill="#ffffff" font-family="Inter" font-size="14" font-weight="bold" text-anchor="middle">Y</text>
+            </g>
+            <g transform="translate(460, 150)">
+                <rect x="-15" y="-15" width="30" height="30" fill="#dcfce7"/>
+                <text x="0" y="5" font-family="Inter" font-size="14" text-anchor="middle">T2</text>
+            </g>
+            <g transform="translate(540, 150)">
+                <rect x="-15" y="-15" width="30" height="30" fill="#cbd5e1"/>
+                <text x="0" y="5" font-family="Inter" font-size="14" text-anchor="middle">C</text>
+            </g>
+        </svg>
+    </div>
+    <div class="callout">
+        <div class="callout-title">🔄 Rotation Cheat Sheet Table</div>
+        <table>
+            <thead>
+                <tr><th>Trường hợp</th><th>$BF(A)$ và $BF(Child)$</th><th>Phép Xoay Khôi Phục</th></tr>
+            </thead>
+            <tbody>
+                <tr><td><strong>LL (Left-Left)</strong></td><td>$BF(A) = +2$, $BF(Left) \ge 0$</td><td><strong>Xoay Đơn Phải (Rotate Right) tại A</strong></td></tr>
+                <tr><td><strong>RR (Right-Right)</strong></td><td>$BF(A) = -2$, $BF(Right) \le 0$</td><td><strong>Xoay Đơn Trái (Rotate Left) tại A</strong></td></tr>
+                <tr><td><strong>LR (Left-Right)</strong></td><td>$BF(A) = +2$, $BF(Left) = -1$</td><td><strong>Xoay Kép LR</strong> (Rotate Left tại Left, rồi Rotate Right tại A)</td></tr>
+                <tr><td><strong>RL (Right-Left)</strong></td><td>$BF(A) = -2$, $BF(Right) = +1$</td><td><strong>Xoay Kép RL</strong> (Rotate Right tại Right, rồi Rotate Left tại A)</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <h2>4. Algorithm & Mechanics (Xoay Đơn Phải Rotate Right)</h2>
+    <p>Cho nút $Y$ bị mất cân bằng nghiêng trái ($BF = +2$), nút con trái là $X$. Phép xoay phải đưa $X$ lên làm cha $Y$, và chuyển cây con phải của $X$ ($T_2$) sang làm cây con trái của $Y$.</p>
+    <p><strong>Tại sao phép xoay bảo toàn tính chất BST?</strong><br>
+    Theo tính chất BST ban đầu: <code>A < X < T2 < Y < C</code>. Khi xoay phải, $X$ trở thành gốc mới, $Y$ trở thành con phải của $X$. Nút $T2$ (lớn hơn $X$ nhưng nhỏ hơn $Y$) được chuyển một cách hoàn toàn tự nhiên từ con phải của $X$ sang làm con trái của $Y$, vẫn thỏa mãn chặt chẽ bất biến BST.</p>
+
+    <h2>5. C++ Educational Implementation</h2>
+    <pre><code>struct AVLNode {
+    int key;
+    int height;
+    AVLNode* left;
+    AVLNode* right;
+};
+
+int getHeight(AVLNode* n) { return n == nullptr ? 0 : n-&gt;height; }
+int getBalance(AVLNode* n) { return n == nullptr ? 0 : getHeight(n-&gt;left) - getHeight(n-&gt;right); }
+
+AVLNode* rotateRight(AVLNode* y) {
+    AVLNode* x = y-&gt;left;
+    AVLNode* T2 = x-&gt;right;
+    x-&gt;right = y;
+    y-&gt;left = T2;
+    y-&gt;height = std::max(getHeight(y-&gt;left), getHeight(y-&gt;right)) + 1;
+    x-&gt;height = std::max(getHeight(x-&gt;left), getHeight(x-&gt;right)) + 1;
+    return x;
+}
+
+AVLNode* rotateLeft(AVLNode* x) {
+    AVLNode* y = x-&gt;right;
+    AVLNode* T2 = y-&gt;left;
+    y-&gt;left = x;
+    x-&gt;right = T2;
+    x-&gt;height = std::max(getHeight(x-&gt;left), getHeight(x-&gt;right)) + 1;
+    y-&gt;height = std::max(getHeight(y-&gt;left), getHeight(y-&gt;right)) + 1;
+    return y;
+}
+
+AVLNode* insertAVL(AVLNode* node, int key) {
+    if (node == nullptr) return new AVLNode{key, 1, nullptr, nullptr};
+    if (key &lt; node-&gt;key) node-&gt;left = insertAVL(node-&gt;left, key);
+    else if (key &gt; node-&gt;key) node-&gt;right = insertAVL(node-&gt;right, key);
+    else return node;
+
+    node-&gt;height = 1 + std::max(getHeight(node-&gt;left), getHeight(node-&gt;right));
+    int balance = getBalance(node);
+
+    // LL Case
+    if (balance &gt; 1 && key &lt; node-&gt;left-&gt;key) return rotateRight(node);
+    // RR Case
+    if (balance &lt; -1 && key &gt; node-&gt;right-&gt;key) return rotateLeft(node);
+    // LR Case
+    if (balance &gt; 1 && key &gt; node-&gt;left-&gt;key) {
+        node-&gt;left = rotateLeft(node-&gt;left);
+        return rotateRight(node);
+    }
+    // RL Case
+    if (balance &lt; -1 && key &lt; node-&gt;right-&gt;key) {
+        node-&gt;right = rotateRight(node-&gt;right);
+        return rotateLeft(node);
+    }
+    return node;
+}</code></pre>
+
+    <h2>6. Complexity Analysis</h2>
+    <p>Cây AVL luôn đảm bảo chiều cao tiệm cận $h = \Theta(\log n)$. Do đó các thao tác Tìm kiếm, Chèn, Xóa <strong>luôn luôn đạt $\Theta(\log n)$ trong mọi trường hợp</strong>.</p>
+
+    <h2>7. Dry Run Table (Trace 4 Trường Hợp Mất Cân Bằng Cơ Bản)</h2>
+    <p>Dưới đây là 4 kịch bản chèn 3 khóa gây mất cân bằng điển hình:</p>
+    <table>
+        <thead>
+            <tr><th>Trường hợp</th><th>Các khóa chèn</th><th>Trạng thái cây (Nghiêng)</th><th>Khắc phục (Phép xoay)</th><th>Kết quả (Root, L, R)</th></tr>
+        </thead>
+        <tbody>
+            <tr><td><strong>LL</strong></td><td>30, 20, 10</td><td>30 $ \Rightarrow  $ L:20 $ \Rightarrow  $ L:10</td><td>Xoay Phải (30)</td><td>Root:20, L:10, R:30</td></tr>
+            <tr><td><strong>RR</strong></td><td>10, 20, 30</td><td>10 $ \Rightarrow  $ R:20 $ \Rightarrow  $ R:30</td><td>Xoay Trái (10)</td><td>Root:20, L:10, R:30</td></tr>
+            <tr><td><strong>LR</strong></td><td>30, 10, 20</td><td>30 $ \Rightarrow  $ L:10 $ \Rightarrow  $ R:20</td><td>Xoay Trái (10), Xoay Phải (30)</td><td>Root:20, L:10, R:30</td></tr>
+            <tr><td><strong>RL</strong></td><td>10, 30, 20</td><td>10 $ \Rightarrow  $ R:30 $ \Rightarrow  $ L:20</td><td>Xoay Phải (30), Xoay Trái (10)</td><td>Root:20, L:10, R:30</td></tr>
+        </tbody>
+    </table>
+
+    <h2>8. Common Errors & IT003 Exam Style</h2>
+    <div class="callout callout-warning">
+        <span class="badge badge-exam-style">IT003 EXAM STYLE</span>
+        <p><strong>Bẫy Đề Thi:</strong> Nhầm lẫn giữa xoay đơn và xoay kép. Dấu hiệu xoay kép LR: $BF(A) = +2$ nhưng con trái lại có $BF = -1$. Phải xoay trái con trái trước, sau đó mới xoay phải A!</p>
+    </div>
+
+    <h2>9. Quick Recall & Exercise Ladder</h2>
+    <ul>
+        <li><strong>Level 0:</strong> Chiều cao cây con trái là 3, cây con phải là 1. Chỉ số cân bằng $BF$ của gốc là bao nhiêu? Cây có đạt chuẩn AVL không?
+            <br><em>Đáp án:</em> $BF = 3 - 1 = +2$. Cây không đạt chuẩn AVL (cần xoay).
+        </li>
+        <li><strong>Level 1:</strong> Chèn lần lượt các số $1, 2, 3$ vào cây AVL rỗng. Xác định loại xoay.
+            <br><em>Gợi ý:</em> Mất cân bằng RR tại nút 1 $ \Rightarrow  $ Xoay Trái nút 1.
+        </li>
+    </ul>
+
+    <div class="callout">
+        <div class="callout-title">📝 Tóm kết Chương 8</div>
+        <p>Cây AVL duy trì sự cân bằng nghiêm ngặt nhờ 4 phép xoay chuẩn (LL, RR, LR, RL), đảm bảo thời gian truy xuất lý tưởng $\mathcal{O}(\log n)$.</p>
+    </div>
+</section>
+
+<section class="chapter" id="ch09">
+    <div class="chapter-header">
+        <span class="badge badge-core">PART IX</span>
+        <h1>HEAPS VÀ HÀNG ĐỢI ƯU TIÊN (HEAP & PRIORITY QUEUE)</h1>
+    </div>
+
+    <h2>1. Intuition (Trực giác & Động lực)</h2>
+    <p>Hàng đợi ưu tiên (Priority Queue) là hàng đợi mà phần tử có độ ưu tiên cao nhất luôn được phục vụ trước. Cấu trúc dữ liệu Heap biểu diễn hoàn hảo hàng đợi ưu tiên nhờ khả năng tìm phần tử cực đại/cực tiểu trong $\mathcal{O}(1)$ và cập nhật lại cây trong $\mathcal{O}(\log n)$.</p>
+
+    <h2>2. Formal Model & Invariants</h2>
+    <p><strong>Max-Heap</strong> là Cây nhị phân hoàn chỉnh (Complete Binary Tree) thỏa mãn bất biến: Khóa của nút cha luôn $\ge$ khóa của các nút con.</p>
+
+    <h2>3. Visual Diagram (Biểu diễn Heap bằng Mảng)</h2>
+    <div class="diagram-container">
+        <svg width="550" height="130" viewBox="0 0 550 130" xmlns="http://www.w3.org/2000/svg">
+            <rect width="550" height="130" fill="#f8fafc" rx="8"/>
+            <g transform="translate(50, 40)">
+                <rect x="0" y="0" width="45" height="40" fill="#0f172a" rx="4"/>
+                <text x="22" y="25" fill="#ffffff" font-family="Inter" font-size="12" font-weight="bold" text-anchor="middle">90</text>
+                <text x="22" y="55" font-family="Inter" font-size="10" fill="#64748b" text-anchor="middle">0 (Root)</text>
+                <rect x="45" y="0" width="45" height="40" fill="#1e40af" rx="4"/>
+                <text x="67" y="25" fill="#ffffff" font-family="Inter" font-size="12" font-weight="bold" text-anchor="middle">75</text>
+                <text x="67" y="55" font-family="Inter" font-size="10" fill="#64748b" text-anchor="middle">1 (Left)</text>
+                <rect x="90" y="0" width="45" height="40" fill="#1e40af" rx="4"/>
+                <text x="112" y="25" fill="#ffffff" font-family="Inter" font-size="12" font-weight="bold" text-anchor="middle">60</text>
+                <text x="112" y="55" font-family="Inter" font-size="10" fill="#64748b" text-anchor="middle">2 (Right)</text>
+            </g>
+        </svg>
+    </div>
+
+    <h2>4. Algorithm & Mechanics (Công thức Chỉ số Mảng)</h2>
+    <p><span class="badge badge-uit-convention">IT003 CONVENTION</span>: Với mảng bắt đầu từ index <code>0</code>:</p>
+    <ul>
+        <li>$\text{parent}(i) = \lfloor (i - 1) / 2 \rfloor$</li>
+        <li>$\text{left}(i) = 2i + 1$</li>
+        <li>$\text{right}(i) = 2i + 2$</li>
+    </ul>
+
+    <h2>5. C++ Educational & STL Implementation</h2>
+    <pre><code>void heapify(int a[], int n, int i) {
+    int largest = i;
+    int left = 2 * i + 1, right = 2 * i + 2;
+    if (left &lt; n && a[left] &gt; a[largest]) largest = left;
+    if (right &lt; n && a[right] &gt; a[largest]) largest = right;
+    if (largest != i) {
+        std::swap(a[i], a[largest]);
+        heapify(a, n, largest);
+    }
+}
+
+// C++ STL Priority Queue
+#include &lt;queue&gt;
+void stlPriorityQueue() {
+    std::priority_queue&lt;int&gt; maxHeap; // Max Heap mặc định
+    maxHeap.push(50); maxHeap.push(80);
+    int topVal = maxHeap.top(); // 80
+}</code></pre>
+
+    <h2>6. Complexity Analysis</h2>
+    <p>Tìm Max: $\Theta(1)$. Chèn / Xóa Max (Heapify): $\Theta(\log n)$. Thuật toán <code>buildHeap</code> tạo Heap từ mảng ngẫu nhiên đạt độ phức tạp tuyến tính <strong>$\Theta(n)$</strong>.</p>
+    <p><strong>Giải thích trực giác vì sao buildHeap là $\Theta(n)$:</strong> Hầu hết các nút nằm ở đáy cây (mức lá). Lá không cần heapify (chiều cao $h=0$). Chỉ có một vài nút ở đỉnh cây mới cần rớt xuống sâu. Tổng số thao tác rớt của tất cả các nút tạo thành một chuỗi giảm dần hội tụ về $\Theta(n)$. Heap Sort (Build Heap + Extract Max liên tục) đạt $\Theta(n \log n)$.</p>
+
+    <h2>7. Dry Run Table (Trace Heap Sort)</h2>
+    <p>Thuật toán Heap Sort thực hiện các bước: BuildHeap $\rightarrow$ Extract Max $\rightarrow$ Swap với phần tử cuối $\rightarrow$ Shrink kích thước $\rightarrow$ Heapify root.</p>
+    <p>Sắp xếp $A = [10, 50, 40]$ (đã là Max-Heap sau buildHeap với kết quả $A=[50, 10, 40]$):</p>
+    <table>
+        <thead>
+            <tr><th>Bước</th><th>Mảng hiện tại</th><th>Hành động</th><th>Kích thước Heap</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>1</td><td>[50, 10, 40]</td><td>Đổi chỗ A[0] (50) và A[2] (40)</td><td>Giảm xuống n=2</td></tr>
+            <tr><td>2</td><td>[40, 10, <strong>50</strong>]</td><td>Heapify(A, 2, 0): 40 > 10, giữ nguyên</td><td>n=2</td></tr>
+            <tr><td>3</td><td>[40, 10, <strong>50</strong>]</td><td>Đổi chỗ A[0] (40) và A[1] (10)</td><td>Giảm xuống n=1</td></tr>
+            <tr><td>4</td><td>[10, <strong>40</strong>, <strong>50</strong>]</td><td>Hoàn thành, mảng đã sắp xếp tăng dần</td><td>n=1</td></tr>
+        </tbody>
+    </table>
+
+    <h2>8. Common Errors & IT003 Exam Style</h2>
+    <div class="callout callout-warning">
+        <span class="badge badge-exam-style">IT003 EXAM STYLE</span>
+        <p><strong>Bẫy Đề Thi:</strong> Cây nhị phân hoàn chỉnh phải được điền đầy từ trái sang phải ở mức cuối cùng. Đừng nhầm lẫn giữa Max-Heap và Cây BST!</p>
+    </div>
+
+    <h2>9. Quick Recall & Exercise Ladder</h2>
+    <ul>
+        <li><strong>Level 0:</strong> Trong Max-Heap dạng mảng, nút tại vị trí index 3 có nút con trái ở index bao nhiêu?
+            <br><em>Đáp án:</em> Index $2(3) + 1 = 7$.
+        </li>
+        <li><strong>Level 1:</strong> Cho mảng $A = [4, 10, 3, 5, 1]$. Chạy tay <code>buildHeap</code> để biến $A$ thành Max-Heap.
+            <br><em>Gợi ý:</em> Gọi Heapify từ vị trí $i = \lfloor n/2 \rfloor - 1 = 1 \Rightarrow A = [10, 5, 3, 4, 1]$.
+        </li>
+    </ul>
+
+    <div class="callout">
+        <div class="callout-title">📝 Tóm kết Chương 9</div>
+        <p>Heap cung cấp cấu trúc ưu tiên hiệu quả nhất với chi phí $\mathcal{O}(\log n)$ cho thao tác cập nhật và $\mathcal{O}(1)$ cho thao tác xem phần tử ưu tiên nhất.</p>
+    </div>
+</section>
+
+<section class="chapter" id="ch10">
+    <div class="chapter-header">
+        <span class="badge badge-core">PART X</span>
+        <h1>CÂY B-TREE (B-TREES - MULTI-WAY SEARCH TREES)</h1>
+    </div>
+
+    <h2>1. Intuition (Trực giác & Động lực)</h2>
+    <p>Khi dữ liệu quá lớn không thể chứa hết trong RAM mà phải lưu trên đĩa cứng (Hard Drive / SSD), mỗi lần đọc đĩa (Disk I/O) tốn thời gian rất lớn. <strong>B-Tree (Cây tìm kiếm đa đường)</strong> làm giảm chiều cao của cây bằng cách cho phép mỗi nút chứa nhiều khóa và nhiều con, tối ưu hóa tối đa số lần đọc đĩa.</p>
+
+    <h2>2. Formal Model & Rules (Quy tắc B-Tree Bậc $m=5$)</h2>
+    <p><span class="badge badge-uit-convention">IT003 CONVENTION</span>: <strong>B-Tree bậc 5 ($m=5$)</strong> xuất hiện phổ biến trong các bộ đề IT003 đã phân tích với các quy chuẩn:</p>
+    <ul>
+        <li>Số khóa tối đa trong 1 nút: $m - 1 = 4$ khóa.</li>
+        <li>Số con tối đa của 1 nút: $m = 5$ con.</li>
+        <li>Số khóa tối thiểu (nút không phải gốc): $\lceil m/2 \rceil - 1 = \lceil 2.5 \rceil - 1 = 2$ khóa.</li>
+        <li>Số con tối thiểu (nút không phải gốc): $\lceil m/2 \rceil = 3$ con.</li>
+        <li>Tất cả các nút lá đều nằm trên <strong>cùng một mức</strong>.</li>
+    </ul>
+
+    <h2>3. Visual Diagram (Sơ đồ Tách Nút B-Tree Bậc 5)</h2>
+    <div class="diagram-container">
+        <svg width="600" height="140" viewBox="0 0 600 140" xmlns="http://www.w3.org/2000/svg">
+            <rect width="600" height="140" fill="#f8fafc" rx="8"/>
+            <defs>
+                <marker id="arrow-btree" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                    <path d="M0,0 L0,6 L9,3 z" fill="#0f172a" />
+                </marker>
+            </defs>
+            <g transform="translate(30, 40)">
+                <!-- Full Node -->
+                <rect x="0" y="0" width="180" height="40" fill="#fee2e2" stroke="#b91c1c" stroke-width="2"/>
+                <text x="90" y="25" fill="#b91c1c" font-family="Inter" font-size="11" font-weight="bold" text-anchor="middle">[10, 20, 30, 40, 50] (Overflow)</text>
+            </g>
+            <path d="M 230 60 L 310 60" stroke="#0f172a" stroke-width="2" marker-end="url(#arrow-btree)"/>
+            <text x="270" y="50" font-family="Inter" font-size="11" font-style="italic" text-anchor="middle">Tách &amp; Đẩy 30</text>
+            <g transform="translate(330, 20)">
+                <!-- Edges -->
+                <line x1="95" y1="35" x2="40" y2="55" stroke="#1e40af" stroke-width="2"/>
+                <line x1="95" y1="35" x2="150" y2="55" stroke="#1e40af" stroke-width="2"/>
+                <!-- Promoted Key -->
+                <rect x="70" y="0" width="50" height="35" fill="#3b82f6" stroke="#1e40af" stroke-width="2"/>
+                <text x="95" y="22" fill="#ffffff" font-family="Inter" font-size="11" font-weight="bold" text-anchor="middle">30</text>
+                <!-- Left & Right Children -->
+                <rect x="0" y="55" width="80" height="35" fill="#dcfce7" stroke="#15803d" stroke-width="2"/>
+                <text x="40" y="77" fill="#15803d" font-family="Inter" font-size="11" font-weight="bold" text-anchor="middle">[10, 20]</text>
+                <rect x="110" y="55" width="80" height="35" fill="#dcfce7" stroke="#15803d" stroke-width="2"/>
+                <text x="150" y="77" fill="#15803d" font-family="Inter" font-size="11" font-weight="bold" text-anchor="middle">[40, 50]</text>
+            </g>
+        </svg>
+    </div>
+
+    <h2>4. Algorithm & Mechanics (Tách Nút và Xóa Nút)</h2>
+    <h3>Thêm (Insert) & Tách Nút (Split)</h3>
+    <p>Khi chèn vào nút đã có 4 khóa làm xuất hiện khóa thứ 5 ($[k_1, k_2, k_3, k_4, k_5]$): Khóa trung vị $k_3$ được <strong>đẩy nổi (Promote)</strong> lên nút cha. Nút bị <strong>Tách (Split)</strong> thành 2 nút con chứa $[k_1, k_2]$ và $[k_4, k_5]$.</p>
+    
+    <h3>Xóa (Delete) trên B-Tree bậc 5 (m=5)</h3>
+    <ul>
+        <li><strong>Trường hợp 1: Xóa ở nút lá và $\ge$ min keys (Số khóa $\ge 2$)</strong>: Xóa trực tiếp, không vi phạm cấu trúc.</li>
+        <li><strong>Trường hợp 2: Xóa gây Underflow (Số khóa tụt xuống 1)</strong>:
+            <ul>
+                <li><strong>Mượn (Borrow / Redistribution)</strong>: Nếu anh em ruột kề cạnh có $> 2$ khóa, mượn 1 khóa thông qua nút cha. Khóa của anh em lên cha, khóa của cha rớt xuống nút hiện tại.</li>
+                <li><strong>Gộp (Merge)</strong>: Nếu anh em kề cạnh chỉ có đúng $2$ khóa, tiến hành gộp nút hiện tại, nút anh em và 1 khóa từ cha lại thành 1 nút (tổng cộng $1 + 2 + 1 = 4$ khóa).</li>
+            </ul>
+        </li>
+        <li><strong>Xóa ở nút trong (Internal Node)</strong>: Thay thế bằng phần tử tiền nhiệm (Max Left) hoặc kế nhiệm (Min Right) ở nút lá, sau đó tiến hành xóa ở nút lá đó.</li>
+        <li><strong>Trường hợp Đặc biệt (Root)</strong>: Nếu gốc sau khi Merge bị mất hết khóa (chỉ còn 1 con), nút con đó sẽ trở thành Root mới. Chiều cao cây giảm đi 1.</li>
+    </ul>
+
+    <h2>5. C++ Pseudocode Representative Structure</h2>
+    <pre><code>const int M = 5; // B-Tree Order 5
+struct BTreeNode {
+    int keys[M - 1]; // Tối đa 4 khóa
+    BTreeNode* child[M]; // Tối đa 5 con
+    int numKeys;
+    bool isLeaf;
+};</code></pre>
+
+    <h2>6. Complexity Analysis</h2>
+    <p>Thời gian Tìm kiếm, Chèn, Xóa trên B-Tree luôn đạt <strong>$\Theta(\log_m n)$</strong>, giúp giảm số lần đọc đĩa xuống mức tối thiểu.</p>
+
+    <h2>7. Dry Run Table (Trace B-Tree bậc 5)</h2>
+    <p><strong>Trace 1: Thêm Khóa (Split)</strong></p>
+    <p>Chèn $10, 20, 30, 40, 50$ vào B-Tree bậc 5 rỗng:</p>
+    <table>
+        <thead>
+            <tr><th>Khóa chèn</th><th>Trạng thái Nút lá</th><th>Hiện tượng</th><th>Hành động Tách & Đẩy nổi</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>10, 20, 30, 40</td><td>[10, 20, 30, 40]</td><td>Đủ 4 khóa (Bình thường)</td><td>Chưa tách</td></tr>
+            <tr><td>50</td><td>[10, 20, 30, 40, 50]</td><td>Tràn (5 khóa)</td><td>Đẩy nổi 30 lên Root. Tách thành 2 con: [10, 20] và [40, 50]</td></tr>
+        </tbody>
+    </table>
+
+    <p><strong>Trace 2: Xóa Khóa (Borrow / Redistribution)</strong></p>
+    <p>Giả sử Root: [30]. Left: [10, 20]. Right: [40, 50, 60]. Cần xóa 10.</p>
+    <table>
+        <thead>
+            <tr><th>Nút Xóa</th><th>Trạng thái sau xóa</th><th>Khắc phục (Mượn từ Right qua Root)</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>Xóa 10</td><td>Left còn [20] (Underflow, $<2$ khóa)</td><td>Right có 3 khóa (dư dả). 40 đẩy lên Root, 30 rớt xuống Left.</td></tr>
+            <tr><td>Kết quả</td><td>-</td><td>Root: [40]. Left: [20, 30]. Right: [50, 60].</td></tr>
+        </tbody>
+    </table>
+
+    <p><strong>Trace 3: Xóa Khóa (Merge Nodes)</strong></p>
+    <p>Giả sử Root: [30]. Left: [10, 20]. Right: [40, 50]. Cần xóa 10.</p>
+    <table>
+        <thead>
+            <tr><th>Nút Xóa</th><th>Trạng thái sau xóa</th><th>Khắc phục (Gộp với Right & Root)</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>Xóa 10</td><td>Left còn [20] (Underflow). Right chỉ có [40, 50] (không cho mượn được)</td><td>Gộp Left [20], Root [30], Right [40, 50] thành 1 nút.</td></tr>
+            <tr><td>Kết quả</td><td>-</td><td>Root mới: [20, 30, 40, 50]. Chiều cao cây giảm 1.</td></tr>
+        </tbody>
+    </table>
+
+    <h2>8. Common Errors & IT003 Exam Style</h2>
+    <div class="callout callout-warning">
+        <span class="badge badge-exam-style">IT003 EXAM STYLE</span>
+        <p><strong>Bẫy Đề Thi:</strong> Khi tách nút có 5 khóa trong B-Tree bậc 5, khóa ở giữa (vị trí thứ 3) được đưa lên cha. Đừng nhầm lẫn vị trí khóa được đẩy nổi!</p>
+    </div>
+
+    <h2>9. Quick Recall & Exercise Ladder</h2>
+    <ul>
+        <li><strong>Level 0:</strong> B-Tree bậc 5 chứa tối đa bao nhiêu khóa trong 1 nút? Nút không phải gốc chứa tối thiểu bao nhiêu khóa?
+            <br><em>Đáp án:</em> Tối đa $m-1 = 4$ khóa. Tối thiểu $\lceil 5/2 \rceil - 1 = 2$ khóa.
+        </li>
+        <li><strong>Level 1:</strong> Vẽ B-Tree bậc 5 sau khi chèn các số $5, 15, 25, 35, 45, 55$.
+            <br><em>Gợi ý:</em> Sau khi chèn 45, nút tràn $[5, 15, 25, 35, 45]  \Rightarrow  $ Đẩy 25 lên gốc. Sau đó chèn 55 vào nút phải $[35, 45, 55]$.
+        </li>
+    </ul>
+
+    <div class="callout">
+        <div class="callout-title">📝 Tóm kết Chương 10</div>
+        <p>B-Tree bậc 5 quy định chặt chẽ số khóa từ 2 đến 4 khóa per node. Quy tắc Split đẩy nổi khóa thứ 3 là tâm điểm các câu hỏi B-Tree trong đề thi IT003.</p>
+    </div>
+</section>
+
+<section class="chapter" id="ch11">
+    <div class="chapter-header">
+        <span class="badge badge-core">PART XI</span>
+        <h1>BẢNG BĂM (HASH TABLE)</h1>
+    </div>
+
+    <h2>1. Intuition (Trực giác & Động lực)</h2>
+    <p>Bạn có muốn tìm kiếm dữ liệu trong thời gian tức thì $\mathcal{O}(1)$ không? Bảng băm (Hash Table) biến khóa $k$ thành chỉ số mảng thông qua <strong>Hàm Băm (Hash Function)</strong>, cho phép truy xuất dữ liệu gần như ngay lập tức.</p>
+
+    <h2>2. Formal Model & Collision Resolution</h2>
+    <p>Hàm bămModulo: $h(k) = k mod M$ ($M$ là kích thước bảng băm). Đụng độ (Collision) xảy ra khi 2 khóa khác nhau có cùng giá trị băm. Các phương pháp giải quyết đụng độ chuẩn IT003:</p>
+
+    <ul>
+        <li><strong>Linear Probing (Dò tuyến tính):</strong> $h(k, i) = (h(k) + i) mod M$</li>
+        <li><strong>Quadratic Probing (Dò bậc hai):</strong> $h(k, i) = (h(k) + i^2) mod M$</li>
+        <li><strong>Double Hashing (Băm kép):</strong> $h(k, i) = (h_1(k) + i \cdot h_2(k)) \bmod M$ (trong đó $h_2(k)$ là hàm băm thứ hai bắt buộc tuân theo đề bài cho; ví dụ phổ biến: $h_2(k) = R - (k \bmod R)$).</li>
+        <li><strong>Separate Chaining:</strong> Lưu mỗi ô bằng một Danh sách liên kết đơn.</li>
+    </ul>
+
+    <h2>3. Visual Diagram (Sơ đồ Dò Tuyến Tính Hash Probing)</h2>
+    <div class="diagram-container">
+        <svg width="550" height="120" viewBox="0 0 550 120" xmlns="http://www.w3.org/2000/svg">
+            <rect width="550" height="120" fill="#f8fafc" rx="8"/>
+            <g transform="translate(40, 35)">
+                <rect x="0" y="0" width="40" height="40" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+                <text x="20" y="25" font-family="Inter" font-size="11" font-weight="bold" text-anchor="middle">10</text>
+                <text x="20" y="55" font-family="Inter" font-size="10" fill="#64748b" text-anchor="middle">0</text>
+                <rect x="40" y="0" width="40" height="40" fill="#fee2e2" stroke="#b91c1c" stroke-width="2"/>
+                <text x="60" y="25" fill="#b91c1c" font-family="Inter" font-size="11" font-weight="bold" text-anchor="middle">21</text>
+                <text x="60" y="55" font-family="Inter" font-size="10" fill="#64748b" text-anchor="middle">1 (Collision)</text>
+                <rect x="80" y="0" width="40" height="40" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+                <text x="100" y="25" font-family="Inter" font-size="11" font-weight="bold" text-anchor="middle">EMPTY</text>
+                <text x="100" y="55" font-family="Inter" font-size="10" fill="#64748b" text-anchor="middle">2</text>
+            </g>
+        </svg>
+    </div>
+
+    <h2>4. Algorithm & Mechanics (Đếm So Sánh $C_{\text{succ}}$ và $C_{\text{unsucc}}$)</h2>
+    <p><span class="badge badge-uit-convention">IT003 CONVENTION</span>:</p>
+    <ul>
+        <li><strong>Tìm kiếm Thành công ($C_{\text{succ}}$):</strong> Trung bình số phép so sánh để tìm thấy các khóa đang có trong bảng.</li>
+        <li><strong>Tìm kiếm Thất bại ($C_{\text{unsucc}}$):</strong> Trung bình số phép so sánh xuất phát từ mỗi vị trí $i \in [0, M-1]$, lặp theo <strong>đúng chuỗi dò thực tế của phương pháp tương ứng</strong> (Linear / Quadratic / Double Hashing) cho đến khi <strong>gặp ô trống (<code>EMPTY</code>) đầu tiên</strong>. Ô bị xóa (<code>DELETED</code>) <strong>không dừng chuỗi dò</strong>!</li>
+    </ul>
+
+    <h2>5. C++ Educational & STL Code</h2>
+    <pre><code>#include &lt;unordered_map&gt;
+#include &lt;iostream&gt;
+
+void stlHashTable() {
+    std::unordered_map&lt;std::string, int&gt; hashMap;
+    hashMap["UIT"] = 100;
+    if (hashMap.find("UIT") != hashMap.end()) {
+        std::cout &lt;&lt; "Found: " &lt;&lt; hashMap["UIT"] &lt;&lt; "\n";
+    }
+}</code></pre>
+
+    <h2>6. Complexity Analysis</h2>
+    <p>Trung bình: Tìm kiếm / Chèn / Xóa tốn <strong>$\Theta(1)$ thời gian</strong>. Trường hợp tệ nhất (tất cả các khóa bị đụng độ về 1 ô): $\Theta(n)$.</p>
+
+    <h2>7. Dry Run Tables (Minh họa các phương pháp Dò)</h2>
+    <h3>7.1 Linear Probing ($h(k) = k  mod 7$)</h3>
+    <p>Chèn $14, 21, 7$ vào bảng băm $M=7$ rỗng:</p>
+    <table>
+        <thead>
+            <tr><th>Khóa k</th><th>h(k) = k % 7</th><th>Vị trí ô chèn</th><th>Số lần so sánh (Probes)</th><th>Trạng thái bảng băm [0..6]</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>14</td><td>0</td><td>0 (Trống)</td><td>1</td><td>[14, -, -, -, -, -, -]</td></tr>
+            <tr><td>21</td><td>0</td><td>0 (Trùng) $ \Rightarrow  $ ô 1 (Trống)</td><td>2</td><td>[14, 21, -, -, -, -, -]</td></tr>
+            <tr><td>7</td><td>0</td><td>0, 1 (Trùng) $ \Rightarrow  $ ô 2 (Trống)</td><td>3</td><td>[14, 21, 7, -, -, -, -]</td></tr>
+        </tbody>
+    </table>
+
+    <h3>7.2 Quadratic Probing ($h(k, i) = (h(k) + i^2)  mod 7$)</h3>
+    <p>Chèn $14, 21, 28$ vào bảng băm $M=7$ (hàm băm $h(k) = k  mod 7$):</p>
+    <table>
+        <thead>
+            <tr><th>Khóa k</th><th>h(k)</th><th>Chuỗi dò (i=0, 1, 2...)</th><th>Probes</th><th>Trạng thái bảng</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>14</td><td>0</td><td>$0$ (Trống)</td><td>1</td><td>[14, -, -, -, -, -, -]</td></tr>
+            <tr><td>21</td><td>0</td><td>$0 \Rightarrow (0+1^2)\%7=1$ (Trống)</td><td>2</td><td>[14, 21, -, -, -, -, -]</td></tr>
+            <tr><td>28</td><td>0</td><td>$0 \Rightarrow 1 \Rightarrow (0+2^2)\%7=4$ (Trống)</td><td>3</td><td>[14, 21, -, -, 28, -, -]</td></tr>
+        </tbody>
+    </table>
+
+    <h3>7.3 Double Hashing ($h(k, i) = (h_1(k) + i \cdot h_2(k))  mod 7$)</h3>
+    <p>Với $h_1(k) = k  mod 7$ và $h_2(k) = 5 - (k  mod 5)$. Chèn $14, 21, 7$:</p>
+    <table>
+        <thead>
+            <tr><th>Khóa k</th><th>$h_1(k)$, $h_2(k)$</th><th>Chuỗi dò (i=0, 1, 2...)</th><th>Probes</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>14</td><td>0, 1</td><td>$0$ (Trống)</td><td>1</td></tr>
+            <tr><td>21</td><td>0, 4</td><td>$0 \Rightarrow (0+4)\%7=4$ (Trống)</td><td>2</td></tr>
+            <tr><td>7</td><td>0, 3</td><td>$0 \Rightarrow 3$ (Trống)</td><td>2</td></tr>
+        </tbody>
+    </table>
+    <p><strong>Đếm số phép so sánh:</strong> $C_{\text{succ}}$ là trung bình số probes để chèn các khóa thành công (ví dụ trên: $C_{\text{succ}} = (1+2+2)/3 = 1.67$). $C_{\text{unsucc}}$ yêu cầu dò từ từng ô $0 \dots M-1$ đến khi gặp ô <code>EMPTY</code>.</p>
+
+    <h2>8. Common Errors & IT003 Exam Style</h2>
+    <div class="callout callout-warning">
+        <span class="badge badge-exam-style">IT003 EXAM STYLE</span>
+        <p><strong>Bẫy Đề Thi:</strong> Tính số phép so sánh tìm kiếm thất bại $C_{\text{unsucc}}$. Phải duyệt từ từng ô index $0, 1, \dots, M-1$ đếm số bước tới khi gặp ô trống <code>EMPTY</code> đầu tiên, sau đó cộng lại chia cho $M$!</p>
+    </div>
+
+    <h2>9. Quick Recall & Exercise Ladder</h2>
+    <ul>
+        <li><strong>Level 0:</strong> Trong Linear Probing, khi xóa một phần tử, tại sao ta không được gán ô đó thành <code>EMPTY</code> mà phải gán thành <code>DELETED</code>?
+            <br><em>Đáp án:</em> Để không ngắt đoạn chuỗi dò của các phần tử đụng độ được chèn sau đó.
+        </li>
+        <li><strong>Level 1:</strong> Cho $M=5, h(k) = k mod 5$. Chèn $5, 10, 15$ dùng Linear Probing. Tính $C_{\text{succ}}$ trung bình.
+            <br><em>Gợi ý:</em> 5 (1 probe ô 0), 10 (2 probes ô 1), 15 (3 probes ô 2). $C_{\text{succ}} = (1+2+3)/3 = 2$ phép so sánh.
+        </li>
+    </ul>
+
+    <div class="callout">
+        <div class="callout-title">📝 Tóm kết Chương 11</div>
+        <p>Bảng băm mang lại hiệu năng $\mathcal{O}(1)$ lý tưởng. Hãy chú ý kỹ quy tắc dừng khi tìm kiếm thất bại và công thức đếm probe!</p>
+    </div>
+</section>
+
+
+<section class="chapter" id="ch12">
+    <div class="chapter-header">
+        <span class="badge badge-core">PART XII</span>
+        <h1>ĐỒ THỊ VÀ BIỂU DIỄN ĐỒ THỊ (GRAPHS & REPRESENTATIONS)</h1>
+    </div>
+
+    <h2>1. Intuition (Trực giác & Động lực)</h2>
+    <p>Đồ thị (Graph) là mô hình tổng quát nhất biểu diễn các mối quan hệ liên kết: mạng xã hội (user là đỉnh, bạn bè là cạnh), bản đồ giao thông (giao lộ là đỉnh, đường đi là cạnh), hay mạng máy tính.</p>
+
+    <h2>2. Formal Model & Definitions</h2>
+    <p>Đồ thị $G = (V, E)$ gồm tập đỉnh $V$ ($|V| = n$) và tập cạnh $E$ ($|E| = m$).</p>
+    <ul>
+        <li><strong>Phân loại:</strong> Vô hướng (Undirected) / Có hướng (Directed), Có trọng số (Weighted) / Không trọng số.</li>
+        <li><strong>Bậc (Degree):</strong> Đối với đồ thị vô hướng, $deg(v)$ là số cạnh nối với đỉnh $v$. Với đồ thị có hướng, chia làm <strong>Bán bậc vào (Indegree)</strong> $deg^-(v)$ (số cạnh đi vào) và <strong>Bán bậc ra (Outdegree)</strong> $deg^+(v)$ (số cạnh đi ra).</li>
+        <li><strong>Thành phần liên thông (Connected Components):</strong> Một đồ thị vô hướng là liên thông nếu có đường đi giữa mọi cặp đỉnh. Nếu không, nó phân rã thành nhiều thành phần liên thông. Đối với đồ thị có hướng, ta xét Liên thông mạnh (Strongly Connected) và Liên thông yếu.</li>
+    </ul>
+
+    <h2>3. Visual Diagram (Ma trận Kề vs Danh sách Kề)</h2>
+    <div class="diagram-container">
+        <svg width="550" height="140" viewBox="0 0 550 140" xmlns="http://www.w3.org/2000/svg">
+            <rect width="550" height="140" fill="#f8fafc" rx="8"/>
+            <g transform="translate(40, 30)">
+                <text x="0" y="15" font-family="Inter" font-size="11" font-weight="bold" fill="#0f172a">Ma trận Kề (Matrix):</text>
+                <text x="0" y="40" font-family="Fira Code" font-size="10">A[u][v] = 1 nếu có cạnh (u,v)</text>
+                <text x="0" y="60" font-family="Inter" font-size="10" fill="#64748b">Bộ nhớ: O(V²)</text>
+            </g>
+            <g transform="translate(300, 30)">
+                <text x="0" y="15" font-family="Inter" font-size="11" font-weight="bold" fill="#0f172a">Danh sách Kề (List):</text>
+                <text x="0" y="40" font-family="Fira Code" font-size="10">adj[u] = {v1, v2, ...}</text>
+                <text x="0" y="60" font-family="Inter" font-size="10" fill="#64748b">Bộ nhớ: O(V + E)</text>
+            </g>
+        </svg>
+    </div>
+
+    <h2>4. Algorithm & Mechanics (Chuyển đổi Biểu diễn)</h2>
+    <p>Chuyển đổi từ Ma trận kề $A[V][V]$ sang Danh sách kề: Duyệt qua từng hàng $i \in [0, V-1]$, nếu $A[i][j] \neq 0$ thì thêm $j$ vào danh sách <code>adj[i]</code>.</p>
+
+    <h2>5. C++ Representations Code</h2>
+    <pre><code>#include &lt;vector&gt;
+#include &lt;iostream&gt;
+
+// Representation via Adjacency List
+void buildGraph(int V) {
+    std::vector&lt;std::vector&lt;int&gt;&gt; adj(V);
+    // Thêm cạnh vô hướng (0, 1)
+    adj[0].push_back(1);
+    adj[1].push_back(0);
+}</code></pre>
+
+    <h2>6. Complexity Analysis Comparison</h2>
+    <table>
+        <thead>
+            <tr><th>Thao tác</th><th>Ma trận Kề (Adjacency Matrix)</th><th>Danh sách Kề (Adjacency List)</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>Bộ nhớ (Space)</td><td>$\Theta(V^2)$</td><td>$\Theta(V + E)$</td></tr>
+            <tr><td>Kiểm tra cạnh $(u, v)$</td><td>$\Theta(1)$</td><td>$\mathcal{O}(\text{degree}(u))$</td></tr>
+            <tr><td>Tìm tất cả đỉnh kề của $u$</td><td>$\Theta(V)$</td><td>$\Theta(\text{degree}(u))$</td></tr>
+        </tbody>
+    </table>
+
+    <h2>7. Dry Run Table (Trace Ma trận Kề $ \Rightarrow  $ Danh sách Kề)</h2>
+    <p>Cho đồ thị 3 đỉnh {0, 1, 2} có Ma trận kề: row0=[0,1,1], row1=[1,0,0], row2=[1,0,0]:</p>
+    <table>
+        <thead>
+            <tr><th>Đỉnh u</th><th>Các cột v có A[u][v] == 1</th><th>Danh sách kề adj[u]</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>0</td><td>1, 2</td><td>adj[0] = {1, 2}</td></tr>
+            <tr><td>1</td><td>0</td><td>adj[1] = {0}</td></tr>
+            <tr><td>2</td><td>0</td><td>adj[2] = {0}</td></tr>
+        </tbody>
+    </table>
+
+    <h2>8. Common Errors & IT003 Exam Style</h2>
+    <div class="callout callout-warning">
+        <span class="badge badge-exam-style">IT003 EXAM STYLE</span>
+        <p><strong>Bẫy Đề Thi:</strong> Phân biệt Đồ thị Có hướng và Vô hướng. Đồ thị Vô hướng có Ma trận kề đối xứng qua đường chéo chính ($A[i][j] = A[j][i]$). Tổng bậc các đỉnh bằng $2E$.</p>
+    </div>
+
+    <h2>9. Quick Recall & Exercise Ladder</h2>
+    <ul>
+        <li><strong>Level 0:</strong> Đồ thị thưa ($E \ll V^2$) nên biểu diễn bằng ma trận kề hay danh sách kề?
+            <br><em>Đáp án:</em> Danh sách kề để tiết kiệm bộ nhớ ($\Theta(V+E)$ thay vì $\Theta(V^2)$).
+        </li>
+        <li><strong>Level 1:</strong> Tính tổng số bậc của tất cả các đỉnh trong đồ thị vô hướng có 5 đỉnh và 7 cạnh.
+            <br><em>Gợi ý:</em> Tổng số bậc $= 2E = 2 \times 7 = 14$.
+        </li>
+    </ul>
+
+    <div class="callout">
+        <div class="callout-title">📝 Tóm kết Chương 12</div>
+        <p>Hiểu rõ 2 cách biểu diễn Ma trận kề và Danh sách kề là nền tảng bắt buộc để cài đặt các thuật toán BFS, DFS và Dijkstra.</p>
+    </div>
+</section>
+
+<section class="chapter" id="ch13">
+    <div class="chapter-header">
+        <span class="badge badge-core">PART XIII</span>
+        <h1>DUYỆT ĐỒ THỊ (BFS & DFS TRAVERSALS)</h1>
+    </div>
+
+    <h2>1. Intuition (Trực giác & Động lực)</h2>
+    <p>Duyệt đồ thị là quá trình ghé thăm hệ thống tất cả các đỉnh của đồ thị. <strong>BFS (Chiều rộng)</strong> loang dần theo từng lớp khoảng cách từ đỉnh xuất phát (dùng <strong>Queue</strong>). <strong>DFS (Chiều sâu)</strong> đi sâu nhất có thể theo một nhánh trước khi quay lùi (Backtrack) (dùng <strong>Stack</strong> hoặc Đệ quy).</p>
+
+    <h2>2. Formal Model & Algorithms</h2>
+    <ul>
+        <li><strong>BFS Algorithm:</strong> Khởi tạo <code>queue Q</code>, đánh dấu <code>visited[start] = true</code>. Lặp khi Q không rỗng: lấy <code>u = Q.front()</code>, thăm <code>u</code>, với mỗi <code>v</code> kề <code>u</code> chưa ghé thăm: đánh dấu <code>visited[v] = true</code> và <code>Q.push(v)</code>.</li>
+        <li><strong>DFS Algorithm:</strong> Đánh dấu <code>visited[u] = true</code>. Với mỗi <code>v</code> kề <code>u</code> chưa ghé thăm: gọi đệ quy <code>DFS(v)</code>.</li>
+        <li><strong>Xử lý đồ thị không liên thông:</strong> Cần một vòng lặp ngoài duyệt qua toàn bộ $V$ đỉnh. Nếu <code>!visited[i]</code> thì gọi <code>BFS(i)</code> hoặc <code>DFS(i)</code>.</li>
+    </ul>
+
+    <h2>3. Visual Diagram (Mô tả Loang BFS vs Đi sâu DFS)</h2>
+    <div class="diagram-container">
+        <svg width="550" height="130" viewBox="0 0 550 130" xmlns="http://www.w3.org/2000/svg">
+            <rect width="550" height="130" fill="#f8fafc" rx="8"/>
+            <g transform="translate(60, 30)">
+                <rect x="0" y="0" width="180" height="70" fill="#e0f2fe" stroke="#0369a1" stroke-width="2" rx="6"/>
+                <text x="90" y="30" font-family="Inter" font-size="12" font-weight="bold" fill="#0369a1" text-anchor="middle">BFS (Chiều Rộng)</text>
+                <text x="90" y="50" font-family="Inter" font-size="10" fill="#0369a1" text-anchor="middle">Sử dụng QUEUE (FIFO)</text>
+            </g>
+            <g transform="translate(310, 30)">
+                <rect x="0" y="0" width="180" height="70" fill="#fef3c7" stroke="#b45309" stroke-width="2" rx="6"/>
+                <text x="90" y="30" font-family="Inter" font-size="12" font-weight="bold" fill="#b45309" text-anchor="middle">DFS (Chiều Sâu)</text>
+                <text x="90" y="50" font-family="Inter" font-size="10" fill="#b45309" text-anchor="middle">Sử dụng STACK (LIFO)</text>
+            </g>
+        </svg>
+    </div>
+
+    <h2>4. C++ Implementation (BFS & DFS)</h2>
+    <pre><code>#include &lt;vector&gt;
+#include &lt;queue&gt;
+#include &lt;iostream&gt;
+
+void BFS(int start, const std::vector&lt;std::vector&lt;int&gt;&gt;& adj, int V) {
+    std::vector&lt;bool&gt; visited(V, false);
+    std::queue&lt;int&gt; q;
+    visited[start] = true; q.push(start);
+
+    while (!q.empty()) {
+        int u = q.front(); q.pop();
+        std::cout &lt;&lt; u &lt;&lt; " ";
+        for (int v : adj[u]) {
+            if (!visited[v]) {
+                visited[v] = true;
+                q.push(v);
+            }
+        }
+    }
+}
+
+void DFSUtil(int u, const std::vector&lt;std::vector&lt;int&gt;&gt;& adj, std::vector&lt;bool&gt;& visited) {
+    visited[u] = true;
+    std::cout &lt;&lt; u &lt;&lt; " ";
+    for (int v : adj[u]) {
+        if (!visited[v]) DFSUtil(v, adj, visited);
+    }
+}</code></pre>
+
+    <h2>5. Complexity Analysis</h2>
+    <p>Cả BFS và DFS biểu diễn bằng Danh sách kề đều đạt độ phức tạp thời gian <strong>$\Theta(V + E)$</strong> và bộ nhớ phụ <strong>$\Theta(V)$</strong> cho mảng <code>visited</code> và Queue/Stack.</p>
+
+    <h2>6. Dry Run Table (Trace BFS Từ Đỉnh 0)</h2>
+    <p>Đồ thị: adj[0]={1, 2}, adj[1]={0, 3}, adj[2]={0}, adj[3]={1}:</p>
+    <table>
+        <thead>
+            <tr><th>Bước</th><th>Đỉnh u đang xét</th><th>Hành động Hàng đợi Queue</th><th>Thứ tự ghé thăm (Visited)</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>Khởi tạo</td><td>-</td><td>Push(0) $ \Rightarrow  $ Q = [0]</td><td>0</td></tr>
+            <tr><td>1</td><td>Pop 0</td><td>Push con kề chưa thăm: Push(1), Push(2) $ \Rightarrow  $ Q = [1, 2]</td><td>0, 1, 2</td></tr>
+            <tr><td>2</td><td>Pop 1</td><td>Push con kề chưa thăm: Push(3) $ \Rightarrow  $ Q = [2, 3]</td><td>0, 1, 2, 3</td></tr>
+            <tr><td>3</td><td>Pop 2</td><td>Không có con chưa thăm $ \Rightarrow  $ Q = [3]</td><td>0, 1, 2, 3</td></tr>
+            <tr><td>4</td><td>Pop 3</td><td>Queue rỗng $ \Rightarrow  $ Kết thúc BFS</td><td><strong>0, 1, 2, 3</strong></td></tr>
+        </tbody>
+    </table>
+
+    <h2>7. Common Errors & IT003 Exam Style</h2>
+    <div class="callout callout-warning">
+        <span class="badge badge-exam-style">IT003 EXAM STYLE</span>
+        <p><strong>Bẫy Đề Thi 1:</strong> Thứ tự ghé thăm đỉnh kề phụ thuộc vào cấu trúc dữ liệu! Nếu dùng Ma trận kề, các đỉnh kề thường được duyệt theo thứ tự chỉ số tăng dần. Đọc kỹ yêu cầu đề bài về thứ tự ưu tiên (VD: "ưu tiên đỉnh có số thứ tự nhỏ hơn").</p>
+        <p><strong>Bẫy Đề Thi 2:</strong> Trong BFS, phải đánh dấu <code>visited[v] = true</code> <strong>ngay khi push <code>v</code> vào Queue</strong>, không được chờ tới khi pop <code>v</code> ra mới đánh dấu! Đánh dấu trễ sẽ khiến đỉnh <code>v</code> bị push lặp lại nhiều lần vào Queue.</p>
+    </div>
+
+    <h2>8. Quick Recall & Exercise Ladder</h2>
+    <ul>
+        <li><strong>Level 0:</strong> Thuật toán nào giúp tìm đường đi ngắn nhất (số cạnh ít nhất) giữa 2 đỉnh trên đồ thị không trọng số?
+            <br><em>Đáp án:</em> BFS (Breadth-First Search).
+        </li>
+        <li><strong>Level 1:</strong> Cho đồ thị có 4 đỉnh 0, 1, 2, 3 với các cạnh (0-1), (0-2), (1-3). Viết thứ tự duyệt DFS từ đỉnh 0 (ưu tiên đỉnh nhỏ hơn).
+            <br><em>Gợi ý:</em> 0 $ \Rightarrow  $ 1 $ \Rightarrow  $ 3 $ \Rightarrow  $ 2.
+        </li>
+    </ul>
+
+    <div class="callout">
+        <div class="callout-title">📝 Tóm kết Chương 13</div>
+        <p>BFS dùng Queue loang theo tầng, DFS dùng Stack/Đệ quy đi sâu. Nhớ kỹ vị trí đánh dấu <code>visited</code> trong BFS để tránh lặp đỉnh!</p>
+    </div>
+</section>
+
+<section class="chapter" id="ch14">
+    <div class="chapter-header">
+        <span class="badge badge-core">PART XIV</span>
+        <h1>THUẬT TOÁN ĐƯỜNG ĐI NGẮN NHẤT (SHORTEST PATH - DIJKSTRA)</h1>
+    </div>
+
+    <h2>1. Intuition (Trực giác & Động lực)</h2>
+    <p>Bài toán tìm đường đi ngắn nhất giữa 2 địa điểm trên bản đồ Google Maps là ứng dụng thực tế phổ biến nhất của thuật toán <strong>Dijkstra</strong>. Thuật toán hoạt động theo nguyên lý tham ăn (Greedy): luôn chọn đỉnh có khoảng cách tạm thời nhỏ nhất để cố định (Fix/Finalize) đường đi ngắn nhất tới đỉnh đó.</p>
+
+    <h2>2. Formal Model & Relaxation Principle</h2>
+    <p>Điều kiện tiên quyết: Đồ thị có <strong>trọng số không âm ($w(e) \ge 0$)</strong>. Thao tác <strong>Nới cạnh (Relaxation)</strong> giữa cạnh $(u, v)$ có trọng số $w$:</p>
+    $$\text{If } d[u] + w < d[v] \Rightarrow   d[v] = d[u] + w, \quad p[v] = u$$
+
+    <h2>3. Visual Diagram (Sơ đồ Nới Cạnh Relaxation)</h2>
+    <div class="diagram-container">
+        <svg width="550" height="120" viewBox="0 0 550 120" xmlns="http://www.w3.org/2000/svg">
+            <rect width="550" height="120" fill="#f8fafc" rx="8"/>
+            <defs>
+                <marker id="arrow-dijkstra" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                    <path d="M0,0 L0,6 L9,3 z" fill="#1e40af" />
+                </marker>
+            </defs>
+            <g transform="translate(80, 40)">
+                <circle cx="0" cy="0" r="18" fill="#15803d"/>
+                <text x="0" y="5" fill="#ffffff" font-family="Inter" font-size="11" font-weight="bold" text-anchor="middle">u (d[u]=2)</text>
+            </g>
+            <line x1="105" y1="40" x2="275" y2="40" stroke="#1e40af" stroke-width="3" marker-end="url(#arrow-dijkstra)"/>
+            <text x="190" y="30" fill="#1e40af" font-family="Inter" font-size="11" font-weight="bold">w = 3</text>
+            <g transform="translate(300, 40)">
+                <circle cx="0" cy="0" r="18" fill="#b91c1c"/>
+                <text x="0" y="5" fill="#ffffff" font-family="Inter" font-size="11" font-weight="bold" text-anchor="middle">v (d[v]=9)</text>
+            </g>
+            <text x="350" y="45" font-family="Inter" font-size="11" font-weight="bold" fill="#15803d">Relax: d[v] mới = 2 + 3 = 5!</text>
+        </svg>
+    </div>
+
+    <h2>4. C++ Implementation (Dijkstra using Priority Queue)</h2>
+    <pre><code>#include &lt;vector&gt;
+#include &lt;queue&gt;
+#include &lt;iostream&gt;
+
+const int INF = 1e9;
+using pii = std::pair&lt;int, int&gt;; // (d[u], u)
+
+void dijkstra(int start, const std::vector&lt;std::vector&lt;pii&gt;&gt;& adj, int V) {
+    std::vector&lt;int&gt; d(V, INF);
+    std::priority_queue&lt;pii, std::vector&lt;pii&gt;, std::greater&lt;pii&gt;&gt; pq;
+
+    d[start] = 0;
+    pq.push({0, start});
+
+    while (!pq.empty()) {
+        auto [dist, u] = pq.top(); pq.pop();
+        if (dist &gt; d[u]) continue;
+
+        for (auto& edge : adj[u]) {
+            int v = edge.first, w = edge.second;
+            if (d[u] + w &lt; d[v]) {
+                d[v] = d[u] + w;
+                pq.push({d[v], v});
+            }
+        }
+    }
+}</code></pre>
+
+    <h2>5. Algorithms & Complexity Analysis Comparison</h2>
+    <p>Bên cạnh Dijkstra, ta có các thuật toán khác để xử lý đồ thị có trọng số âm hoặc tìm đường đi ngắn nhất mọi cặp đỉnh:</p>
+    <ul>
+        <li><strong>Bellman-Ford:</strong> Lặp nới lỏng toàn bộ $E$ cạnh đúng $V-1$ lần. Có khả năng phát hiện chu trình âm. Độ phức tạp: $\Theta(V \times E)$.</li>
+        <li><strong>Floyd-Warshall (All-Pairs):</strong> Dùng Quy hoạch động, $D[i][j] = \min(D[i][j], D[i][k] + D[k][j])$. Cho phép cạnh có trọng số âm, nhưng nếu đồ thị chứa chu trình âm (Negative Cycle) thì khái niệm đường đi ngắn nhất hữu hạn không còn hợp lệ. Độ phức tạp: $\Theta(V^3)$.</li>
+    </ul>
+    
+    <table>
+        <thead>
+            <tr><th>Thuật toán</th><th>Bài toán</th><th>Trọng số âm</th><th>Độ phức tạp (Thời gian)</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>Dijkstra (Mảng)</td><td>Một nguồn (Single-Source)</td><td>❌ Không hỗ trợ</td><td>$\Theta(V^2)$</td></tr>
+            <tr><td>Dijkstra (Min-Heap)</td><td>Một nguồn (Single-Source)</td><td>❌ Không hỗ trợ</td><td>$\Theta((V + E) \log V)$</td></tr>
+            <tr><td>Bellman-Ford</td><td>Một nguồn (Single-Source)</td><td>✅ Hỗ trợ (Báo chu trình âm)</td><td>$\Theta(V \times E)$</td></tr>
+            <tr><td>Floyd-Warshall</td><td>Mọi cặp (All-Pairs)</td><td>✅ Hỗ trợ</td><td>$\Theta(V^3)$</td></tr>
+        </tbody>
+    </table>
+
+    <h2>6. Dry Run Table (Trace Dijkstra Chuẩn Đề Thi IT003)</h2>
+    <p>Tìm đường đi từ A (đỉnh 0) đến các đỉnh 1, 2, 3 với các cạnh (0-1: 4), (0-2: 2), (2-1: 1), (1-3: 5):</p>
+    <table>
+        <thead>
+            <tr><th>Bước</th><th>Đỉnh u chọn cố định</th><th>d[0]</th><th>d[1]</th><th>d[2]</th><th>d[3]</th><th>Hành động Nới Cạnh</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>0</td><td>-</td><td><strong>0</strong></td><td>$\infty$</td><td>$\infty$</td><td>$\infty$</td><td>Khởi tạo d[0]=0</td></tr>
+            <tr><td>1</td><td>0 (d[0]=0)</td><td><strong>0</strong></td><td>4 (từ 0)</td><td>2 (từ 0)</td><td>$\infty$</td><td>Nới cạnh (0-1:4), (0-2:2)</td></tr>
+            <tr><td>2</td><td>2 (d[2]=2)</td><td><strong>0</strong></td><td><strong>3</strong> (từ 2)</td><td><strong>2</strong></td><td>$\infty$</td><td>Nới cạnh (2-1: 2+1=3 < 4) $ \Rightarrow  $ Cập nhật d[1]=3!</td></tr>
+            <tr><td>3</td><td>1 (d[1]=3)</td><td><strong>0</strong></td><td><strong>3</strong></td><td><strong>2</strong></td><td><strong>8</strong> (từ 1)</td><td>Nới cạnh (1-3: 3+5=8) $ \Rightarrow  $ Cập nhật d[3]=8</td></tr>
+            <tr><td>4</td><td>3 (d[3]=8)</td><td><strong>0</strong></td><td><strong>3</strong></td><td><strong>2</strong></td><td><strong>8</strong></td><td>Tất cả các đỉnh đã cố định đường đi ngắn nhất!</td></tr>
+        </tbody>
+    </table>
+
+    <h2>7. Common Errors & IT003 Exam Style</h2>
+    <div class="callout callout-warning">
+        <span class="badge badge-exam-style">IT003 EXAM STYLE</span>
+        <p><strong>Bẫy Đề Thi:</strong> Thuật toán Dijkstra <strong>KHÔNG chạy đúng khi đồ thị có cạnh mang trọng số âm</strong>! Nếu đồ thị có trọng số âm, phải chuyển sang dùng thuật toán Bellman-Ford.</p>
+    </div>
+
+    <h2>8. Quick Recall & Exercise Ladder</h2>
+    <ul>
+        <li><strong>Level 0:</strong> Thuật toán Dijkstra có làm việc được trên đồ thị có chu trình âm không?
+            <br><em>Đáp án:</em> Không. Chu trình âm khiến khoảng cách giảm vô tận thành $-\infty$.
+        </li>
+        <li><strong>Level 1:</strong> Trình bày bảng trace Dijkstra tìm đường đi ngắn nhất từ đỉnh 0 với đồ thị có các trọng số cho trước.
+            <br><em>Gợi ý:</em> Lập bảng cột đỉnh, cố định đỉnh có $d[u]$ nhỏ nhất ở mỗi dòng.
+        </li>
+    </ul>
+
+    <div class="callout">
+        <div class="callout-title">📝 Tóm kết Chương 14</div>
+        <p>Dijkstra chọn đỉnh tham ăn có $d[u]$ nhỏ nhất để cố định đường đi. Đảm bảo thuộc lòng các bước lập bảng nới cạnh để ghi trọn điểm câu đồ thị cuối kỳ!</p>
+    </div>
+</section>
+
+<section class="chapter" id="ch15">
+    <div class="chapter-header">
+        <span class="badge badge-core">PART XV</span>
+        <h1>EXAM TOOLKIT & BỘ ĐỀ ÔN THI MẪU CHUẨN IT003</h1>
+    </div>
+
+    <h2>1. Quick Recall Cheat Sheet (Tóm Tắt Nhanh Ôn Thi)</h2>
+    <div class="callout">
+        <div class="callout-title">⚡ Master Summary Cheat Sheet</div>
+        <ul>
+            <li><strong>Selection & Interchange Sort:</strong> Phép so sánh luôn cố định $C = \frac{n(n-1)}{2}$. Interchange Sort là thuật toán đặc thù UIT.</li>
+            <li><strong>Binary Search:</strong> Bắt buộc mảng đã sắp xếp. $\Theta(\log n)$ thời gian.</li>
+            <li><strong>BST Deletion (2 con):</strong> Đọc kỹ đề dùng Max-Left hay Min-Right làm phần tử thế mạng.</li>
+            <li><strong>AVL Rotation:</strong> $BF = h_{left} - h_{right}$. $+2$ nghiêng trái (LL/LR), $-2$ nghiêng phải (RR/RL).</li>
+            <li><strong>B-Tree Bậc 5 ($m=5$):</strong> Max 4 keys, Min 2 keys per node. Tràn 5 keys $\Rightarrow$ Tách nút đẩy nổi khóa thứ 3 (trung vị) lên cha.</li>
+            <li><strong>Hash Probing Unsuccessful Search:</strong> Phải dò tới khi gặp ô <code>EMPTY</code> đầu tiên. Ô <code>DELETED</code> không dừng!</li>
+            <li><strong>BFS / DFS:</strong> BFS dùng Queue loang theo lớp; DFS dùng Stack/Đệ quy đi sâu. Tùy thuộc vào thứ tự đỉnh kề.</li>
+            <li><strong>Dijkstra:</strong> Chỉ áp dụng cho trọng số không âm ($w \ge 0$). Nới cạnh: <code>if (d[u] + w < d[v]) d[v] = d[u] + w</code>.</li>
+        </ul>
+    </div>
+
+    <h2>2. Phương pháp Ôn thi IT003 Hiệu quả</h2>
+    <p>Một tỷ lệ đáng kể câu hỏi trong các đề thi IT003 đã phân tích yêu cầu sinh viên phải <strong>chạy vết (trace) thủ công</strong>, vẽ lại trạng thái cấu trúc dữ liệu sau mỗi bước, hoặc suy luận độ phức tạp dựa trên convention đặc thù. Học thuộc lòng code mà không hiểu cơ chế chạy tay sẽ mất điểm phần lớn các câu tự luận.</p>
+
+    <h2>3. Integrated Practice Bank (Hệ thống Bài tập 5 Level)</h2>
+    
+    <h3>Chủ đề 1: Sorting Algorithms (Thuật toán Sắp xếp)</h3>
+    <ul>
+        <li><strong>Level 0 (Concept):</strong> Thuật toán sắp xếp nào có Best Case là $\Theta(n)$ khi mảng đã có thứ tự? <em>(Đáp án: Bubble Sort tối ưu, Insertion Sort)</em>.</li>
+        <li><strong>Level 1 (Mini Trace):</strong> Cho mảng $A = [8, 4, 2]$. Chạy tay 1 lượt thuật toán Bubble Sort. <em>(Đáp án: [4, 2, 8])</em>.</li>
+        <li><strong>Level 2 (Full Trace):</strong> Chạy tay toàn bộ thuật toán Selection Sort trên mảng $[29, 10, 14, 37, 14]$. Xác định tính ổn định.</li>
+        <li><strong>Level 3 (Code):</strong> Viết hàm <code>void QuickSort(int a[], int left, int right)</code> dùng phân hoạch Lomuto.</li>
+        <li><strong>Level 4 (Exam Style):</strong> Tính số phép so sánh và số phép gán của Interchange Sort trên mảng $[5, 4, 3, 2, 1]$.</li>
+        <li><strong>Level 5 (Challenge):</strong> Cải tiến Bubble Sort để dừng sớm nếu không có bất kỳ lần đổi chỗ nào xảy ra trong 1 lượt. Viết code C++ và chứng minh Best Case $\Theta(n)$.</li>
+    </ul>
+
+    <h3>Chủ đề 2: Cây (BST, AVL, B-Tree, Heap)</h3>
+    <ul>
+        <li><strong>Level 0 (Concept):</strong> Chiều cao tối đa của cây AVL chứa $N$ nút được chặn trên bởi hàm gì? <em>(Đáp án: $\mathcal{O}(\log N)$)</em>.</li>
+        <li><strong>Level 1 (Mini Trace):</strong> Cho Max-Heap dạng mảng <code>[50, 30, 40, 10, 20]</code>. Nút lá bắt đầu từ index nào?</li>
+        <li><strong>Level 2 (Full Trace):</strong> Lần lượt chèn $10, 20, 30, 40, 50$ vào B-Tree bậc 5 rỗng. Vẽ cây ở bước tách nút.</li>
+        <li><strong>Level 3 (Code):</strong> Viết hàm tìm node có giá trị lớn nhất (Max) trong BST.</li>
+        <li><strong>Level 4 (Exam Style):</strong> Chèn lần lượt $30, 20, 40, 10, 5$ vào cây AVL. Trình bày chi tiết hệ số cân bằng (BF) tại bước gây mất cân bằng và vẽ cây sau khi Xoay LL.</li>
+        <li><strong>Level 5 (Challenge):</strong> Cho cây BST bị mất 1 nhánh, dùng mảng duyệt LNR (In-order) và NLR (Pre-order) để phục hồi lại chính xác hình dáng cây BST ban đầu.</li>
+    </ul>
+
+    <h3>Chủ đề 3: Hash Table (Bảng Băm)</h3>
+    <ul>
+        <li><strong>Level 0 (Concept):</strong> Linear Probing gặp hiện tượng gì làm giảm hiệu suất? <em>(Đáp án: Primary Clustering - Cụm sơ cấp)</em>.</li>
+        <li><strong>Level 1 (Mini Trace):</strong> Hàm băm $h(k) = k \bmod 7$. Khóa $15$ bị đụng độ tại ô $1$. Dùng Quadratic Probing $i^2$, lần dò tiếp theo là ô nào? <em>(Đáp án: $(1 + 1^2) \bmod 7 = 2$)</em>.</li>
+        <li><strong>Level 2 (Full Trace):</strong> Băm các khóa $43, 23, 1, 0, 15, 31$ vào bảng băm $M=10$, dùng Double Hashing với $h_1(k) = k \bmod 10$, $h_2(k) = 7 - (k \bmod 7)$. Vẽ bảng băm cuối cùng.</li>
+        <li><strong>Level 3 (Code):</strong> Khai báo cấu trúc dữ liệu cho Bảng băm dùng Phương pháp Nối kết trực tiếp (Separate Chaining).</li>
+        <li><strong>Level 4 (Exam Style):</strong> Tính số phép so sánh trung bình tìm kiếm thành công ($C_{succ}$) và không thành công ($C_{unsucc}$) cho Bảng băm Linear Probing kích thước 7 chứa 4 phần tử.</li>
+        <li><strong>Level 5 (Challenge):</strong> Cài đặt hàm Delete cho Linear Probing sử dụng cờ <code>DELETED</code> (Tombstone) để không làm đứt mạch dò tìm.</li>
+    </ul>
+
+    <h3>Chủ đề 4: Graph & Shortest Path (Đồ thị & Đường đi)</h3>
+    <ul>
+        <li><strong>Level 0 (Concept):</strong> Đồ thị vô hướng có $V$ đỉnh và $E$ cạnh. Tổng bậc của tất cả các đỉnh bằng bao nhiêu? <em>(Đáp án: $2E$ - Định lý Bắt tay)</em>.</li>
+        <li><strong>Level 1 (Mini Trace):</strong> Viết thứ tự duyệt BFS bắt đầu từ đỉnh 0, biết đỉnh 0 kề với {1, 3, 2} (duyệt theo thứ tự đỉnh tăng dần). <em>(Đáp án: 0, 1, 2, 3)</em>.</li>
+        <li><strong>Level 2 (Full Trace):</strong> Chạy tay thuật toán Dijkstra tìm đường đi ngắn nhất từ đỉnh A đến tất cả các đỉnh còn lại trên một đồ thị 5 đỉnh cho trước.</li>
+        <li><strong>Level 3 (Code):</strong> Viết hàm tính Bậc vào (In-degree) của một đỉnh $v$ trên Đồ thị có hướng biểu diễn bằng Ma trận kề.</li>
+        <li><strong>Level 4 (Exam Style):</strong> So sánh độ phức tạp thời gian và điều kiện áp dụng của Dijkstra, Bellman-Ford, và Floyd-Warshall.</li>
+        <li><strong>Level 5 (Challenge):</strong> Phát hiện chu trình âm (Negative Cycle) trong đồ thị bằng cách chạy thêm 1 vòng lặp relaxation thứ $V$ trong thuật toán Bellman-Ford.</li>
+    </ul>
+
+    <h2>4. Exam Simulator (Thi Thử Cuối Kỳ)</h2>
+    <p><strong>Câu 1 (2.5 điểm): Sắp Xếp & Đếm Phép Toán</strong></p>
+    <p>Cho dãy số $A = [25, 12, 40, 8, 30]$.</p>
+    <p>a) Trình bày trạng thái mảng sau từng bước của Interchange Sort. Tính số phép so sánh $C$ và số phép đổi chỗ $M$.</p>
+    <p>b) Thực hiện phân hoạch Lomuto đầu tiên cho Quick Sort với Pivot $a[high] = 30$.</p>
+    <p><em>Lời giải tóm tắt:</em>
+    <br>a) $C = 5(4)/2 = 10$ phép so sánh. Trạng thái sau từng i:
+    <br>• $i=0$: Swap(25, 12) $\Rightarrow$ Swap(12, 8) $\Rightarrow [8, 25, 40, 12, 30]$
+    <br>• $i=1$: Swap(25, 12) $\Rightarrow [8, 12, 40, 25, 30]$
+    <br>• $i=2$: Swap(40, 25) $\Rightarrow [8, 12, 25, 40, 30]$
+    <br>• $i=3$: Swap(40, 30) $\Rightarrow [8, 12, 25, 30, 40]$. Mảng hoàn chỉnh! Total Swaps $M = 5$.
+    </p>
+
+    <p><strong>Câu 2 (2.5 điểm): Cây AVL</strong></p>
+    <p>Lần lượt chèn các khóa sau vào cây AVL rỗng: $30, 20, 40, 10, 5$. Xác định nút mất cân bằng và vẽ cây AVL sau mỗi lần xoay.</p>
+    <p><em>Lời giải tóm tắt:</em>
+    <br>• Chèn 30, 20, 40 $\Rightarrow$ Cây cân bằng hoàn hảo ($BF(30) = 0$).
+    <br>• Chèn 10 $\Rightarrow$ Vẫn cân bằng ($BF(30) = +1, BF(20) = +1$).
+    <br>• Chèn 5 $\Rightarrow$ Mất cân bằng LL tại nút 20 ($BF(20) = +2, BF(10) = +1$).
+    <br>• Xoay Phải (Rotate Right) tại nút 20 $\Rightarrow$ Nút 10 lên làm cha của 5 và 20.
+    <br>• Cây AVL hoàn chỉnh sau xoay: Gốc 30, Cây con trái là 10 (con trái 5, con phải 20), Cây con phải là 40 ($BF(30) = +1$, tất cả các nút $|BF| \le 1$).
+    </p>
+
+    <p><strong>Câu 3 (2.5 điểm): Bảng Băm & B-Tree</strong></p>
+    <p>Cho $M=7, h(k) = k \bmod 7$. Chèn các khóa $14, 21, 7, 15$ dùng Linear Probing. Tính $C_{\text{succ}}$ trung bình.</p>
+    <p><em>Lời giải tóm tắt:</em>
+    <br>• 14 % 7 = 0 $\Rightarrow$ Ô 0 (1 probe)
+    <br>• 21 % 7 = 0 $\Rightarrow$ Ô 1 (2 probes)
+    <br>• 7 % 7 = 0 $\Rightarrow$ Ô 2 (3 probes)
+    <br>• 15 % 7 = 1 $\Rightarrow$ Đụng ô 1 $\Rightarrow$ Ô 3 (3 probes)
+    <br>$\Rightarrow C_{\text{succ}} = \frac{1 + 2 + 3 + 3}{4} = \frac{9}{4} = 2.25$ phép so sánh.
+    </p>
+
+    <p><strong>Câu 4 (2.5 điểm): Đồ thị Dijkstra</strong></p>
+    <p>Lập bảng trace Dijkstra tìm đường đi ngắn nhất từ đỉnh 0 cho đồ thị 4 đỉnh với ma trận trọng số cho trước.</p>
+
+    <div class="callout callout-warning">
+        <div class="callout-title">🎓 Lời Chúc Thi Tốt từ Ban Biên Soạn</div>
+        <p>Chúc các bạn sinh viên UIT ôn luyện hiệu quả, tự tin áp dụng tư duy chạy tay và đạt điểm 10 tuyệt đối trong kỳ thi môn IT003!</p>
+    </div>
+</section>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    if (window.renderMathInElement) {
+        renderMathInElement(document.body, {
+            delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "$", right: "$", display: false},
+                {left: "\\(", right: "\\)", display: false},
+                {left: "\\[", right: "\\]", display: true}
+            ],
+            throwOnError: false
+        });
+    }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<section class="chapter" id="ch15">
+    <div class="chapter-header">
+        <span class="badge badge-core">PART XV</span>
+        <h1>EXAM TOOLKIT & BỘ ĐỀ ÔN THI MẪU CHUẨN IT003</h1>
+    </div>
+
+    <h2>1. Quick Recall Cheat Sheet (Tóm Tắt Nhanh Ôn Thi)</h2>
+    <div class="callout">
+        <div class="callout-title">⚡ Master Summary Cheat Sheet</div>
+        <ul>
+            <li><strong>Selection & Interchange Sort:</strong> Phép so sánh luôn cố định $C = \frac{n(n-1)}{2}$. Interchange Sort là thuật toán đặc thù UIT.</li>
+            <li><strong>Binary Search:</strong> Bắt buộc mảng đã sắp xếp. $\Theta(\log n)$ thời gian.</li>
+            <li><strong>BST Deletion (2 con):</strong> Đọc kỹ đề dùng Max-Left hay Min-Right làm phần tử thế mạng.</li>
+            <li><strong>AVL Rotation:</strong> $BF = h_{left} - h_{right}$. $+2$ nghiêng trái (LL/LR), $-2$ nghiêng phải (RR/RL).</li>
+            <li><strong>B-Tree Bậc 5 ($m=5$):</strong> Max 4 keys, Min 2 keys per node. Tràn 5 keys $\Rightarrow$ Tách nút đẩy nổi khóa thứ 3 (trung vị) lên cha.</li>
+            <li><strong>Hash Probing Unsuccessful Search:</strong> Phải dò tới khi gặp ô <code>EMPTY</code> đầu tiên. Ô <code>DELETED</code> không dừng!</li>
+            <li><strong>BFS / DFS:</strong> BFS dùng Queue loang theo lớp; DFS dùng Stack/Đệ quy đi sâu. Tùy thuộc vào thứ tự đỉnh kề.</li>
+            <li><strong>Dijkstra:</strong> Chỉ áp dụng cho trọng số không âm ($w \ge 0$). Nới cạnh: <code>if (d[u] + w < d[v]) d[v] = d[u] + w</code>.</li>
+        </ul>
+    </div>
+
+    <h2>2. Phương pháp Ôn thi IT003 Hiệu quả</h2>
+    <p>Một tỷ lệ đáng kể câu hỏi trong các đề thi IT003 đã phân tích yêu cầu sinh viên phải <strong>chạy vết (trace) thủ công</strong>, vẽ lại trạng thái cấu trúc dữ liệu sau mỗi bước, hoặc suy luận độ phức tạp dựa trên convention đặc thù. Học thuộc lòng code mà không hiểu cơ chế chạy tay sẽ mất điểm phần lớn các câu tự luận.</p>
+
+    <h2>3. Integrated Practice Bank (Hệ thống Bài tập 5 Level)</h2>
+    
+    <h3>Chủ đề 1: Sorting Algorithms (Thuật toán Sắp xếp)</h3>
+    <ul>
+        <li><strong>Level 0 (Concept):</strong> Thuật toán sắp xếp nào có Best Case là $\Theta(n)$ khi mảng đã có thứ tự? <em>(Đáp án: Bubble Sort tối ưu, Insertion Sort)</em>.</li>
+        <li><strong>Level 1 (Mini Trace):</strong> Cho mảng $A = [8, 4, 2]$. Chạy tay 1 lượt thuật toán Bubble Sort. <em>(Đáp án: [4, 2, 8])</em>.</li>
+        <li><strong>Level 2 (Full Trace):</strong> Chạy tay toàn bộ thuật toán Selection Sort trên mảng $[29, 10, 14, 37, 14]$. Xác định tính ổn định.</li>
+        <li><strong>Level 3 (Code):</strong> Viết hàm <code>void QuickSort(int a[], int left, int right)</code> dùng phân hoạch Lomuto.</li>
+        <li><strong>Level 4 (Exam Style):</strong> Tính số phép so sánh và số phép gán của Interchange Sort trên mảng $[5, 4, 3, 2, 1]$.</li>
+        <li><strong>Level 5 (Challenge):</strong> Cải tiến Bubble Sort để dừng sớm nếu không có bất kỳ lần đổi chỗ nào xảy ra trong 1 lượt. Viết code C++ và chứng minh Best Case $\Theta(n)$.</li>
+    </ul>
+
+    <h3>Chủ đề 2: Cây (BST, AVL, B-Tree, Heap)</h3>
+    <ul>
+        <li><strong>Level 0 (Concept):</strong> Chiều cao tối đa của cây AVL chứa $N$ nút được chặn trên bởi hàm gì? <em>(Đáp án: $\mathcal{O}(\log N)$)</em>.</li>
+        <li><strong>Level 1 (Mini Trace):</strong> Cho Max-Heap dạng mảng <code>[50, 30, 40, 10, 20]</code>. Nút lá bắt đầu từ index nào?</li>
+        <li><strong>Level 2 (Full Trace):</strong> Lần lượt chèn $10, 20, 30, 40, 50$ vào B-Tree bậc 5 rỗng. Vẽ cây ở bước tách nút.</li>
+        <li><strong>Level 3 (Code):</strong> Viết hàm tìm node có giá trị lớn nhất (Max) trong BST.</li>
+        <li><strong>Level 4 (Exam Style):</strong> Chèn lần lượt $30, 20, 40, 10, 5$ vào cây AVL. Trình bày chi tiết hệ số cân bằng (BF) tại bước gây mất cân bằng và vẽ cây sau khi Xoay LL.</li>
+        <li><strong>Level 5 (Challenge):</strong> Cho cây BST bị mất 1 nhánh, dùng mảng duyệt LNR (In-order) và NLR (Pre-order) để phục hồi lại chính xác hình dáng cây BST ban đầu.</li>
+    </ul>
+
+    <h3>Chủ đề 3: Hash Table (Bảng Băm)</h3>
+    <ul>
+        <li><strong>Level 0 (Concept):</strong> Linear Probing gặp hiện tượng gì làm giảm hiệu suất? <em>(Đáp án: Primary Clustering - Cụm sơ cấp)</em>.</li>
+        <li><strong>Level 1 (Mini Trace):</strong> Hàm băm $h(k) = k \bmod 7$. Khóa $15$ bị đụng độ tại ô $1$. Dùng Quadratic Probing $i^2$, lần dò tiếp theo là ô nào? <em>(Đáp án: $(1 + 1^2) \bmod 7 = 2$)</em>.</li>
+        <li><strong>Level 2 (Full Trace):</strong> Băm các khóa $43, 23, 1, 0, 15, 31$ vào bảng băm $M=10$, dùng Double Hashing với $h_1(k) = k \bmod 10$, $h_2(k) = 7 - (k \bmod 7)$. Vẽ bảng băm cuối cùng.</li>
+        <li><strong>Level 3 (Code):</strong> Khai báo cấu trúc dữ liệu cho Bảng băm dùng Phương pháp Nối kết trực tiếp (Separate Chaining).</li>
+        <li><strong>Level 4 (Exam Style):</strong> Tính số phép so sánh trung bình tìm kiếm thành công ($C_{succ}$) và không thành công ($C_{unsucc}$) cho Bảng băm Linear Probing kích thước 7 chứa 4 phần tử.</li>
+        <li><strong>Level 5 (Challenge):</strong> Cài đặt hàm Delete cho Linear Probing sử dụng cờ <code>DELETED</code> (Tombstone) để không làm đứt mạch dò tìm.</li>
+    </ul>
+
+    <h3>Chủ đề 4: Graph & Shortest Path (Đồ thị & Đường đi)</h3>
+    <ul>
+        <li><strong>Level 0 (Concept):</strong> Đồ thị vô hướng có $V$ đỉnh và $E$ cạnh. Tổng bậc của tất cả các đỉnh bằng bao nhiêu? <em>(Đáp án: $2E$ - Định lý Bắt tay)</em>.</li>
+        <li><strong>Level 1 (Mini Trace):</strong> Viết thứ tự duyệt BFS bắt đầu từ đỉnh 0, biết đỉnh 0 kề với {1, 3, 2} (duyệt theo thứ tự đỉnh tăng dần). <em>(Đáp án: 0, 1, 2, 3)</em>.</li>
+        <li><strong>Level 2 (Full Trace):</strong> Chạy tay thuật toán Dijkstra tìm đường đi ngắn nhất từ đỉnh A đến tất cả các đỉnh còn lại trên một đồ thị 5 đỉnh cho trước.</li>
+        <li><strong>Level 3 (Code):</strong> Viết hàm tính Bậc vào (In-degree) của một đỉnh $v$ trên Đồ thị có hướng biểu diễn bằng Ma trận kề.</li>
+        <li><strong>Level 4 (Exam Style):</strong> So sánh độ phức tạp thời gian và điều kiện áp dụng của Dijkstra, Bellman-Ford, và Floyd-Warshall.</li>
+        <li><strong>Level 5 (Challenge):</strong> Phát hiện chu trình âm (Negative Cycle) trong đồ thị bằng cách chạy thêm 1 vòng lặp relaxation thứ $V$ trong thuật toán Bellman-Ford.</li>
+    </ul>
+
+    <h2>4. Exam Simulator (Thi Thử Cuối Kỳ)</h2>
+    <p><strong>Câu 1 (2.5 điểm): Sắp Xếp & Đếm Phép Toán</strong></p>
+    <p>Cho dãy số $A = [25, 12, 40, 8, 30]$.</p>
+    <p>a) Trình bày trạng thái mảng sau từng bước của Interchange Sort. Tính số phép so sánh $C$ và số phép đổi chỗ $M$.</p>
+    <p>b) Thực hiện phân hoạch Lomuto đầu tiên cho Quick Sort với Pivot $a[high] = 30$.</p>
+    <p><em>Lời giải tóm tắt:</em>
+    <br>a) $C = 5(4)/2 = 10$ phép so sánh. Trạng thái sau từng i:
+    <br>• $i=0$: Swap(25, 12) $\Rightarrow$ Swap(12, 8) $\Rightarrow [8, 25, 40, 12, 30]$
+    <br>• $i=1$: Swap(25, 12) $\Rightarrow [8, 12, 40, 25, 30]$
+    <br>• $i=2$: Swap(40, 25) $\Rightarrow [8, 12, 25, 40, 30]$
+    <br>• $i=3$: Swap(40, 30) $\Rightarrow [8, 12, 25, 30, 40]$. Mảng hoàn chỉnh! Total Swaps $M = 5$.
+    </p>
+
+    <p><strong>Câu 2 (2.5 điểm): Cây AVL</strong></p>
+    <p>Lần lượt chèn các khóa sau vào cây AVL rỗng: $30, 20, 40, 10, 5$. Xác định nút mất cân bằng và vẽ cây AVL sau mỗi lần xoay.</p>
+    <p><em>Lời giải tóm tắt:</em>
+    <br>• Chèn 30, 20, 40 $\Rightarrow$ Cây cân bằng hoàn hảo ($BF(30) = 0$).
+    <br>• Chèn 10 $\Rightarrow$ Vẫn cân bằng ($BF(30) = +1, BF(20) = +1$).
+    <br>• Chèn 5 $\Rightarrow$ Mất cân bằng LL tại nút 20 ($BF(20) = +2, BF(10) = +1$).
+    <br>• Xoay Phải (Rotate Right) tại nút 20 $\Rightarrow$ Nút 10 lên làm cha của 5 và 20.
+    <br>• Cây AVL hoàn chỉnh sau xoay: Gốc 30, Cây con trái là 10 (con trái 5, con phải 20), Cây con phải là 40 ($BF(30) = +1$, tất cả các nút $|BF| \le 1$).
+    </p>
+
+    <p><strong>Câu 3 (2.5 điểm): Bảng Băm & B-Tree</strong></p>
+    <p>Cho $M=7, h(k) = k \bmod 7$. Chèn các khóa $14, 21, 7, 15$ dùng Linear Probing. Tính $C_{\text{succ}}$ trung bình.</p>
+    <p><em>Lời giải tóm tắt:</em>
+    <br>• 14 % 7 = 0 $\Rightarrow$ Ô 0 (1 probe)
+    <br>• 21 % 7 = 0 $\Rightarrow$ Ô 1 (2 probes)
+    <br>• 7 % 7 = 0 $\Rightarrow$ Ô 2 (3 probes)
+    <br>• 15 % 7 = 1 $\Rightarrow$ Đụng ô 1 $\Rightarrow$ Ô 3 (3 probes)
+    <br>$\Rightarrow C_{\text{succ}} = \frac{1 + 2 + 3 + 3}{4} = \frac{9}{4} = 2.25$ phép so sánh.
+    </p>
+
+    <p><strong>Câu 4 (2.5 điểm): Đồ thị Dijkstra</strong></p>
+    <p>Lập bảng trace Dijkstra tìm đường đi ngắn nhất từ đỉnh 0 cho đồ thị 4 đỉnh với ma trận trọng số cho trước.</p>
+
+    <div class="callout callout-warning">
+        <div class="callout-title">🎓 Lời Chúc Thi Tốt từ Ban Biên Soạn</div>
+        <p>Chúc các bạn sinh viên UIT ôn luyện hiệu quả, tự tin áp dụng tư duy chạy tay và đạt điểm 10 tuyệt đối trong kỳ thi môn IT003!</p>
+    </div>
+</section>

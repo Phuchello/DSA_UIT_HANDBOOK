@@ -1,0 +1,120 @@
+<section class="chapter" id="ch14">
+    <div class="chapter-header">
+        <span class="badge badge-core">PART XIV</span>
+        <h1>THUẬT TOÁN ĐƯỜNG ĐI NGẮN NHẤT (SHORTEST PATH - DIJKSTRA)</h1>
+    </div>
+
+    <h2>1. Intuition (Trực giác & Động lực)</h2>
+    <p>Bài toán tìm đường đi ngắn nhất giữa 2 địa điểm trên bản đồ Google Maps là ứng dụng thực tế phổ biến nhất của thuật toán <strong>Dijkstra</strong>. Thuật toán hoạt động theo nguyên lý tham ăn (Greedy): luôn chọn đỉnh có khoảng cách tạm thời nhỏ nhất để cố định (Fix/Finalize) đường đi ngắn nhất tới đỉnh đó.</p>
+
+    <h2>2. Formal Model & Relaxation Principle</h2>
+    <p>Điều kiện tiên quyết: Đồ thị có <strong>trọng số không âm ($w(e) \ge 0$)</strong>. Thao tác <strong>Nới cạnh (Relaxation)</strong> giữa cạnh $(u, v)$ có trọng số $w$:</p>
+    $$\text{If } d[u] + w < d[v] \Rightarrow   d[v] = d[u] + w, \quad p[v] = u$$
+
+    <h2>3. Visual Diagram (Sơ đồ Nới Cạnh Relaxation)</h2>
+    <div class="diagram-container">
+        <svg width="550" height="120" viewBox="0 0 550 120" xmlns="http://www.w3.org/2000/svg">
+            <rect width="550" height="120" fill="#f8fafc" rx="8"/>
+            <defs>
+                <marker id="arrow-dijkstra" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                    <path d="M0,0 L0,6 L9,3 z" fill="#1e40af" />
+                </marker>
+            </defs>
+            <g transform="translate(80, 40)">
+                <circle cx="0" cy="0" r="18" fill="#15803d"/>
+                <text x="0" y="5" fill="#ffffff" font-family="Inter" font-size="11" font-weight="bold" text-anchor="middle">u (d[u]=2)</text>
+            </g>
+            <line x1="105" y1="40" x2="275" y2="40" stroke="#1e40af" stroke-width="3" marker-end="url(#arrow-dijkstra)"/>
+            <text x="190" y="30" fill="#1e40af" font-family="Inter" font-size="11" font-weight="bold">w = 3</text>
+            <g transform="translate(300, 40)">
+                <circle cx="0" cy="0" r="18" fill="#b91c1c"/>
+                <text x="0" y="5" fill="#ffffff" font-family="Inter" font-size="11" font-weight="bold" text-anchor="middle">v (d[v]=9)</text>
+            </g>
+            <text x="350" y="45" font-family="Inter" font-size="11" font-weight="bold" fill="#15803d">Relax: d[v] mới = 2 + 3 = 5!</text>
+        </svg>
+    </div>
+
+    <h2>4. C++ Implementation (Dijkstra using Priority Queue)</h2>
+    <pre><code>#include &lt;vector&gt;
+#include &lt;queue&gt;
+#include &lt;iostream&gt;
+
+const int INF = 1e9;
+using pii = std::pair&lt;int, int&gt;; // (d[u], u)
+
+void dijkstra(int start, const std::vector&lt;std::vector&lt;pii&gt;&gt;& adj, int V) {
+    std::vector&lt;int&gt; d(V, INF);
+    std::priority_queue&lt;pii, std::vector&lt;pii&gt;, std::greater&lt;pii&gt;&gt; pq;
+
+    d[start] = 0;
+    pq.push({0, start});
+
+    while (!pq.empty()) {
+        auto [dist, u] = pq.top(); pq.pop();
+        if (dist &gt; d[u]) continue;
+
+        for (auto& edge : adj[u]) {
+            int v = edge.first, w = edge.second;
+            if (d[u] + w &lt; d[v]) {
+                d[v] = d[u] + w;
+                pq.push({d[v], v});
+            }
+        }
+    }
+}</code></pre>
+
+    <h2>5. Algorithms & Complexity Analysis Comparison</h2>
+    <p>Bên cạnh Dijkstra, ta có các thuật toán khác để xử lý đồ thị có trọng số âm hoặc tìm đường đi ngắn nhất mọi cặp đỉnh:</p>
+    <ul>
+        <li><strong>Bellman-Ford:</strong> Lặp nới lỏng toàn bộ $E$ cạnh đúng $V-1$ lần. Có khả năng phát hiện chu trình âm. Độ phức tạp: $\Theta(V \times E)$.</li>
+        <li><strong>Floyd-Warshall (All-Pairs):</strong> Dùng Quy hoạch động, $D[i][j] = \min(D[i][j], D[i][k] + D[k][j])$. Cho phép cạnh có trọng số âm, nhưng nếu đồ thị chứa chu trình âm (Negative Cycle) thì khái niệm đường đi ngắn nhất hữu hạn không còn hợp lệ. Độ phức tạp: $\Theta(V^3)$.</li>
+    </ul>
+    
+    <table>
+        <thead>
+            <tr><th>Thuật toán</th><th>Bài toán</th><th>Trọng số âm</th><th>Độ phức tạp (Thời gian)</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>Dijkstra (Mảng)</td><td>Một nguồn (Single-Source)</td><td>❌ Không hỗ trợ</td><td>$\Theta(V^2)$</td></tr>
+            <tr><td>Dijkstra (Min-Heap)</td><td>Một nguồn (Single-Source)</td><td>❌ Không hỗ trợ</td><td>$\Theta((V + E) \log V)$</td></tr>
+            <tr><td>Bellman-Ford</td><td>Một nguồn (Single-Source)</td><td>✅ Hỗ trợ (Báo chu trình âm)</td><td>$\Theta(V \times E)$</td></tr>
+            <tr><td>Floyd-Warshall</td><td>Mọi cặp (All-Pairs)</td><td>✅ Hỗ trợ</td><td>$\Theta(V^3)$</td></tr>
+        </tbody>
+    </table>
+
+    <h2>6. Dry Run Table (Trace Dijkstra Chuẩn Đề Thi IT003)</h2>
+    <p>Tìm đường đi từ A (đỉnh 0) đến các đỉnh 1, 2, 3 với các cạnh (0-1: 4), (0-2: 2), (2-1: 1), (1-3: 5):</p>
+    <table>
+        <thead>
+            <tr><th>Bước</th><th>Đỉnh u chọn cố định</th><th>d[0]</th><th>d[1]</th><th>d[2]</th><th>d[3]</th><th>Hành động Nới Cạnh</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>0</td><td>-</td><td><strong>0</strong></td><td>$\infty$</td><td>$\infty$</td><td>$\infty$</td><td>Khởi tạo d[0]=0</td></tr>
+            <tr><td>1</td><td>0 (d[0]=0)</td><td><strong>0</strong></td><td>4 (từ 0)</td><td>2 (từ 0)</td><td>$\infty$</td><td>Nới cạnh (0-1:4), (0-2:2)</td></tr>
+            <tr><td>2</td><td>2 (d[2]=2)</td><td><strong>0</strong></td><td><strong>3</strong> (từ 2)</td><td><strong>2</strong></td><td>$\infty$</td><td>Nới cạnh (2-1: 2+1=3 < 4) $ \Rightarrow  $ Cập nhật d[1]=3!</td></tr>
+            <tr><td>3</td><td>1 (d[1]=3)</td><td><strong>0</strong></td><td><strong>3</strong></td><td><strong>2</strong></td><td><strong>8</strong> (từ 1)</td><td>Nới cạnh (1-3: 3+5=8) $ \Rightarrow  $ Cập nhật d[3]=8</td></tr>
+            <tr><td>4</td><td>3 (d[3]=8)</td><td><strong>0</strong></td><td><strong>3</strong></td><td><strong>2</strong></td><td><strong>8</strong></td><td>Tất cả các đỉnh đã cố định đường đi ngắn nhất!</td></tr>
+        </tbody>
+    </table>
+
+    <h2>7. Common Errors & IT003 Exam Style</h2>
+    <div class="callout callout-warning">
+        <span class="badge badge-exam-style">IT003 EXAM STYLE</span>
+        <p><strong>Bẫy Đề Thi:</strong> Thuật toán Dijkstra <strong>KHÔNG chạy đúng khi đồ thị có cạnh mang trọng số âm</strong>! Nếu đồ thị có trọng số âm, phải chuyển sang dùng thuật toán Bellman-Ford.</p>
+    </div>
+
+    <h2>8. Quick Recall & Exercise Ladder</h2>
+    <ul>
+        <li><strong>Level 0:</strong> Thuật toán Dijkstra có làm việc được trên đồ thị có chu trình âm không?
+            <br><em>Đáp án:</em> Không. Chu trình âm khiến khoảng cách giảm vô tận thành $-\infty$.
+        </li>
+        <li><strong>Level 1:</strong> Trình bày bảng trace Dijkstra tìm đường đi ngắn nhất từ đỉnh 0 với đồ thị có các trọng số cho trước.
+            <br><em>Gợi ý:</em> Lập bảng cột đỉnh, cố định đỉnh có $d[u]$ nhỏ nhất ở mỗi dòng.
+        </li>
+    </ul>
+
+    <div class="callout">
+        <div class="callout-title">📝 Tóm kết Chương 14</div>
+        <p>Dijkstra chọn đỉnh tham ăn có $d[u]$ nhỏ nhất để cố định đường đi. Đảm bảo thuộc lòng các bước lập bảng nới cạnh để ghi trọn điểm câu đồ thị cuối kỳ!</p>
+    </div>
+</section>

@@ -1,0 +1,108 @@
+<section class="chapter" id="ch02">
+    <div class="chapter-header">
+        <span class="badge badge-core">PART II</span>
+        <h1>THUẬT TOÁN TÌM KIẾM (SEARCHING ALGORITHMS)</h1>
+    </div>
+
+    <h2>1. Intuition (Trực giác & Động lực)</h2>
+    <p>Tìm kiếm là thao tác cơ bản nhất trong khoa học máy tính. Hãy tưởng tượng việc tìm một từ trong từ điển 1,000 trang: bạn sẽ lật từng trang từ đầu (Linear Search) hay mở đôi cuốn sách ở giữa rồi tiếp tục chia đôi (Binary Search)? Bài toán tìm kiếm quyết định hiệu năng của mọi cơ sở dữ liệu lớn.</p>
+
+    <h2>2. Formal Model (Định nghĩa Thuật toán)</h2>
+    <p>Cho dãy $A = (a_0, a_1, \dots, a_{n-1})$ và giá trị $x$. Tìm vị trí index $i \in [0, n-1]$ sao cho $a_i = x$, hoặc trả về $-1$ nếu $x \notin A$.</p>
+    <p><span class="badge badge-uit-convention">IT003 CONVENTION</span>: Với Tìm kiếm Nhị phân, điều kiện tiên quyết bắt buộc là dãy $A$ phải <strong>được sắp xếp theo một thứ tự xác định (tăng dần hoặc giảm dần)</strong>.</p>
+
+    <h2>3. Visual Diagram (Sơ đồ Tìm kiếm Nhị phân)</h2>
+    <div class="diagram-container">
+        <svg width="600" height="140" viewBox="0 0 600 140" xmlns="http://www.w3.org/2000/svg">
+            <rect width="600" height="140" fill="#f8fafc" rx="8"/>
+            <g transform="translate(40, 40)">
+                <rect x="0" y="0" width="50" height="45" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+                <text x="25" y="27" font-family="Inter" font-size="12" font-weight="bold" text-anchor="middle">3</text>
+                <text x="25" y="62" font-family="Inter" font-size="10" fill="#64748b" text-anchor="middle">0</text>
+                <rect x="50" y="0" width="50" height="45" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+                <text x="75" y="27" font-family="Inter" font-size="12" font-weight="bold" text-anchor="middle">7</text>
+                <text x="75" y="62" font-family="Inter" font-size="10" fill="#64748b" text-anchor="middle">1 (L)</text>
+                <rect x="100" y="0" width="50" height="45" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+                <text x="125" y="27" font-family="Inter" font-size="12" font-weight="bold" text-anchor="middle">11</text>
+                <text x="125" y="62" font-family="Inter" font-size="10" fill="#64748b" text-anchor="middle">2</text>
+                <rect x="150" y="0" width="50" height="45" fill="#3b82f6" stroke="#1e40af" stroke-width="2"/>
+                <text x="175" y="27" fill="#ffffff" font-family="Inter" font-size="13" font-weight="bold" text-anchor="middle">15</text>
+                <text x="175" y="62" font-family="Inter" font-size="10" fill="#1e40af" font-weight="bold" text-anchor="middle">3 (MID)</text>
+                <rect x="200" y="0" width="50" height="45" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+                <text x="225" y="27" font-family="Inter" font-size="12" font-weight="bold" text-anchor="middle">19</text>
+                <text x="225" y="62" font-family="Inter" font-size="10" fill="#64748b" text-anchor="middle">4</text>
+                <rect x="250" y="0" width="50" height="45" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+                <text x="275" y="27" font-family="Inter" font-size="12" font-weight="bold" text-anchor="middle">24</text>
+                <text x="275" y="62" font-family="Inter" font-size="10" fill="#64748b" text-anchor="middle">5 (R)</text>
+                <rect x="300" y="0" width="50" height="45" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+                <text x="325" y="27" font-family="Inter" font-size="12" font-weight="bold" text-anchor="middle">31</text>
+                <text x="325" y="62" font-family="Inter" font-size="10" fill="#64748b" text-anchor="middle">6</text>
+            </g>
+        </svg>
+    </div>
+
+    <h2>4. Algorithm & Mechanics (Cơ chế hoạt động)</h2>
+    <p>So sánh $x$ với phần tử ở giữa <code>mid = left + (right - left) / 2</code>. Nếu $x == a[mid]$, trả về <code>mid</code>. Nếu $x < a[mid]$, thu hẹp phạm vi về bên trái (<code>right = mid - 1</code>). Ngược lại về bên phải (<code>left = mid + 1</code>).</p>
+
+    <h2>5. C++ Educational & STL Code</h2>
+    <pre><code>// Educational Iterative Binary Search
+int binarySearch(int a[], int n, int x) {
+    int left = 0, right = n - 1;
+    while (left &lt;= right) {
+        int mid = left + (right - left) / 2; // Phòng tránh tràn số int
+        if (a[mid] == x) return mid;
+        if (a[mid] &lt; x) left = mid + 1;
+        else right = mid - 1;
+    }
+    return -1;
+}
+
+// STL Implementation Example
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;algorithm&gt;
+
+bool searchSTL(const std::vector&lt;int&gt;& v, int x) {
+    return std::binary_search(v.begin(), v.end(), x);
+}</code></pre>
+
+    <h2>6. Complexity Analysis & Invariants</h2>
+    <ul>
+        <li><strong>Linear Search:</strong> Best Case $\mathcal{O}(1)$, Worst Case $\Theta(n)$, Average Case $\Theta(n)$. Space: $\mathcal{O}(1)$.</li>
+        <li><strong>Binary Search:</strong> Best Case $\mathcal{O}(1)$, Worst Case $\Theta(\log_2 n)$, Average Case $\Theta(\log_2 n)$. Space: $\mathcal{O}(1)$ với lặp, $\mathcal{O}(\log n)$ với đệ quy.</li>
+    </ul>
+
+    <h2>7. Dry Run Table (Chạy tay chi tiết)</h2>
+    <p>Tìm $x = 19$ trong mảng $A = [3, 7, 11, 15, 19, 24, 31]$ ($n=7$):</p>
+    <table>
+        <thead>
+            <tr><th>Bước</th><th>left</th><th>right</th><th>mid</th><th>a[mid]</th><th>So sánh x=19</th><th>Hành động</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>1</td><td>0</td><td>6</td><td>3</td><td>15</td><td>$15 < 19$</td><td><code>left = mid + 1 = 4</code></td></tr>
+            <tr><td>2</td><td>4</td><td>6</td><td>5</td><td>24</td><td>$24 > 19$</td><td><code>right = mid - 1 = 4</code></td></tr>
+            <tr><td>3</td><td>4</td><td>4</td><td>4</td><td>19</td><td>$19 == 19$</td><td><strong>Tìm thấy! Trả về index 4</strong></td></tr>
+        </tbody>
+    </table>
+
+    <h2>8. Common Errors & IT003 Exam Style</h2>
+    <div class="callout callout-warning">
+        <span class="badge badge-exam-style">IT003 EXAM STYLE</span>
+        <p><strong>Lỗi thường gặp:</strong> Tính <code>mid = (left + right) / 2</code> có thể bị tràn số khi <code>left + right > INT_MAX</code>. Luôn dùng <code>left + (right - left) / 2</code>. Ngoài ra, điều kiện vòng lặp phải là <code>left <= right</code> (dấu <code><=</code> bắt buộc để không bỏ sót trường hợp 1 phần tử).</p>
+    </div>
+
+    <h2>9. Quick Recall & Exercise Ladder</h2>
+    <ul>
+        <li><strong>Level 0:</strong> Tìm kiếm Nhị phân có thể áp dụng cho danh sách liên kết đơn được sắp xếp không? Vì sao?
+            <br><em>Đáp án:</em> Không hiệu quả, vì DSLK không hỗ trợ truy xuất ngẫu nhiên $a[mid]$ trong $\mathcal{O}(1)$, làm độ phức tạp tăng lên $\mathcal{O}(n)$.
+        </li>
+        <li><strong>Level 1:</strong> Cho mảng $A = [2, 5, 8, 12, 16, 23, 38, 56, 72, 91]$. Trình bày bảng trace tìm kiếm $x = 23$.
+            <br><em>Gợi ý:</em> Bước 1: mid=4 (16 < 23) $ \Rightarrow  $ Bước 2: mid=7 (56 > 23) $ \Rightarrow  $ Bước 3: mid=5 (23 == 23).
+        </li>
+    </ul>
+
+    <div class="callout">
+        <div class="callout-title">📝 Tóm kết Chương 2</div>
+        <p>Tìm kiếm nhị phân giảm phạm vi tìm kiếm đi một nửa sau mỗi bước ($\mathcal{O}(\log n)$). Hãy luôn nhớ kiểm tra mảng đã sắp xếp trước khi gọi thuật toán!</p>
+    </div>
+</section>

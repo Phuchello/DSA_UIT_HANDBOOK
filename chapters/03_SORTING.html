@@ -1,0 +1,213 @@
+<section class="chapter" id="ch03">
+    <div class="chapter-header">
+        <span class="badge badge-core">PART III</span>
+        <h1>CÁC THUẬT TOÁN SẮP XẾP (SORTING ALGORITHMS)</h1>
+    </div>
+
+    <h2>1. Intuition (Trực giác & Động lực)</h2>
+    <p>Sắp xếp dữ liệu giúp việc tìm kiếm, thống kê và xử lý trở nên dễ dàng và nhanh chóng hơn. Trong thực tế, các thuật toán sắp xếp được chia làm 2 nhóm chính: <strong>Sắp xếp cơ bản ($\mathcal{O}(n^2)$)</strong> dễ cài đặt và <strong>Sắp xếp nâng cao ($\mathcal{O}(n \log n)$)</strong> cho dữ liệu lớn.</p>
+
+    <h2>2. Formal Model & Complexity Matrix</h2>
+    <div class="callout">
+        <div class="callout-title">📊 Bảng Tổng Hợp 10 Thuật Toán Sắp Xếp Chuẩn IT003</div>
+        <table>
+            <thead>
+                <tr><th>Thuật toán</th><th>Best Case</th><th>Average Case</th><th>Worst Case</th><th>Space</th><th>Stable?</th><th>In-Place?</th></tr>
+            </thead>
+            <tbody>
+                <tr><td><strong>Selection Sort</strong></td><td>$\Theta(n^2)$</td><td>$\Theta(n^2)$</td><td>$\Theta(n^2)$</td><td>$\mathcal{O}(1)$</td><td>No</td><td>Yes</td></tr>
+                <tr><td><strong>Interchange Sort</strong></td><td>$\Theta(n^2)$</td><td>$\Theta(n^2)$</td><td>$\Theta(n^2)$</td><td>$\mathcal{O}(1)$</td><td>No</td><td>Yes</td></tr>
+                <tr><td><strong>Bubble Sort (Basic)</strong></td><td>$\Theta(n^2)$</td><td>$\Theta(n^2)$</td><td>$\Theta(n^2)$</td><td>$\mathcal{O}(1)$</td><td>Yes</td><td>Yes</td></tr>
+                <tr><td><strong>Bubble Sort (Optimized)</strong></td><td>$\Theta(n)$</td><td>$\Theta(n^2)$</td><td>$\Theta(n^2)$</td><td>$\mathcal{O}(1)$</td><td>Yes</td><td>Yes</td></tr>
+                <tr><td><strong>Insertion Sort</strong></td><td>$\Theta(n)$</td><td>$\Theta(n^2)$</td><td>$\Theta(n^2)$</td><td>$\mathcal{O}(1)$</td><td>Yes</td><td>Yes</td></tr>
+                <tr><td><strong>Binary Insertion</strong></td><td>$\Theta(n \log n)$*</td><td>$\Theta(n^2)$</td><td>$\Theta(n^2)$</td><td>$\mathcal{O}(1)$</td><td>Yes</td><td>Yes</td></tr>
+                <tr><td><strong>Shell Sort</strong></td><td>$\Theta(n \log n)$</td><td>$\mathcal{O}(n^{1.3})$*</td><td>$\Theta(n^2)$*</td><td>$\mathcal{O}(1)$</td><td>No</td><td>Yes</td></tr>
+                <tr><td><strong>Heap Sort</strong></td><td>$\Theta(n \log n)$</td><td>$\Theta(n \log n)$</td><td>$\Theta(n \log n)$</td><td>$\mathcal{O}(1)$</td><td>No</td><td>Yes</td></tr>
+                <tr><td><strong>Quick Sort</strong></td><td>$\Theta(n \log n)$</td><td>$\Theta(n \log n)$</td><td>$\Theta(n^2)$</td><td>$\mathcal{O}(\log n)$</td><td>No</td><td>Yes</td></tr>
+                <tr><td><strong>Merge Sort</strong></td><td>$\Theta(n \log n)$</td><td>$\Theta(n \log n)$</td><td>$\Theta(n \log n)$</td><td>$\Theta(n)$</td><td>Yes</td><td>No</td></tr>
+                <tr><td><strong>Radix Sort</strong></td><td>$\Theta(d \cdot n)$</td><td>$\Theta(d \cdot n)$</td><td>$\Theta(d \cdot n)$</td><td>$\Theta(n + k)$*</td><td>Yes</td><td>No</td></tr>
+            </tbody>
+        </table>
+        <p style="font-size: 9.5pt; color: #475569; margin-top: 10px;">
+            * <strong>Ghi chú Học thuật:</strong><br>
+            • <em>Interchange Sort:</em> Thuật toán này không ổn định (NOT STABLE) do việc đổi chỗ các phần tử ở xa nhau có thể làm thay đổi thứ tự tương đối của các phần tử bằng nhau.<br>
+            • <em>Binary Insertion:</em> Phép tìm kiếm nhị phân luôn tốn $\Theta(n \log n)$ so sánh ngay cả khi mảng đã sắp xếp (Best Case), dù số lần dời phần tử là 0.<br>
+            • <em>Shell Sort:</em> Độ phức tạp phụ thuộc vào chuỗi khoảng cách (Gap sequence). Dãy Shell gốc ($n/2, n/4, \dots$) có Worst Case $\Theta(n^2)$. Dãy Sedgewick đạt Worst Case $\mathcal{O}(n^{4/3})$.<br>
+            • <em>Radix Sort:</em> $k$ là cơ số của hệ đếm (ví dụ $k=10$ với hệ thập phân).
+        </p>
+    </div>
+
+    <h2>3. Visual Diagram (Sơ đồ Phân hoạch Quick Sort)</h2>
+    <div class="diagram-container">
+        <svg width="620" height="150" viewBox="0 0 620 150" xmlns="http://www.w3.org/2000/svg">
+            <rect width="620" height="150" fill="#f8fafc" rx="8"/>
+            <g transform="translate(30, 40)">
+                <!-- Elements < Pivot -->
+                <rect x="0" y="0" width="180" height="45" fill="#dcfce7" stroke="#15803d" stroke-width="2"/>
+                <text x="90" y="27" fill="#15803d" font-family="Inter" font-size="12" font-weight="bold" text-anchor="middle">Phần tử &le; Pivot</text>
+                <!-- Pivot -->
+                <rect x="190" y="0" width="80" height="45" fill="#3b82f6" stroke="#1e40af" stroke-width="2"/>
+                <text x="230" y="27" fill="#ffffff" font-family="Inter" font-size="12" font-weight="bold" text-anchor="middle">PIVOT</text>
+                <!-- Elements > Pivot -->
+                <rect x="280" y="0" width="280" height="45" fill="#fee2e2" stroke="#b91c1c" stroke-width="2"/>
+                <text x="420" y="27" fill="#b91c1c" font-family="Inter" font-size="12" font-weight="bold" text-anchor="middle">Phần tử &ge; Pivot</text>
+            </g>
+        </svg>
+    </div>
+
+    <h2>4. The 10 Sorting Algorithms</h2>
+
+    <h3>4.1. Selection Sort</h3>
+    <p><strong>Intuition:</strong> Tìm phần tử nhỏ nhất trong mảng chưa sắp xếp và đổi chỗ với phần tử đầu tiên của mảng đó.</p>
+    <pre><code>void selectionSort(int a[], int n) {
+    for (int i = 0; i &lt; n - 1; i++) {
+        int min_idx = i;
+        for (int j = i + 1; j &lt; n; j++)
+            if (a[j] &lt; a[min_idx]) min_idx = j;
+        std::swap(a[i], a[min_idx]);
+    }
+}</code></pre>
+    <p><strong>Complexity:</strong> $\Theta(n^2)$ cho mọi trường hợp. <strong>Stability:</strong> No.</p>
+    <table><tr><th>Bước i</th><th>Mảng</th><th>Thao tác</th></tr><tr><td>0</td><td>[5, 2, 4, 1]</td><td>min=1, swap(5,1) &rarr; [1, 2, 4, 5]</td></tr></table>
+
+    <h3>4.2. Interchange Sort</h3>
+    <p><strong>Intuition:</strong> So sánh cặp $(i, j)$, nếu sai thứ tự thì đổi chỗ ngay lập tức.</p>
+    <pre><code>void interchangeSort(int a[], int n) {
+    for (int i = 0; i &lt; n - 1; i++)
+        for (int j = i + 1; j &lt; n; j++)
+            if (a[i] &gt; a[j]) std::swap(a[i], a[j]);
+}</code></pre>
+    <p><strong>Complexity:</strong> $\Theta(n^2)$. <strong>Stability:</strong> No.</p>
+    <table><tr><th>Bước i</th><th>Mảng</th><th>Thao tác</th></tr><tr><td>0</td><td>[3, 2, 1]</td><td>swap(3,2) &rarr; [2,3,1], swap(2,1) &rarr; [1,3,2]</td></tr></table>
+
+    <h3>4.3. Bubble Sort</h3>
+    <p><strong>Intuition:</strong> Nổi bọt, đẩy phần tử lớn nhất xuống cuối mảng qua từng lượt.</p>
+    <pre><code>void bubbleSort(int a[], int n) {
+    for (int i = 0; i &lt; n - 1; i++) {
+        bool swapped = false;
+        for (int j = 0; j &lt; n - i - 1; j++)
+            if (a[j] &gt; a[j+1]) { std::swap(a[j], a[j+1]); swapped = true; }
+        if (!swapped) break;
+    }
+}</code></pre>
+    <p><strong>Complexity:</strong> Best $\Theta(n)$, Worst $\Theta(n^2)$. <strong>Stability:</strong> Yes.</p>
+    <table><tr><th>Bước i</th><th>Mảng</th><th>Thao tác</th></tr><tr><td>0</td><td>[3, 2, 1]</td><td>swap(3,2), swap(3,1) &rarr; [2, 1, 3]</td></tr></table>
+
+    <h3>4.4. Insertion Sort</h3>
+    <p><strong>Intuition:</strong> Chèn từng phần tử vào vị trí thích hợp trong mảng đã sắp xếp ở phía trước.</p>
+    <pre><code>void insertionSort(int a[], int n) {
+    for (int i = 1; i &lt; n; i++) {
+        int key = a[i], j = i - 1;
+        while (j &gt;= 0 && a[j] &gt; key) { a[j + 1] = a[j]; j--; }
+        a[j + 1] = key;
+    }
+}</code></pre>
+    <p><strong>Complexity:</strong> Best $\Theta(n)$, Worst $\Theta(n^2)$. <strong>Stability:</strong> Yes.</p>
+    <table><tr><th>Bước i</th><th>Mảng</th><th>Thao tác</th></tr><tr><td>1</td><td>[3, 2, 1]</td><td>key=2, dời 3 &rarr; [2, 3, 1]</td></tr></table>
+
+    <h3>4.5. Binary Insertion Sort</h3>
+    <p><strong>Intuition:</strong> Cải tiến Insertion Sort bằng cách dùng tìm kiếm nhị phân để tìm vị trí chèn.</p>
+    <pre><code>void binaryInsertionSort(int a[], int n) {
+    for (int i = 1; i &lt; n; i++) {
+        int key = a[i], left = 0, right = i - 1;
+        while (left &lt;= right) {
+            int mid = (left + right) / 2;
+            if (a[mid] &gt; key) right = mid - 1;
+            else left = mid + 1;
+        }
+        for (int j = i - 1; j &gt;= left; j--) a[j + 1] = a[j];
+        a[left] = key;
+    }
+}</code></pre>
+    <p><strong>Complexity:</strong> $\Theta(n^2)$. <strong>Stability:</strong> Yes.</p>
+    <table><tr><th>Bước i</th><th>Mảng</th><th>Thao tác</th></tr><tr><td>1</td><td>[3, 2, 1]</td><td>key=2, BS tìm pos=0, dời 3 &rarr; [2, 3, 1]</td></tr></table>
+
+    <h3>4.6. Shell Sort</h3>
+    <p><strong>Intuition:</strong> Sắp xếp các phần tử cách nhau một khoảng gap, sau đó giảm dần gap.</p>
+    <pre><code>void shellSort(int a[], int n) {
+    for (int gap = n/2; gap &gt; 0; gap /= 2) {
+        for (int i = gap; i &lt; n; i++) {
+            int temp = a[i], j;
+            for (j = i; j &gt;= gap && a[j - gap] &gt; temp; j -= gap)
+                a[j] = a[j - gap];
+            a[j] = temp;
+        }
+    }
+}</code></pre>
+    <p><strong>Complexity:</strong> Phụ thuộc gap. <strong>Stability:</strong> No.</p>
+    <table><tr><th>Gap</th><th>Mảng</th><th>Thao tác</th></tr><tr><td>2</td><td>[4, 3, 2, 1]</td><td>&rarr; [2, 1, 4, 3]</td></tr></table>
+
+    <h3>4.7. Heap Sort</h3>
+    <p><strong>Intuition:</strong> Xây dựng Max-Heap rồi liên tục lấy phần tử lớn nhất đẩy về cuối.</p>
+    <pre><code>void heapify(int a[], int n, int i) {
+    int largest = i, l = 2*i + 1, r = 2*i + 2;
+    if (l &lt; n && a[l] &gt; a[largest]) largest = l;
+    if (r &lt; n && a[r] &gt; a[largest]) largest = r;
+    if (largest != i) { std::swap(a[i], a[largest]); heapify(a, n, largest); }
+}
+void heapSort(int a[], int n) {
+    for (int i = n / 2 - 1; i &gt;= 0; i--) heapify(a, n, i);
+    for (int i = n - 1; i &gt; 0; i--) { std::swap(a[0], a[i]); heapify(a, i, 0); }
+}</code></pre>
+    <p><strong>Complexity:</strong> $\Theta(n \log n)$. <strong>Stability:</strong> No.</p>
+    <table><tr><th>Phase</th><th>Mảng</th><th>Thao tác</th></tr><tr><td>Build</td><td>[2, 1, 3]</td><td>&rarr; [3, 1, 2]</td></tr></table>
+
+    <h3>4.8. Merge Sort</h3>
+    <p><strong>Intuition:</strong> Chia để trị, chia mảng thành 2 nửa, sắp xếp rồi trộn lại.</p>
+    <pre><code>// Pseudocode Helper: void merge(int a[], int l, int m, int r);
+void mergeSort(int a[], int l, int r) {
+    if (l &lt; r) {
+        int m = l + (r - l) / 2;
+        mergeSort(a, l, m); mergeSort(a, m + 1, r);
+        merge(a, l, m, r); // Hàm trộn
+    }
+}</code></pre>
+    <p><strong>Complexity:</strong> $\Theta(n \log n)$. <strong>Stability:</strong> Yes.</p>
+    <table><tr><th>Bước</th><th>Mảng</th><th>Thao tác</th></tr><tr><td>Trộn</td><td>[2] và [1]</td><td>&rarr; [1, 2]</td></tr></table>
+
+    <h3>4.9. Quick Sort</h3>
+    <p><strong>Intuition:</strong> Chọn pivot, phân hoạch mảng thành phần nhỏ hơn và phần lớn hơn pivot.</p>
+    <pre><code>// Pseudocode Helper: int partitionLomuto(int a[], int low, int high);
+void quickSort(int a[], int low, int high) {
+    if (low &lt; high) {
+        int pi = partitionLomuto(a, low, high);
+        quickSort(a, low, pi - 1);
+        quickSort(a, pi + 1, high);
+    }
+}</code></pre>
+    <p><strong>Complexity:</strong> Avg $\Theta(n \log n)$, Worst $\Theta(n^2)$. <strong>Stability:</strong> No.</p>
+    <table><tr><th>Pivot</th><th>Mảng</th><th>Thao tác</th></tr><tr><td>30</td><td>[25, 40, 8, 30]</td><td>&rarr; [25, 8, 30, 40]</td></tr></table>
+
+    <h3>4.10. Radix Sort</h3>
+    <p><strong>Intuition:</strong> Sắp xếp theo từng chữ số từ hàng đơn vị lên.</p>
+    <pre><code>// Pseudocode Helper: int getMax(int a[], int n);
+// Pseudocode Helper: void countSort(int a[], int n, int exp);
+void radixSort(int a[], int n) {
+    int max_val = getMax(a, n);
+    for (int exp = 1; max_val / exp &gt; 0; exp *= 10)
+        countSort(a, n, exp); // Sắp xếp ổn định
+}</code></pre>
+    <p><strong>Complexity:</strong> $\Theta(d \cdot n)$. <strong>Stability:</strong> Yes.</p>
+    <table><tr><th>Exp</th><th>Mảng</th><th>Thao tác</th></tr><tr><td>1</td><td>[12, 10]</td><td>&rarr; [10, 12]</td></tr></table>
+
+    <h2>8. Common Errors & IT003 Exam Style</h2>
+    <div class="callout callout-warning">
+        <span class="badge badge-exam-style">IT003 EXAM STYLE</span>
+        <p><strong>Bẫy Đề Thi:</strong> Phân biệt Tính Ổn định (Stability) và Tính Tại chỗ (In-place). Quick Sort là <strong>In-place</strong> nhưng <strong>Không ổn định</strong>. Merge Sort <strong>Ổn định</strong> nhưng <strong>Không In-place</strong> ($\mathcal{O}(n)$ bộ nhớ phụ).</p>
+    </div>
+
+    <h2>9. Quick Recall & Exercise Ladder</h2>
+    <ul>
+        <li><strong>Level 0:</strong> Thuật toán nào có số phép so sánh $C = \frac{n(n-1)}{2}$ cố định trong mọi trường hợp?
+            <br><em>Đáp án:</em> Selection Sort và Interchange Sort.
+        </li>
+        <li><strong>Level 1:</strong> Thực hiện chạy tay 2 lượt đầu tiên của Bubble Sort trên mảng $A = [5, 1, 4, 2, 8]$.
+            <br><em>Gợi ý:</em> Lượt 1: $[1, 4, 2, 5, 8]$. Lượt 2: $[1, 2, 4, 5, 8]$.
+        </li>
+    </ul>
+
+    <div class="callout">
+        <div class="callout-title">📝 Tóm kết Chương 3</div>
+        <p>Nắm vững bảng ma trận độ phức tạp 10 thuật toán sắp xếp và kỹ năng chạy tay từng lượt để đạt điểm tối đa câu 1 trong đề thi IT003!</p>
+    </div>
+</section>

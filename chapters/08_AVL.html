@@ -1,0 +1,196 @@
+<section class="chapter" id="ch08">
+    <div class="chapter-header">
+        <span class="badge badge-core">PART VIII</span>
+        <h1>CÂY CÂN BẰNG AVL (AVL TREES)</h1>
+    </div>
+
+    <h2>1. Intuition (Trực giác & Động lực)</h2>
+    <p>Để khắc phục nhược điểm bị suy biến thành $\mathcal{O}(n)$ của BST thông thường, Adelson-Velsky và Landis (AVL) đã đề xuất cây BST tự cân bằng: tự động thực hiện phép <strong>Xoay (Rotation)</strong> mỗi khi độ lệch chiều cao giữa 2 cây con vượt quá 1.</p>
+
+    <h2>2. Formal Model & Balance Factor</h2>
+    <p>Chỉ số cân bằng của nút $X$:</p>
+    $$BF(X) = h_{left} - h_{right}$$
+    <p>Điều kiện AVL: $BF(X) \in \{-1, 0, +1\}$ với mọi nút $X$. Nếu $|BF(X)| \ge 2$, cây bị mất cân bằng tại $X$.</p>
+
+    <h2>3. Visual Diagram (Cơ chế Xoay Đơn Phải - Right Rotation)</h2>
+    <div class="diagram-container">
+        <svg width="600" height="200" viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg">
+            <rect width="600" height="200" fill="#f8fafc" rx="8"/>
+            <defs>
+                <marker id="arrow-avl" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                    <path d="M0,0 L0,6 L9,3 z" fill="#0f172a" />
+                </marker>
+            </defs>
+            <!-- Before -->
+            <line x1="150" y1="50" x2="100" y2="100" stroke="#0f172a" stroke-width="2"/>
+            <line x1="150" y1="50" x2="200" y2="100" stroke="#0f172a" stroke-width="2"/>
+            <line x1="100" y1="100" x2="60" y2="150" stroke="#0f172a" stroke-width="2"/>
+            <line x1="100" y1="100" x2="140" y2="150" stroke="#15803d" stroke-width="2"/>
+            
+            <g transform="translate(150, 50)">
+                <circle cx="0" cy="0" r="20" fill="#b91c1c"/>
+                <text x="0" y="5" fill="#ffffff" font-family="Inter" font-size="14" font-weight="bold" text-anchor="middle">Y</text>
+            </g>
+            <g transform="translate(100, 100)">
+                <circle cx="0" cy="0" r="20" fill="#0f172a"/>
+                <text x="0" y="5" fill="#ffffff" font-family="Inter" font-size="14" font-weight="bold" text-anchor="middle">X</text>
+            </g>
+            <g transform="translate(60, 150)">
+                <rect x="-15" y="-15" width="30" height="30" fill="#cbd5e1"/>
+                <text x="0" y="5" font-family="Inter" font-size="14" text-anchor="middle">A</text>
+            </g>
+            <g transform="translate(140, 150)">
+                <rect x="-15" y="-15" width="30" height="30" fill="#dcfce7"/>
+                <text x="0" y="5" font-family="Inter" font-size="14" text-anchor="middle">T2</text>
+            </g>
+            <g transform="translate(200, 100)">
+                <rect x="-15" y="-15" width="30" height="30" fill="#cbd5e1"/>
+                <text x="0" y="5" font-family="Inter" font-size="14" text-anchor="middle">C</text>
+            </g>
+
+            <path d="M 250 100 L 330 100" stroke="#0f172a" stroke-width="2" marker-end="url(#arrow-avl)"/>
+            <text x="290" y="90" font-family="Inter" font-size="12" font-style="italic" text-anchor="middle">Rotate Right(Y)</text>
+
+            <!-- After -->
+            <line x1="450" y1="50" x2="400" y2="100" stroke="#0f172a" stroke-width="2"/>
+            <line x1="450" y1="50" x2="500" y2="100" stroke="#0f172a" stroke-width="2"/>
+            <line x1="500" y1="100" x2="460" y2="150" stroke="#15803d" stroke-width="2"/>
+            <line x1="500" y1="100" x2="540" y2="150" stroke="#0f172a" stroke-width="2"/>
+
+            <g transform="translate(450, 50)">
+                <circle cx="0" cy="0" r="20" fill="#1e40af"/>
+                <text x="0" y="5" fill="#ffffff" font-family="Inter" font-size="14" font-weight="bold" text-anchor="middle">X</text>
+            </g>
+            <g transform="translate(400, 100)">
+                <rect x="-15" y="-15" width="30" height="30" fill="#cbd5e1"/>
+                <text x="0" y="5" font-family="Inter" font-size="14" text-anchor="middle">A</text>
+            </g>
+            <g transform="translate(500, 100)">
+                <circle cx="0" cy="0" r="20" fill="#b91c1c"/>
+                <text x="0" y="5" fill="#ffffff" font-family="Inter" font-size="14" font-weight="bold" text-anchor="middle">Y</text>
+            </g>
+            <g transform="translate(460, 150)">
+                <rect x="-15" y="-15" width="30" height="30" fill="#dcfce7"/>
+                <text x="0" y="5" font-family="Inter" font-size="14" text-anchor="middle">T2</text>
+            </g>
+            <g transform="translate(540, 150)">
+                <rect x="-15" y="-15" width="30" height="30" fill="#cbd5e1"/>
+                <text x="0" y="5" font-family="Inter" font-size="14" text-anchor="middle">C</text>
+            </g>
+        </svg>
+    </div>
+    <div class="callout">
+        <div class="callout-title">🔄 Rotation Cheat Sheet Table</div>
+        <table>
+            <thead>
+                <tr><th>Trường hợp</th><th>$BF(A)$ và $BF(Child)$</th><th>Phép Xoay Khôi Phục</th></tr>
+            </thead>
+            <tbody>
+                <tr><td><strong>LL (Left-Left)</strong></td><td>$BF(A) = +2$, $BF(Left) \ge 0$</td><td><strong>Xoay Đơn Phải (Rotate Right) tại A</strong></td></tr>
+                <tr><td><strong>RR (Right-Right)</strong></td><td>$BF(A) = -2$, $BF(Right) \le 0$</td><td><strong>Xoay Đơn Trái (Rotate Left) tại A</strong></td></tr>
+                <tr><td><strong>LR (Left-Right)</strong></td><td>$BF(A) = +2$, $BF(Left) = -1$</td><td><strong>Xoay Kép LR</strong> (Rotate Left tại Left, rồi Rotate Right tại A)</td></tr>
+                <tr><td><strong>RL (Right-Left)</strong></td><td>$BF(A) = -2$, $BF(Right) = +1$</td><td><strong>Xoay Kép RL</strong> (Rotate Right tại Right, rồi Rotate Left tại A)</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <h2>4. Algorithm & Mechanics (Xoay Đơn Phải Rotate Right)</h2>
+    <p>Cho nút $Y$ bị mất cân bằng nghiêng trái ($BF = +2$), nút con trái là $X$. Phép xoay phải đưa $X$ lên làm cha $Y$, và chuyển cây con phải của $X$ ($T_2$) sang làm cây con trái của $Y$.</p>
+    <p><strong>Tại sao phép xoay bảo toàn tính chất BST?</strong><br>
+    Theo tính chất BST ban đầu: <code>A < X < T2 < Y < C</code>. Khi xoay phải, $X$ trở thành gốc mới, $Y$ trở thành con phải của $X$. Nút $T2$ (lớn hơn $X$ nhưng nhỏ hơn $Y$) được chuyển một cách hoàn toàn tự nhiên từ con phải của $X$ sang làm con trái của $Y$, vẫn thỏa mãn chặt chẽ bất biến BST.</p>
+
+    <h2>5. C++ Educational Implementation</h2>
+    <pre><code>struct AVLNode {
+    int key;
+    int height;
+    AVLNode* left;
+    AVLNode* right;
+};
+
+int getHeight(AVLNode* n) { return n == nullptr ? 0 : n-&gt;height; }
+int getBalance(AVLNode* n) { return n == nullptr ? 0 : getHeight(n-&gt;left) - getHeight(n-&gt;right); }
+
+AVLNode* rotateRight(AVLNode* y) {
+    AVLNode* x = y-&gt;left;
+    AVLNode* T2 = x-&gt;right;
+    x-&gt;right = y;
+    y-&gt;left = T2;
+    y-&gt;height = std::max(getHeight(y-&gt;left), getHeight(y-&gt;right)) + 1;
+    x-&gt;height = std::max(getHeight(x-&gt;left), getHeight(x-&gt;right)) + 1;
+    return x;
+}
+
+AVLNode* rotateLeft(AVLNode* x) {
+    AVLNode* y = x-&gt;right;
+    AVLNode* T2 = y-&gt;left;
+    y-&gt;left = x;
+    x-&gt;right = T2;
+    x-&gt;height = std::max(getHeight(x-&gt;left), getHeight(x-&gt;right)) + 1;
+    y-&gt;height = std::max(getHeight(y-&gt;left), getHeight(y-&gt;right)) + 1;
+    return y;
+}
+
+AVLNode* insertAVL(AVLNode* node, int key) {
+    if (node == nullptr) return new AVLNode{key, 1, nullptr, nullptr};
+    if (key &lt; node-&gt;key) node-&gt;left = insertAVL(node-&gt;left, key);
+    else if (key &gt; node-&gt;key) node-&gt;right = insertAVL(node-&gt;right, key);
+    else return node;
+
+    node-&gt;height = 1 + std::max(getHeight(node-&gt;left), getHeight(node-&gt;right));
+    int balance = getBalance(node);
+
+    // LL Case
+    if (balance &gt; 1 && key &lt; node-&gt;left-&gt;key) return rotateRight(node);
+    // RR Case
+    if (balance &lt; -1 && key &gt; node-&gt;right-&gt;key) return rotateLeft(node);
+    // LR Case
+    if (balance &gt; 1 && key &gt; node-&gt;left-&gt;key) {
+        node-&gt;left = rotateLeft(node-&gt;left);
+        return rotateRight(node);
+    }
+    // RL Case
+    if (balance &lt; -1 && key &lt; node-&gt;right-&gt;key) {
+        node-&gt;right = rotateRight(node-&gt;right);
+        return rotateLeft(node);
+    }
+    return node;
+}</code></pre>
+
+    <h2>6. Complexity Analysis</h2>
+    <p>Cây AVL luôn đảm bảo chiều cao tiệm cận $h = \Theta(\log n)$. Do đó các thao tác Tìm kiếm, Chèn, Xóa <strong>luôn luôn đạt $\Theta(\log n)$ trong mọi trường hợp</strong>.</p>
+
+    <h2>7. Dry Run Table (Trace 4 Trường Hợp Mất Cân Bằng Cơ Bản)</h2>
+    <p>Dưới đây là 4 kịch bản chèn 3 khóa gây mất cân bằng điển hình:</p>
+    <table>
+        <thead>
+            <tr><th>Trường hợp</th><th>Các khóa chèn</th><th>Trạng thái cây (Nghiêng)</th><th>Khắc phục (Phép xoay)</th><th>Kết quả (Root, L, R)</th></tr>
+        </thead>
+        <tbody>
+            <tr><td><strong>LL</strong></td><td>30, 20, 10</td><td>30 $ \Rightarrow  $ L:20 $ \Rightarrow  $ L:10</td><td>Xoay Phải (30)</td><td>Root:20, L:10, R:30</td></tr>
+            <tr><td><strong>RR</strong></td><td>10, 20, 30</td><td>10 $ \Rightarrow  $ R:20 $ \Rightarrow  $ R:30</td><td>Xoay Trái (10)</td><td>Root:20, L:10, R:30</td></tr>
+            <tr><td><strong>LR</strong></td><td>30, 10, 20</td><td>30 $ \Rightarrow  $ L:10 $ \Rightarrow  $ R:20</td><td>Xoay Trái (10), Xoay Phải (30)</td><td>Root:20, L:10, R:30</td></tr>
+            <tr><td><strong>RL</strong></td><td>10, 30, 20</td><td>10 $ \Rightarrow  $ R:30 $ \Rightarrow  $ L:20</td><td>Xoay Phải (30), Xoay Trái (10)</td><td>Root:20, L:10, R:30</td></tr>
+        </tbody>
+    </table>
+
+    <h2>8. Common Errors & IT003 Exam Style</h2>
+    <div class="callout callout-warning">
+        <span class="badge badge-exam-style">IT003 EXAM STYLE</span>
+        <p><strong>Bẫy Đề Thi:</strong> Nhầm lẫn giữa xoay đơn và xoay kép. Dấu hiệu xoay kép LR: $BF(A) = +2$ nhưng con trái lại có $BF = -1$. Phải xoay trái con trái trước, sau đó mới xoay phải A!</p>
+    </div>
+
+    <h2>9. Quick Recall & Exercise Ladder</h2>
+    <ul>
+        <li><strong>Level 0:</strong> Chiều cao cây con trái là 3, cây con phải là 1. Chỉ số cân bằng $BF$ của gốc là bao nhiêu? Cây có đạt chuẩn AVL không?
+            <br><em>Đáp án:</em> $BF = 3 - 1 = +2$. Cây không đạt chuẩn AVL (cần xoay).
+        </li>
+        <li><strong>Level 1:</strong> Chèn lần lượt các số $1, 2, 3$ vào cây AVL rỗng. Xác định loại xoay.
+            <br><em>Gợi ý:</em> Mất cân bằng RR tại nút 1 $ \Rightarrow  $ Xoay Trái nút 1.
+        </li>
+    </ul>
+
+    <div class="callout">
+        <div class="callout-title">📝 Tóm kết Chương 8</div>
+        <p>Cây AVL duy trì sự cân bằng nghiêm ngặt nhờ 4 phép xoay chuẩn (LL, RR, LR, RL), đảm bảo thời gian truy xuất lý tưởng $\mathcal{O}(\log n)$.</p>
+    </div>
+</section>

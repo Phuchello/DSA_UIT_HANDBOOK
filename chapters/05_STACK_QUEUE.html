@@ -1,0 +1,147 @@
+<section class="chapter" id="ch05">
+    <div class="chapter-header">
+        <span class="badge badge-core">PART V</span>
+        <h1>NGĂN XẾP VÀ HÀNG ĐỢI (STACK & QUEUE)</h1>
+    </div>
+
+    <h2>1. Intuition (Trực giác & Động lực)</h2>
+    <p><strong>Stack (Ngăn xếp)</strong> giống như một chồng dĩa: dĩa nào đặt vào sau cùng sẽ được lấy ra đầu tiên (<strong>LIFO — Last In, First Out</strong>). <strong>Queue (Hàng đợi)</strong> giống như hàng người xếp hàng mua vé: ai đến trước sẽ được phục vụ trước (<strong>FIFO — First In, First Out</strong>).</p>
+
+    <h2>2. Formal Model (Định nghĩa Cấu trúc)</h2>
+    <ul>
+        <li><strong>Stack ADT:</strong> Các thao tác chính gồm <code>push(x)</code> (thêm vào đỉnh), <code>pop()</code> (lấy khỏi đỉnh), <code>top()</code> (xem đỉnh), <code>isEmpty()</code>.</li>
+        <li><strong>Queue ADT:</strong> Các thao tác chính gồm <code>enqueue(x)</code> (thêm vào đuôi), <code>dequeue()</code> (lấy khỏi đầu), <code>front()</code> (xem đầu), <code>isEmpty()</code>.</li>
+    </ul>
+
+    <h2>3. Visual Diagram (Sơ đồ Tràn Ảo & Hàng Đợi Vòng)</h2>
+    <div class="diagram-container">
+        <svg width="600" height="150" viewBox="0 0 600 150" xmlns="http://www.w3.org/2000/svg">
+            <rect width="600" height="150" fill="#f8fafc" rx="8"/>
+            <defs>
+                <marker id="arrow-ch5" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                    <path d="M0,0 L0,6 L9,3 z" fill="#0f172a" />
+                </marker>
+            </defs>
+            <g transform="translate(50, 40)">
+                <!-- Circular Queue Representation -->
+                <circle cx="100" cy="35" r="45" fill="none" stroke="#3b82f6" stroke-width="4"/>
+                <text x="100" y="30" font-family="Inter" font-size="11" font-weight="bold" text-anchor="middle">CIRCULAR</text>
+                <text x="100" y="45" font-family="Inter" font-size="11" font-weight="bold" text-anchor="middle">QUEUE</text>
+                <path d="M 145 35 A 45 45 0 0 1 100 80" fill="none" stroke="#1e40af" stroke-width="4" marker-end="url(#arrow-ch5)"/>
+            </g>
+            <g transform="translate(280, 30)">
+                <text x="0" y="20" font-family="Inter" font-size="11" font-weight="bold" fill="#0f172a">Công thức Hàng Đợi Vòng (Modulo):</text>
+                <text x="0" y="45" font-family="Fira Code" font-size="11" fill="#1e40af">rear = (rear + 1) % MAX;</text>
+                <text x="0" y="70" font-family="Fira Code" font-size="11" fill="#1e40af">front = (front + 1) % MAX;</text>
+            </g>
+        </svg>
+    </div>
+
+    <h2>4. Applications & Algorithms</h2>
+    <h3>4.1 Hiện tượng Tràn Ảo - False Overflow</h3>
+    <p>Khi dùng mảng tĩnh cho Queue, sau một số thao tác enqueue và dequeue, chỉ số <code>rear</code> tiến tới <code>MAX - 1</code>. Khi này mảng báo đầy (<code>rear == MAX - 1</code>) dù các ô đầu mảng đã bị bỏ trống. Giải pháp là dùng <strong>Circular Queue</strong> với phép toán chia lấy dư <code>% MAX</code>.</p>
+
+    <h3>4.2 Balanced Parentheses Checking</h3>
+    <p>Kiểm tra dấu ngoặc hợp lệ bằng Stack. Gặp mở ngoặc thì push, gặp đóng ngoặc thì pop và kiểm tra khớp loại.</p>
+    <table><tr><th>Char</th><th>Stack</th><th>Thao tác</th></tr><tr><td>'('</td><td>['(']</td><td>Push</td></tr><tr><td>')'</td><td>[]</td><td>Pop và Khớp</td></tr></table>
+
+    <h3>4.3 Infix to Postfix Conversion</h3>
+    <p>Chuyển biểu thức trung tố sang hậu tố dùng Stack lưu toán tử.</p>
+    <table>
+        <tr><th>Ký tự đọc</th><th>Stack</th><th>Output</th></tr>
+        <tr><td>'A'</td><td>[]</td><td>"A"</td></tr>
+        <tr><td>'+'</td><td>['+']</td><td>"A"</td></tr>
+        <tr><td>'B'</td><td>['+']</td><td>"A B"</td></tr>
+        <tr><td>End of String</td><td>[] (Pop '+')</td><td>"A B +"</td></tr>
+    </table>
+
+    <h2>5. Multiple Implementations & STL Code</h2>
+    <h3>5.1 Array Implementation</h3>
+    <pre><code>// Array Stack
+const int MAX = 100;
+struct ArrayStack {
+    int top_idx = -1;
+    int a[MAX];
+    void push(int x) { if (top_idx &lt; MAX-1) a[++top_idx] = x; }
+    int pop() { 
+        if (top_idx &lt; 0) return -1; // Underflow check
+        return a[top_idx--]; 
+    }
+};
+
+// Circular Queue Implementation
+struct CircularQueue {
+    int front = 0, rear = -1, count = 0;
+    int a[MAX];
+    void enqueue(int x) {
+        if (count == MAX) return; // Overflow check
+        rear = (rear + 1) % MAX;
+        a[rear] = x; count++;
+    }
+    int dequeue() {
+        if (count == 0) return -1; // Underflow check
+        int val = a[front];
+        front = (front + 1) % MAX;
+        count--;
+        return val;
+    }
+};</code></pre>
+
+    <h3>5.2 Linked List Implementation</h3>
+    <pre><code>struct Node { int data; Node* next; };
+struct LinkedStack {
+    Node* head = nullptr;
+    void push(int x) { head = new Node{x, head}; }
+    void pop() { 
+        if (head == nullptr) return;
+        Node* t = head; head = head-&gt;next; delete t; 
+    }
+};</code></pre>
+
+    <h3>5.3 C++ STL Standard</h3>
+    <pre><code>#include &lt;stack&gt;
+#include &lt;queue&gt;
+void stlStackQueue() {
+    std::stack&lt;int&gt; s; s.push(10); s.pop();
+    std::queue&lt;int&gt; q; q.push(20); q.pop();
+}</code></pre>
+
+    <h2>6. Complexity Analysis & Invariants</h2>
+    <p>Tất cả các thao tác <code>push</code>, <code>pop</code>, <code>top</code>, <code>enqueue</code>, <code>dequeue</code>, <code>front</code> trên Stack và Queue chuẩn đều đạt độ phức tạp <strong>$\Theta(1)$ thời gian và $\mathcal{O}(1)$ bộ nhớ phụ</strong>.</p>
+
+    <h2>7. Dry Run Table (Trace Chuỗi Thao Tác Circular Queue)</h2>
+    <p>Thực hiện lần lượt: Enqueue(5), Enqueue(8), Dequeue(), Enqueue(12) trên Queue $MAX=3$:</p>
+    <table>
+        <thead>
+            <tr><th>Thao tác</th><th>front</th><th>rear</th><th>count</th><th>Mảng a[0..2]</th><th>Kết quả trả về</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>Ban đầu</td><td>0</td><td>-1</td><td>0</td><td>[-, -, -]</td><td>-</td></tr>
+            <tr><td>Enqueue(5)</td><td>0</td><td>0</td><td>1</td><td>[5, -, -]</td><td>True</td></tr>
+            <tr><td>Enqueue(8)</td><td>0</td><td>1</td><td>2</td><td>[5, 8, -]</td><td>True</td></tr>
+            <tr><td>Dequeue()</td><td>1</td><td>1</td><td>1</td><td>[-, 8, -]</td><td>5</td></tr>
+            <tr><td>Enqueue(12)</td><td>1</td><td>2</td><td>2</td><td>[-, 8, 12]</td><td>True</td></tr>
+        </tbody>
+    </table>
+
+    <h2>8. Common Errors & IT003 Exam Style</h2>
+    <div class="callout callout-warning">
+        <span class="badge badge-exam-style">IT003 EXAM STYLE</span>
+        <p><strong>Bẫy Đề Thi:</strong> Ứng dụng kiểm tra biểu thức ngoặc hợp lệ (Parentheses Matching) hoặc chuyển đổi Hậu tố (Postfix). Luôn nhớ: DFS dùng <strong>Stack</strong>, BFS dùng <strong>Queue</strong>!</p>
+    </div>
+
+    <h2>9. Quick Recall & Exercise Ladder</h2>
+    <ul>
+        <li><strong>Level 0:</strong> Phân biệt nguyên lý hoạt động của Stack và Queue.
+            <br><em>Đáp án:</em> Stack là LIFO (Vào sau Ra trước), Queue là FIFO (Vào trước Ra trước).
+        </li>
+        <li><strong>Level 1:</strong> Cho chuỗi thao tác Stack: <code>Push(3), Push(7), Pop(), Push(5), Pop()</code>. Giá trị còn lại trong Stack là gì?
+            <br><em>Gợi ý:</em> Push 3 $ \Rightarrow  $ Push 7 $ \Rightarrow  $ Pop 7 $ \Rightarrow  $ Push 5 $ \Rightarrow  $ Pop 5 $\Rightarrow  $ Còn lại giá trị 3.
+        </li>
+    </ul>
+
+    <div class="callout">
+        <div class="callout-title">📝 Tóm kết Chương 5</div>
+        <p>Stack và Queue là 2 cấu trúc dữ liệu tuyến tính quan trọng nhất làm tiền đề cho các thuật toán duyệt cây, duyệt đồ thị BFS/DFS.</p>
+    </div>
+</section>

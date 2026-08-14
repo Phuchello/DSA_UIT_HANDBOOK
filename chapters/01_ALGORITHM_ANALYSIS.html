@@ -1,0 +1,116 @@
+<section class="chapter" id="ch01">
+    <div class="chapter-header">
+        <span class="badge badge-core">PART I</span>
+        <h1>PHÂN TÍCH THUẬT TOÁN & ĐỘ PHỨC TẠP (ALGORITHM ANALYSIS)</h1>
+    </div>
+
+    <h2>1. Intuition (Trực giác & Động lực)</h2>
+    <p>Làm sao để biết thuật toán A chạy nhanh hơn thuật toán B mà không cần phải code và chạy thử trên cùng một máy tính? Đo bằng giây (seconds) là không đáng tin cậy vì phụ thuộc vào phần cứng. Do đó, chúng ta đo lường hiệu năng bằng cách đếm số lượng "phép toán cơ bản" dựa trên kích thước dữ liệu đầu vào $n$. Đó là khởi nguồn của Ký pháp Big-O.</p>
+
+    <h2>2. Formal Model (Định nghĩa Big-O, Big-Omega, Big-Theta)</h2>
+    <ul>
+        <li><strong>$\mathcal{O}(f(n))$ (Big-O):</strong> <strong>Cận trên tiệm cận (Upper Bound)</strong>. Tốc độ tăng trưởng không vượt quá $f(n)$.</li>
+        <li><strong>$\Omega(f(n))$ (Big-Omega):</strong> <strong>Cận dưới tiệm cận (Lower Bound)</strong>. Tốc độ tăng trưởng tối thiểu đạt $f(n)$.</li>
+        <li><strong>$\Theta(f(n))$ (Big-Theta):</strong> <strong>Cận chặt tiệm cận (Tight Bound)</strong>. Tốc độ tăng trưởng vừa đúng bằng bậc $f(n)$ (khi cận trên và cận dưới trùng nhau).</li>
+    </ul>
+    <p>Thứ tự độ phức tạp từ Tốt đến Xấu: $\mathcal{O}(1) < \mathcal{O}(\log n) < \mathcal{O}(n) < \mathcal{O}(n \log n) < \mathcal{O}(n^2) < \mathcal{O}(2^n) < \mathcal{O}(n!)$</p>
+
+    <div class="callout callout-warning">
+        <span class="badge badge-uit-convention">IT003 PRECISION NOTE</span>
+        <p><strong>Phân biệt Ký pháp Tiệm cận và Kịch bản Đầu vào:</strong> Big-O, Big-Omega, Big-Theta mô tả <em>cận toán học của hàm số</em>, không đồng nhất với <em>kịch bản dữ liệu đầu vào</em> (Best/Worst/Average Case). Ví dụ: Worst-case của Insertion Sort có độ phức tạp tiệm cận chặt là $\Theta(n^2)$, trong khi Best-case của nó có độ phức tạp tiệm cận chặt là $\Theta(n)$.</p>
+    </div>
+
+    <h2>3. Visual Diagram (Đồ thị Tăng trưởng Hàm số)</h2>
+    <div class="diagram-container">
+        <svg width="500" height="250" viewBox="0 0 500 250" xmlns="http://www.w3.org/2000/svg">
+            <rect width="500" height="250" fill="#f8fafc" rx="8"/>
+            <defs>
+                <marker id="arrow-ch1" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                    <path d="M0,0 L0,6 L9,3 z" fill="#0f172a" />
+                </marker>
+            </defs>
+            <!-- Axes -->
+            <line x1="50" y1="200" x2="450" y2="200" stroke="#0f172a" stroke-width="2" marker-end="url(#arrow-ch1)"/>
+            <line x1="50" y1="200" x2="50" y2="30" stroke="#0f172a" stroke-width="2" marker-end="url(#arrow-ch1)"/>
+            <text x="440" y="220" font-family="Inter" font-size="12">n (Input Size)</text>
+            <text x="10" y="40" font-family="Inter" font-size="12">Operations</text>
+            
+            <!-- Curves -->
+            <path d="M 50 200 Q 150 200 400 180" fill="none" stroke="#15803d" stroke-width="3"/>
+            <text x="410" y="185" font-family="Inter" font-size="12" fill="#15803d" font-weight="bold">O(log n)</text>
+
+            <path d="M 50 200 L 400 50" fill="none" stroke="#3b82f6" stroke-width="3"/>
+            <text x="410" y="55" font-family="Inter" font-size="12" fill="#3b82f6" font-weight="bold">O(n)</text>
+
+            <path d="M 50 200 Q 200 150 250 30" fill="none" stroke="#b91c1c" stroke-width="3"/>
+            <text x="260" y="40" font-family="Inter" font-size="12" fill="#b91c1c" font-weight="bold">O(n^2)</text>
+        </svg>
+    </div>
+
+    <h2>4. Algorithm & Mechanics (Phân tích Vòng lặp)</h2>
+    <p>Quy tắc cộng: Hai khối lệnh nối tiếp nhau $\mathcal{O}(f(n)) + \mathcal{O}(g(n)) = \mathcal{O}(\max(f(n), g(n)))$.</p>
+    <p>Quy tắc nhân: Vòng lặp lồng nhau $\mathcal{O}(f(n)) \times \mathcal{O}(g(n)) = \mathcal{O}(f(n) \cdot g(n))$.</p>
+
+    <h2>5. C++ Educational Implementation (Phân tích Code thực tế)</h2>
+    <pre><code>// Ví dụ 1: O(n)
+for (int i = 0; i &lt; n; i++) {
+    cout &lt;&lt; i; 
+}
+
+// Ví dụ 2: O(n^2)
+for (int i = 0; i &lt; n; i++) {
+    for (int j = 0; j &lt; n; j++) {
+        cout &lt;&lt; i + j;
+    }
+}
+
+// Ví dụ 3: O(log n)
+int k = n;
+while (k &gt; 1) {
+    k = k / 2;
+}</code></pre>
+
+    <h2>6. Complexity Analysis (Phân tích Đệ quy)</h2>
+    <p>Với hàm đệ quy, độ phức tạp không chỉ đếm số lệnh mà còn phụ thuộc vào <strong>Độ sâu của cây đệ quy (Recursion Tree)</strong>. Ví dụ: Tính Fibonacci đệ quy $F(n) = F(n-1) + F(n-2)$ sinh ra một cây nhị phân có chiều cao $n$, dẫn đến độ phức tạp thời gian $\mathcal{O}(2^n)$ vô cùng chậm.</p>
+
+    <h2>7. Dry Run Table (Trace Vòng Lặp Phức Tạp)</h2>
+    <p>Trace code: <code>for (int i = 1; i < n; i = i * 2)</code> với $n = 10$:</p>
+    <table>
+        <thead>
+            <tr><th>Vòng lặp</th><th>Giá trị i</th><th>Biểu diễn toán học</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>1</td><td>1</td><td>$2^0$</td></tr>
+            <tr><td>2</td><td>2</td><td>$2^1$</td></tr>
+            <tr><td>3</td><td>4</td><td>$2^2$</td></tr>
+            <tr><td>4</td><td>8</td><td>$2^3$</td></tr>
+            <tr><td>Kết thúc</td><td>16 (Dừng vì 16 >= 10)</td><td>$2^k \ge n \Rightarrow   k = \lceil \log_2 n \rceil$</td></tr>
+        </tbody>
+    </table>
+
+    <h2>8. Common Errors & Pitfalls</h2>
+    <ul>
+        <li><strong>Bỏ qua hằng số quá sớm:</strong> $\mathcal{O}(100n)$ và $\mathcal{O}(n)$ là giống nhau về lý thuyết, nhưng trong thực tế $100n$ chậm hơn nhiều.</li>
+        <li><strong>Nhầm lẫn giữa Tốt nhất và Xấu nhất:</strong> Tìm kiếm tuyến tính có Best-case là $\Omega(1)$ nếu phần tử ở ngay đầu, nhưng Worst-case là $\mathcal{O}(n)$. Đừng nhầm lẫn!</li>
+    </ul>
+
+    <h2>9. Quick Recall & Exam Style</h2>
+    <div class="callout callout-warning">
+        <span class="badge badge-exam-style">IT003 EXAM STYLE</span>
+        <p><strong>Bẫy Đề Thi:</strong> Khi tính độ phức tạp của hàm đệ quy, sinh viên thường quên tính độ phức tạp Không gian (Space Complexity) của Call Stack. Mọi lệnh gọi đệ quy đều tốn $\mathcal{O}(1)$ bộ nhớ cho mỗi stack frame. Do đó đệ quy sâu $n$ tầng sẽ tốn $\mathcal{O}(n)$ bộ nhớ.</p>
+    </div>
+
+    <ul>
+        <li><strong>Level 0:</strong> Hàm $f(n) = 3n^2 + 5n + 10$ có Big-O là gì?
+            <br><em>Đáp án:</em> $\mathcal{O}(n^2)$ (Bỏ hằng số, lấy bậc cao nhất).
+        </li>
+        <li><strong>Level 1:</strong> Vòng lặp <code>for (int i = 0; i < n; i += 2)</code> có độ phức tạp là bao nhiêu?
+            <br><em>Đáp án:</em> Chạy $n/2$ lần $\Rightarrow   \mathcal{O}(n)$.
+        </li>
+    </ul>
+
+    <div class="callout">
+        <div class="callout-title">📝 Tóm kết Chương 1</div>
+        <p>Big-O là lăng kính để bạn nhìn ra thuật toán nào sẽ trụ vững khi dữ liệu phình to đến hàng triệu phần tử.</p>
+    </div>
+</section>

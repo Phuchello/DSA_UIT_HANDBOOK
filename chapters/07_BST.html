@@ -1,0 +1,206 @@
+<section class="chapter" id="ch07">
+    <div class="chapter-header">
+        <span class="badge badge-core">PART VII</span>
+        <h1>CÂY NHỊ PHÂN TÌM KIẾM (BINARY SEARCH TREE - BST)</h1>
+    </div>
+
+    <h2>1. Intuition (Trực giác & Động lực)</h2>
+    <p>Mảng sắp xếp cho phép Tìm kiếm Nhị phân $\mathcal{O}(\log n)$ nhưng chèn/xóa tốn $\mathcal{O}(n)$. Danh sách liên kết cho phép chèn/xóa $\mathcal{O}(1)$ nhưng tìm kiếm tốn $\mathcal{O}(n)$. <strong>Binary Search Tree (BST)</strong> kết hợp ưu điểm của cả hai: cho phép Tìm kiếm, Chèn, Xóa đều đạt trung bình $\mathcal{O}(\log n)$!</p>
+
+    <h2>2. Formal Model & Invariants (Định nghĩa & Bất biến)</h2>
+    <p>BST là cây nhị phân thỏa mãn tính chất bất biến tại mọi nút $X$:</p>
+    <ul>
+        <li>Mọi khóa ở cây con trái của $X$ đều <strong>nhỏ hơn</strong> khóa của $X$ ($\text{key}(Left) < \text{key}(X)$).</li>
+        <li>Mọi khóa ở cây con phải của $X$ đều <strong>lớn hơn</strong> khóa của $X$ ($\text{key}(Right) > \text{key}(X)$).</li>
+    </ul>
+
+    <h2>3. Visual Diagram (Sơ đồ Xóa Nút BST 2 Con)</h2>
+    <div class="diagram-container">
+        <svg width="600" height="230" viewBox="0 0 600 230" xmlns="http://www.w3.org/2000/svg">
+            <rect width="600" height="230" fill="#f8fafc" rx="8"/>
+            <!-- Definitions for Arrow -->
+            <defs>
+                <marker id="arrow-bst" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                    <path d="M0,0 L0,6 L9,3 z" fill="#0f172a" />
+                </marker>
+            </defs>
+            
+            <!-- Edges for Before -->
+            <line x1="150" y1="70" x2="100" y2="120" stroke="#0f172a" stroke-width="2"/>
+            <line x1="150" y1="70" x2="200" y2="120" stroke="#0f172a" stroke-width="2"/>
+            <line x1="200" y1="120" x2="175" y2="170" stroke="#15803d" stroke-width="2" stroke-dasharray="4"/>
+            <!-- Nodes Before -->
+            <g transform="translate(150, 70)">
+                <circle cx="0" cy="0" r="20" fill="#b91c1c"/>
+                <text x="0" y="5" fill="#ffffff" font-family="Inter" font-size="14" font-weight="bold" text-anchor="middle">50</text>
+                <text x="0" y="-25" font-family="Inter" font-size="12" fill="#b91c1c" font-weight="bold" text-anchor="middle">Cần xóa</text>
+            </g>
+            <g transform="translate(100, 120)">
+                <circle cx="0" cy="0" r="20" fill="#0f172a"/>
+                <text x="0" y="5" fill="#ffffff" font-family="Inter" font-size="14" font-weight="bold" text-anchor="middle">30</text>
+            </g>
+            <g transform="translate(200, 120)">
+                <circle cx="0" cy="0" r="20" fill="#0f172a"/>
+                <text x="0" y="5" fill="#ffffff" font-family="Inter" font-size="14" font-weight="bold" text-anchor="middle">70</text>
+            </g>
+            <g transform="translate(175, 170)">
+                <circle cx="0" cy="0" r="20" fill="#15803d"/>
+                <text x="0" y="5" fill="#ffffff" font-family="Inter" font-size="14" font-weight="bold" text-anchor="middle">55</text>
+                <text x="0" y="35" font-family="Inter" font-size="12" fill="#15803d" font-weight="bold" text-anchor="middle">Min Right</text>
+            </g>
+            
+            <!-- Process Arrow -->
+            <path d="M 270 120 L 330 120" stroke="#0f172a" stroke-width="2" marker-end="url(#arrow-bst)"/>
+            <text x="300" y="110" font-family="Inter" font-size="12" font-style="italic" text-anchor="middle">Thế mạng</text>
+
+            <!-- Edges for After -->
+            <line x1="450" y1="70" x2="400" y2="120" stroke="#0f172a" stroke-width="2"/>
+            <line x1="450" y1="70" x2="500" y2="120" stroke="#0f172a" stroke-width="2"/>
+            <!-- Nodes After -->
+            <g transform="translate(450, 70)">
+                <circle cx="0" cy="0" r="20" fill="#15803d"/>
+                <text x="0" y="5" fill="#ffffff" font-family="Inter" font-size="14" font-weight="bold" text-anchor="middle">55</text>
+                <text x="0" y="-25" font-family="Inter" font-size="12" fill="#15803d" font-weight="bold" text-anchor="middle">Gốc mới</text>
+            </g>
+            <g transform="translate(400, 120)">
+                <circle cx="0" cy="0" r="20" fill="#0f172a"/>
+                <text x="0" y="5" fill="#ffffff" font-family="Inter" font-size="14" font-weight="bold" text-anchor="middle">30</text>
+            </g>
+            <g transform="translate(500, 120)">
+                <circle cx="0" cy="0" r="20" fill="#0f172a"/>
+                <text x="0" y="5" fill="#ffffff" font-family="Inter" font-size="14" font-weight="bold" text-anchor="middle">70</text>
+            </g>
+        </svg>
+    </div>
+
+    <h2>4. Algorithm & Mechanics (Các thao tác cơ bản)</h2>
+    <ul>
+        <li><strong>Tìm kiếm (Search):</strong> Duyệt từ gốc, nhỏ sang trái, lớn sang phải. $\mathcal{O}(\log n)$.</li>
+        <li><strong>Thêm (Insert):</strong> Tương tự tìm kiếm để tìm vị trí nút lá thích hợp rồi chèn.</li>
+        <li><strong>Min/Max:</strong> Min nằm ở nút cực trái, Max nằm ở nút cực phải.</li>
+        <li><strong>Duyệt cây (Traversals):</strong> 
+            <ul>
+                <li>Pre-order (NLR): Root $\rightarrow$ Left $\rightarrow$ Right</li>
+                <li>In-order (LNR): Left $\rightarrow$ Root $\rightarrow$ Right (In ra mảng tăng dần)</li>
+                <li>Post-order (LRN): Left $\rightarrow$ Right $\rightarrow$ Root</li>
+            </ul>
+        </li>
+        <li><strong>Xóa (Delete) - 3 Trường hợp:</strong> 
+            <ul>
+                <li><strong>Nút lá:</strong> Xóa trực tiếp nút.</li>
+                <li><strong>Nút có 1 con:</strong> Nối cha của nút cần xóa trực tiếp tới nút con của nó.</li>
+                <li><strong>Nút có 2 con:</strong> <span class="badge badge-uit-convention">IT003 CONVENTION</span> Thay bằng <strong>Nút cực phải của cây con trái (Max Left)</strong> hoặc <strong>Nút cực trái của cây con phải (Min Right)</strong>.</li>
+            </ul>
+        </li>
+    </ul>
+
+    <h2>5. C++ Educational Implementation</h2>
+    <pre><code>// Search (Recursive)
+TreeNode* search(TreeNode* root, int key) {
+    if (!root || root-&gt;data == key) return root;
+    if (key &lt; root-&gt;data) return search(root-&gt;pLeft, key);
+    return search(root-&gt;pRight, key);
+}
+
+// Search (Iterative)
+TreeNode* searchIterative(TreeNode* root, int key) {
+    while (root != nullptr && root-&gt;data != key) {
+        if (key &lt; root-&gt;data) root = root-&gt;pLeft;
+        else root = root-&gt;pRight;
+    }
+    return root;
+}
+
+// LNR Traversal
+void inOrder(TreeNode* root) {
+    if (root) {
+        inOrder(root-&gt;pLeft);
+        std::cout &lt;&lt; root-&gt;data &lt;&lt; " ";
+        inOrder(root-&gt;pRight);
+    }
+}
+
+TreeNode* findMin(TreeNode* root) {
+    while (root && root-&gt;pLeft != nullptr) root = root-&gt;pLeft;
+    return root;
+}
+
+TreeNode* findMax(TreeNode* root) {
+    while (root && root-&gt;pRight != nullptr) root = root-&gt;pRight;
+    return root;
+}
+
+TreeNode* deleteNode(TreeNode* root, int key) {
+    if (root == nullptr) return root;
+
+    if (key &lt; root-&gt;data) root-&gt;pLeft = deleteNode(root-&gt;pLeft, key);
+    else if (key &gt; root-&gt;data) root-&gt;pRight = deleteNode(root-&gt;pRight, key);
+    else {
+        if (root-&gt;pLeft == nullptr) {
+            TreeNode* temp = root-&gt;pRight;
+            delete root; return temp;
+        } else if (root-&gt;pRight == nullptr) {
+            TreeNode* temp = root-&gt;pLeft;
+            delete root; return temp;
+        }
+        TreeNode* temp = findMin(root-&gt;pRight); // Min Right
+        root-&gt;data = temp-&gt;data;
+        root-&gt;pRight = deleteNode(root-&gt;pRight, temp-&gt;data);
+    }
+    return root;
+}</code></pre>
+
+    <h2>6. Complexity Analysis</h2>
+    <p>Các thao tác Tìm kiếm, Chèn, Xóa trên BST có độ phức tạp phụ thuộc trực tiếp vào chiều cao của cây: <strong>$\mathcal{O}(h)$</strong>.</p>
+    <ul>
+        <li><strong>Cây cân bằng tương đối ($h = \Theta(\log n)$):</strong> Các thao tác đạt hiệu năng lý tưởng <strong>$\mathcal{O}(\log n)$</strong>.</li>
+        <li><strong>Cây suy biến tệ nhất (Skewed Tree, $h = n$):</strong> Cây bị suy biến thành Danh sách liên kết, các thao tác tốn <strong>$\mathcal{O}(n)$</strong>.</li>
+    </ul>
+
+    <h2>7. Dry Run Table (Trace Thêm và Xóa Nút)</h2>
+    <p>Trace Thêm lần lượt 50, 30, 70, 20:</p>
+    <table>
+        <thead>
+            <tr><th>Khóa chèn</th><th>Hành động</th><th>Kết quả Cây</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>50</td><td>Cây rỗng, tạo Root 50</td><td>Root: 50</td></tr>
+            <tr><td>30</td><td>30 < 50, chèn trái 50</td><td>50 $\Rightarrow$ L:30</td></tr>
+            <tr><td>70</td><td>70 > 50, chèn phải 50</td><td>50 $\Rightarrow$ L:30, R:70</td></tr>
+            <tr><td>20</td><td>20 < 50 (L), 20 < 30 (L), chèn trái 30</td><td>50 $\Rightarrow$ L:30(L:20), R:70</td></tr>
+        </tbody>
+    </table>
+    <p>Trace Xóa Nút 50 (có 2 con, dùng Min Right):</p>
+    <table>
+        <thead>
+            <tr><th>Bước</th><th>Hành động</th><th>Trạng thái Nút 50</th><th>Nút thế mạng Min Right</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>1</td><td>Tìm nút 50</td><td>Xác định có 2 con (Left 30, Right 70)</td><td>-</td></tr>
+            <tr><td>2</td><td>Tìm Min Right trên cây con 70</td><td>-</td><td>Tìm thấy Nút 55</td></tr>
+            <tr><td>3</td><td>Gán <code>root->data = 55</code></td><td>Dữ liệu đổi thành 55</td><td>-</td></tr>
+            <tr><td>4</td><td>Đệ quy xóa 55 trên cây con phải</td><td>Nút 50 cũ giữ giá trị 55</td><td>Xóa nút 55 ban đầu</td></tr>
+        </tbody>
+    </table>
+
+    <h2>8. Common Errors & IT003 Exam Style</h2>
+    <div class="callout callout-warning">
+        <span class="badge badge-exam-style">IT003 EXAM STYLE</span>
+        <p><strong>Bẫy Đề Thi:</strong> Luôn đọc kỹ yêu cầu bài thi: "Thay bằng phần tử lớn nhất bên cây con trái" (Max Left) hay "nhỏ nhất bên cây con phải" (Min Right). Chọn sai phần tử thế mạng sẽ bị trừ điểm toàn bộ cây kết quả!</p>
+    </div>
+
+    <h2>9. Quick Recall & Exercise Ladder</h2>
+    <ul>
+        <li><strong>Level 0:</strong> BST bị suy biến thành danh sách tuyến tính khi nào?
+            <br><em>Đáp án:</em> Khi chèn các phần tử theo thứ tự đã sắp xếp tăng dần hoặc giảm dần.
+        </li>
+        <li><strong>Level 1:</strong> Vẽ BST kết quả sau khi chèn dãy khóa: $50, 30, 70, 20, 40, 60, 80$.
+            <br><em>Gợi ý:</em> 50 là Root. 30 bên trái 50, 70 bên phải 50, ... thu được cây cân bằng hoàn hảo.
+        </li>
+    </ul>
+
+    <div class="callout">
+        <div class="callout-title">📝 Tóm kết Chương 7</div>
+        <p>BST là nền tảng quan trọng nhất của cấu trúc cây tìm kiếm. Hãy luyện tập thành thạo thao tác xóa nút 2 con trên giấy!</p>
+    </div>
+</section>

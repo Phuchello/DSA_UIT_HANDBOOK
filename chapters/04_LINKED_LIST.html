@@ -1,0 +1,151 @@
+<section class="chapter" id="ch04">
+    <div class="chapter-header">
+        <span class="badge badge-core">PART IV</span>
+        <h1>DANH SÁCH LIÊN KẾT (LINKED LIST)</h1>
+    </div>
+
+    <h2>1. Intuition (Trực giác & Động lực)</h2>
+    <p>Mảng tĩnh có kích thước cố định và thao tác chèn/xóa ở giữa tốn $\mathcal{O}(n)$ do phải dời hàng loạt phần tử. Danh sách liên kết (Linked List) giải quyết triệt để vấn đề này bằng cách cấp phát động từng nút (Node) nằm rải rác trên bộ nhớ Heap và liên kết chúng bằng các con trỏ (Pointer).</p>
+
+    <h2>2. Formal Model (Định nghĩa Cấu trúc)</h2>
+    <p>Một <strong>Singly Linked List</strong> gồm tập hợp các nút <code>Node</code>, trong đó mỗi nút chứa 2 thành phần: <code>data</code> (giá trị lưu trữ) và <code>pNext</code> (con trỏ chỉ tới nút kế tiếp). Danh sách được quản lý bởi con trỏ <code>pHead</code> (chỉ nút đầu) và <code>pTail</code> (chỉ nút cuối).</p>
+
+    <h2>3. Visual Diagram (Sơ đồ Bộ nhớ Danh sách Liên kết)</h2>
+    <div class="diagram-container">
+        <svg width="620" height="120" viewBox="0 0 620 120" xmlns="http://www.w3.org/2000/svg">
+            <rect width="620" height="120" fill="#f8fafc" rx="8"/>
+            <g transform="translate(30, 35)">
+                <rect x="0" y="0" width="60" height="40" fill="#0f172a" rx="4"/>
+                <text x="30" y="25" fill="#ffffff" font-family="Inter" font-size="12" font-weight="bold" text-anchor="middle">10</text>
+                <rect x="60" y="0" width="30" height="40" fill="#1e40af" rx="4"/>
+                <circle cx="75" cy="20" r="4" fill="#ffffff"/>
+                <line x1="75" y1="20" x2="135" y2="20" stroke="#1e40af" stroke-width="2" marker-end="url(#arrow-ll)"/>
+            </g>
+            <g transform="translate(170, 35)">
+                <rect x="0" y="0" width="60" height="40" fill="#0f172a" rx="4"/>
+                <text x="30" y="25" fill="#ffffff" font-family="Inter" font-size="12" font-weight="bold" text-anchor="middle">25</text>
+                <rect x="60" y="0" width="30" height="40" fill="#1e40af" rx="4"/>
+                <circle cx="75" cy="20" r="4" fill="#ffffff"/>
+                <line x1="75" y1="20" x2="135" y2="20" stroke="#1e40af" stroke-width="2" marker-end="url(#arrow-ll)"/>
+            </g>
+            <g transform="translate(310, 35)">
+                <rect x="0" y="0" width="60" height="40" fill="#0f172a" rx="4"/>
+                <text x="30" y="25" fill="#ffffff" font-family="Inter" font-size="12" font-weight="bold" text-anchor="middle">40</text>
+                <rect x="60" y="0" width="30" height="40" fill="#64748b" rx="4"/>
+                <text x="75" y="24" fill="#ffffff" font-family="Inter" font-size="10" font-weight="bold" text-anchor="middle">NULL</text>
+            </g>
+            <defs>
+                <marker id="arrow-ll" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <path d="M 0 0 L 10 5 L 0 10 z" fill="#1e40af"/>
+                </marker>
+            </defs>
+        </svg>
+    </div>
+
+    <h2>4. Algorithm & Mechanics (Các Thao tác Con trỏ)</h2>
+    <ul>
+        <li><strong>Add Head:</strong> Tạo <code>pNew</code>. Cho <code>pNew->pNext = pHead</code>. Cập nhật <code>pHead = pNew</code>.</li>
+        <li><strong>Add Tail:</strong> Tạo <code>pNew</code>. Cho <code>pTail->pNext = pNew</code>. Cập nhật <code>pTail = pNew</code>.</li>
+        <li><strong>Delete Head:</strong> Lưu <code>temp = pHead</code>. Cho <code>pHead = pHead->pNext</code>. Giải phóng <code>delete temp</code>.</li>
+        <li><strong>Search:</strong> Duyệt từ đầu, nếu <code>p->data == val</code> thì trả về <code>p</code>.</li>
+        <li><strong>Insert After:</strong> Tìm nút <code>q</code>. Tạo <code>pNew</code>, <code>pNew->pNext = q->pNext</code>, <code>q->pNext = pNew</code>.</li>
+        <li><strong>Count:</strong> Duyệt qua danh sách và tăng biến đếm.</li>
+    </ul>
+
+    <h2>5. C++ Educational & STL Code</h2>
+    <h3>5.1 Singly Linked List</h3>
+    <pre><code>struct Node {
+    int data;
+    Node* pNext;
+};
+struct LinkedList {
+    Node* pHead;
+    Node* pTail;
+};
+void addHead(LinkedList& list, int val) {
+    Node* p = new Node{val, nullptr};
+    if (!list.pHead) list.pHead = list.pTail = p;
+    else { p-&gt;pNext = list.pHead; list.pHead = p; }
+}
+void deleteHead(LinkedList& list) {
+    if (!list.pHead) return;
+    Node* temp = list.pHead;
+    list.pHead = list.pHead-&gt;pNext;
+    if (!list.pHead) list.pTail = nullptr;
+    delete temp;
+}
+Node* search(LinkedList list, int val) {
+    for (Node* p = list.pHead; p != nullptr; p = p-&gt;pNext)
+        if (p-&gt;data == val) return p;
+    return nullptr;
+}
+void insertAfter(LinkedList& list, Node* q, int val) {
+    if (!q) return;
+    Node* p = new Node{val, q-&gt;pNext};
+    q-&gt;pNext = p;
+    if (list.pTail == q) list.pTail = p;
+}
+int countNodes(LinkedList list) {
+    int count = 0;
+    for (Node* p = list.pHead; p != nullptr; p = p-&gt;pNext) count++;
+    return count;
+}
+</code></pre>
+
+    <h3>5.2 Doubly Linked List</h3>
+    <pre><code>struct DNode {
+    int data;
+    DNode* pPrev;
+    DNode* pNext;
+};
+struct DLinkedList {
+    DNode* pHead;
+    DNode* pTail;
+};
+// Tradeoffs: Có thể duyệt 2 chiều dễ dàng, nhưng tốn gấp đôi bộ nhớ cho con trỏ và code thao tác phức tạp hơn.
+void insertHead(DLinkedList& list, int val) {
+    DNode* p = new DNode{val, nullptr, nullptr};
+    if (!list.pHead) list.pHead = list.pTail = p;
+    else { p-&gt;pNext = list.pHead; list.pHead-&gt;pPrev = p; list.pHead = p; }
+}</code></pre>
+
+    <h2>6. Complexity Analysis & Edge Cases</h2>
+    <ul>
+        <li><strong>Chèn/Xóa ở Đầu:</strong> $\Theta(1)$ thời gian, $\mathcal{O}(1)$ bộ nhớ.</li>
+        <li><strong>Truy xuất theo chỉ số / Tìm kiếm:</strong> $\Theta(n)$ thời gian.</li>
+        <li><strong>Edge Cases bắt buộc kiểm tra:</strong> Danh sách rỗng (<code>pHead == nullptr</code>), Danh sách chỉ có 1 nút (<code>pHead == pTail</code>).</li>
+    </ul>
+
+    <h2>7. Dry Run Table (Chạy tay Thao tác Add Head & Delete Head)</h2>
+    <table>
+        <thead>
+            <tr><th>Thao tác</th><th>Trạng thái pHead trước</th><th>Trạng thái pTail trước</th><th>Biến đổi con trỏ</th><th>Trạng thái pHead sau</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>Add Head(10) vào List rỗng</td><td>nullptr</td><td>nullptr</td><td><code>pHead = pTail = pNew</code></td><td>Node(10)</td></tr>
+            <tr><td>Add Head(5) vào List(10)</td><td>Node(10)</td><td>Node(10)</td><td><code>pNew->pNext = pHead; pHead = pNew</code></td><td>Node(5) $ \Rightarrow  $ Node(10)</td></tr>
+            <tr><td>Delete Head trên List(5, 10)</td><td>Node(5)</td><td>Node(10)</td><td><code>temp=pHead; pHead=pHead->pNext; delete temp</code></td><td>Node(10)</td></tr>
+        </tbody>
+    </table>
+
+    <h2>8. Common Errors & IT003 Exam Style</h2>
+    <div class="callout callout-warning">
+        <span class="badge badge-exam-style">IT003 EXAM STYLE</span>
+        <p><strong>Bẫy Đề Thi:</strong> Khi xóa nút duy nhất trong danh sách, nếu chỉ cập nhật <code>pHead = nullptr</code> mà không cập nhật <code>pTail = nullptr</code>, con trỏ <code>pTail</code> sẽ trở thành <strong>Con trỏ rác (Dangling Pointer)</strong> dẫn đến sập chương trình ở các thao tác sau!</p>
+    </div>
+
+    <h2>9. Quick Recall & Exercise Ladder</h2>
+    <ul>
+        <li><strong>Level 0:</strong> Tại sao chèn vào cuối DSLK đơn có con trỏ <code>pTail</code> tốn $\mathcal{O}(1)$ nhưng xóa phần tử cuối vẫn tốn $\Theta(n)$?
+            <br><em>Đáp án:</em> Vì để cập nhật <code>pTail</code> mới, ta phải duyệt từ <code>pHead</code> đến nút áp cuối (nút trước <code>pTail</code>), tốn $\Theta(n)$.
+        </li>
+        <li><strong>Level 1:</strong> Viết hàm đếm số phần tử trong DSLK đơn.
+            <br><em>Gợi ý:</em> Dùng con trỏ chạy <code>Node* p = list.pHead</code>, vừa duyệt vừa tăng biến đếm <code>count++</code> cho đến khi <code>p == nullptr</code>.
+        </li>
+    </ul>
+
+    <div class="callout">
+        <div class="callout-title">📝 Tóm kết Chương 4</div>
+        <p>DSLK cho phép chèn/xóa ở đầu trong $\mathcal{O}(1)$ mà không cần dời bộ nhớ. Luôn chú ý quản lý cả <code>pHead</code> và <code>pTail</code> cùng các trường hợp rỗng/1 nút!</p>
+    </div>
+</section>

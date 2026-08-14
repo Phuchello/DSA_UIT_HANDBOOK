@@ -1,0 +1,332 @@
+[
+  {
+    "filename": "01__Các_Chiến_Lược_Thiết_Kế_Giải_Thuật_pdf.txt",
+    "char_len": 7478,
+    "type": "Primary UIT (Official Lecture Slides)",
+    "reliability": "Official Curriculum",
+    "it003_relevance": "High",
+    "exam_relevance": "High",
+    "topics": [
+      "Complexity & Analysis",
+      "Sorting Algorithms",
+      "Trees & Binary Trees",
+      "B-Trees"
+    ],
+    "snippet": "--- PAGE 1 --- 3/3/2019  1    CẤU TRÚC DỮ LIỆU VÀ GIẢI THUẬT  Data Structures & Algorithms  Các chiến lược thiết kế giải thuật    2  BẠN THƯỜNG LÀM GÌ KHI NHẬN MỘT BÀI  TẬP LẬP TRÌNH ?  3   4  Nội dung    1. Vét cạn – Complete Search/Brute-force Search  2. Chia để trị – Divide and Conquer  3. Tham l"
+  },
+  {
+    "filename": "02__Tổng_Quan_CTDL_GT_pdf.txt",
+    "char_len": 18075,
+    "type": "Exam",
+    "reliability": "Official Exam",
+    "it003_relevance": "High",
+    "exam_relevance": "CRITICAL",
+    "topics": [
+      "Complexity & Analysis",
+      "Sorting Algorithms",
+      "Stack & Queue",
+      "Trees & Binary Trees",
+      "Binary Search Trees (BST)",
+      "Hash Tables",
+      "Graphs & Representations"
+    ],
+    "snippet": "--- PAGE 1 --- 9/15/2018  1    CẤU TRÚC DỮ LIỆU VÀ GIẢI  THUẬT  Data Structures & Algorithms  Tổng Quan về CTDL và GT  Nội dung    1. Vai trò của CTDL& GT.  2. Các tiêu chuẩn đánh giá CTDL  3. Kiểu dữ liệu.  4. Thuật toán và độ phức tạp.      Chương trình máy tính  Lập trình (Programming)  Ngôn n"
+  },
+  {
+    "filename": "03__Ôn_Tập_C___pdf.txt",
+    "char_len": 27441,
+    "type": "Exam",
+    "reliability": "Official Exam",
+    "it003_relevance": "High",
+    "exam_relevance": "CRITICAL",
+    "topics": [
+      "Linked Lists",
+      "Trees & Binary Trees",
+      "Heaps & Priority Queues"
+    ],
+    "snippet": "--- PAGE 1 --- 9/24/2018  1    CẤU TRÚC DỮ LIỆU VÀ GIẢI  THUẬT  Data Structures & Algorithms  ÔN TẬP NHẬP MÔN LẬP TRÌNH  Nội dung  1. Biến  2. Hàm  3. Mảng  4. Cấu trúc  5. Con trỏ      3  #include <iostream>   int main ()   {    std::cout<<\"Xin chao\";  return 0;  }  Cấu trúc một chương trình C/C++ "
+  },
+  {
+    "filename": "04__Tìm_Kiếm_pdf.txt",
+    "char_len": 10994,
+    "type": "Primary UIT (Official Lecture Slides)",
+    "reliability": "Official Curriculum",
+    "it003_relevance": "High",
+    "exam_relevance": "High",
+    "topics": [
+      "Complexity & Analysis",
+      "Searching Algorithms",
+      "Sorting Algorithms",
+      "Linked Lists",
+      "Trees & Binary Trees",
+      "Binary Search Trees (BST)"
+    ],
+    "snippet": "--- PAGE 1 --- 3/26/2019  1    CẤU TRÚC DỮ LIỆU VÀ GIẢI  THUẬT  Data Structures & Algorithms  TÌM KIẾM     Xác định và phát biểu bài toán tìm kiếm sắp xếp    Hiểu một số thuật toán tìm kiếm và sắp xếp    Phân tích ưu điểm và hạn chế của thuật toán tìm  kiếm và sắp xếp    Triển khai, cài đặt các "
+  },
+  {
+    "filename": "05__Sắp_Xếp_pdf.txt",
+    "char_len": 8308,
+    "type": "Secondary UIT",
+    "reliability": "High",
+    "it003_relevance": "High",
+    "exam_relevance": "Medium",
+    "topics": [
+      "Complexity & Analysis",
+      "Searching Algorithms",
+      "Sorting Algorithms",
+      "Binary Search Trees (BST)"
+    ],
+    "snippet": "--- PAGE 1 --- 9/29/2018  1    CẤU TRÚC DỮ LIỆU VÀ GIẢI  THUẬT  Data Structures & Algorithms  SẮP XẾP  Nội dung    1. Bài toán sắp xếp.  2. Tổng quan các phương pháp sắp xếp nội.  3. Interchange Sort – Đổi chỗ trực tiếp.  4. Selection Sort – Chọn trực tiếp  5. Bobble Sort – Nổi bọt  6. Shaker Sort  "
+  },
+  {
+    "filename": "06__Sắp_Xếp__tt__pdf.txt",
+    "char_len": 7832,
+    "type": "Exam",
+    "reliability": "Official Exam",
+    "it003_relevance": "High",
+    "exam_relevance": "CRITICAL",
+    "topics": [
+      "Complexity & Analysis",
+      "Sorting Algorithms",
+      "Trees & Binary Trees",
+      "Heaps & Priority Queues"
+    ],
+    "snippet": "--- PAGE 1 --- 10/14/2018  1    CẤU TRÚC DỮ LIỆU VÀ GIẢI  THUẬT  Data Structures & Algorithms  SẮP XẾP (TT)  Nội dung    1. QuickSort  2. Merge Sort  3. Heap Sort        3  Quick Sort  Quick Sort  6  Quick Sort  --- PAGE 2 --- 10/14/2018  2  Giải thuật QuickSort sắp xếp dãy a1, a2 ..., aN dựa  trên "
+  },
+  {
+    "filename": "07__Danh_Sách_Liên_Kết_Đơn_pdf.txt",
+    "char_len": 17274,
+    "type": "Exam",
+    "reliability": "Official Exam",
+    "it003_relevance": "High",
+    "exam_relevance": "CRITICAL",
+    "topics": [
+      "Searching Algorithms",
+      "Sorting Algorithms",
+      "Linked Lists",
+      "Stack & Queue"
+    ],
+    "snippet": "--- PAGE 1 --- 3/16/2019  1    CẤU TRÚC DỮ LIỆU VÀ GIẢI THUẬT  Data Structures & Algorithms  DANH SÁCH LIÊN KẾT – LIST    Nội dung    1. Kiểu danh sách  2. Danh sách liên kết đơn.  3. Stack  4. Queue    • Danh sách = { các phần tử có cùng kiểu}  • Danh sách là một kiểu dữ liệu tuyến tính :  Mỗi phầ"
+  },
+  {
+    "filename": "08__Stack___Queue_pdf.txt",
+    "char_len": 6266,
+    "type": "Exam",
+    "reliability": "Official Exam",
+    "it003_relevance": "High",
+    "exam_relevance": "CRITICAL",
+    "topics": [
+      "Searching Algorithms",
+      "Linked Lists",
+      "Stack & Queue"
+    ],
+    "snippet": "--- PAGE 1 --- 3/26/2019  1    CẤU TRÚC DỮ LIỆU VÀ GIẢI THUẬT  Data Structures & Algorithms  STACK - QUEUE    Nội dung    1. Kiểu danh sách  2. Danh sách liên kết đơn.  3. Stack  4. Queue    Stack (ngăn xếp): Là 1 vật chứa các đối  tượng làm việc theo cơ chế LIFO (Last In  First Out), từ việc thêm "
+  },
+  {
+    "filename": "09__Danh_Sách_Liên_Kết_Đơn_Đôi_pdf.txt",
+    "char_len": 5057,
+    "type": "Primary UIT (Official Lecture Slides)",
+    "reliability": "Official Curriculum",
+    "it003_relevance": "High",
+    "exam_relevance": "High",
+    "topics": [
+      "Sorting Algorithms",
+      "Linked Lists"
+    ],
+    "snippet": "--- PAGE 1 --- 11/20/2018 1 CẤU TRÚC DỮ LIỆU VÀ GIẢI THUẬT Data Structures & Algorithms DANH SÁCH LIÊN KẾT KÉP • Danh sách liên kết đơn: Mỗi phần tử liên kết với phần tử đứng sau nó trong danh sách A B C D  Danh sách liên kết kép: Mỗi phần tử liên kết với phần tử đứng trước và sau nó trong danh sác"
+  },
+  {
+    "filename": "10__Tree_pdf.txt",
+    "char_len": 5116,
+    "type": "Primary UIT (Official Lecture Slides)",
+    "reliability": "Official Curriculum",
+    "it003_relevance": "High",
+    "exam_relevance": "High",
+    "topics": [
+      "Searching Algorithms",
+      "Linked Lists",
+      "Trees & Binary Trees",
+      "B-Trees"
+    ],
+    "snippet": "--- PAGE 1 --- 12/1/2018  1    CẤU TRÚC DỮ LIỆU VÀ GIẢI THUẬT  Data Structures & Algorithms  CÂY - TREE    2  CÂY  3  CÂY  4  CÂY  5  CÂY – Khái Niệm   Cây là một tập hợp T các phần tử (gọi là nút của cây), trong đó  có một nút đặc biệt gọi là nút gốc, các nút còn lại được chia thành  những tập rời"
+  },
+  {
+    "filename": "11__Binary_Search_Tree_pdf.txt",
+    "char_len": 9358,
+    "type": "Primary UIT (Official Lecture Slides)",
+    "reliability": "Official Curriculum",
+    "it003_relevance": "High",
+    "exam_relevance": "High",
+    "topics": [
+      "Searching Algorithms",
+      "Sorting Algorithms",
+      "Linked Lists",
+      "Trees & Binary Trees",
+      "B-Trees"
+    ],
+    "snippet": "--- PAGE 1 --- 5/15/2019  1    CẤU TRÚC DỮ LIỆU VÀ GIẢI THUẬT  Data Structures & Algorithms  CÂY NHỊ PHÂN TÌM KIẾM – BINARY SEARCH TREE    2  Cây Nhị Phân Tìm Kiếm – Binary Search Tree  77  77   3 3 36 36  1 1 6 6 15 15 40 40  23 23 4 4  • Là cây nhị phân  • Giá trị của một node luôn lớn  hơn giá tr"
+  },
+  {
+    "filename": "12__Cây_AVL_pdf.txt",
+    "char_len": 6364,
+    "type": "Primary UIT (Official Lecture Slides)",
+    "reliability": "Official Curriculum",
+    "it003_relevance": "High",
+    "exam_relevance": "High",
+    "topics": [
+      "Searching Algorithms",
+      "Linked Lists",
+      "Trees & Binary Trees",
+      "AVL Trees",
+      "Graphs & Representations"
+    ],
+    "snippet": "--- PAGE 1 --- 12/13/2018  1    CẤU TRÚC DỮ LIỆU VÀ GIẢI THUẬT  Data Structures & Algorithms  CÂY CÂN BẰNG – AVL    2  ĐẶT VẤN ĐỀ   Vẽ cây nhị phân tìm kiếm lập được từ dãy sau  theo chiều từ trái sang phải:  1, 3, 5, 6, 7, 9    1 3 5 6 7 9  3  Khái niệm cây AVL   Cây cân bằng AVL là cây nhị phân "
+  },
+  {
+    "filename": "13__Hash_pdf.txt",
+    "char_len": 18745,
+    "type": "Exam",
+    "reliability": "Official Exam",
+    "it003_relevance": "High",
+    "exam_relevance": "CRITICAL",
+    "topics": [
+      "Complexity & Analysis",
+      "Searching Algorithms",
+      "Linked Lists",
+      "Trees & Binary Trees",
+      "B-Trees",
+      "Hash Tables",
+      "Graphs & Representations"
+    ],
+    "snippet": "--- PAGE 1 --- 12/22/2018 1 CẤU TRÚC DỮ LIỆU VÀ GIẢI THUẬT Data Structures & Algorithms BẢNG BĂM– HASHTABLE 2 Các cấu trúc dữ liệu đã được học ? Array List Tree 3 TÌM KIẾM ? Tìm kiếm giá trị key=x ?? ?   Duyệt & So sánh 4 ĐỘ PHỨC TẠP TÌM KIẾM  5 ĐỘ PHỨC TẠP TÌM KIẾM  6 TÌM KIẾM Phương pháp để tìm ki"
+  },
+  {
+    "filename": "14__Đồ_Thị_pdf.txt",
+    "char_len": 12012,
+    "type": "Primary UIT (Official Lecture Slides)",
+    "reliability": "Official Curriculum",
+    "it003_relevance": "High",
+    "exam_relevance": "High",
+    "topics": [
+      "Searching Algorithms",
+      "Linked Lists",
+      "Stack & Queue",
+      "B-Trees",
+      "Graphs & Representations",
+      "Graph Traversal (BFS/DFS)",
+      "Shortest Path (Dijkstra/Bellman/Floyd)"
+    ],
+    "snippet": "--- PAGE 1 --- 5/27/2019  1    CẤU TRÚC DỮ LIỆU VÀ GIẢI THUẬT  Data Structures & Algorithms  ĐỒ THỊ– GRAPH    2  ĐỒ THỊ- GRAPH  Bản vẽ hay sơ đồ biểu diễn dữ liệu nhờ sử dụng hệ thống tọa độ !  3  ĐỒ THỊ- GRAPH   Trong toán rời rạc: Là cấu trúc rời rạc có tính trực  quan cao, được sử dụng để biểu d"
+  },
+  {
+    "filename": "1_ResearchSkills_260207_txt.txt",
+    "char_len": 1664,
+    "type": "Exam",
+    "reliability": "Official Exam",
+    "it003_relevance": "High",
+    "exam_relevance": "CRITICAL",
+    "topics": [
+      "Searching Algorithms",
+      "Binary Search Trees (BST)"
+    ],
+    "snippet": "  HK6: DACN -> NCKH HK7: KLTN  Trả lời 4 câu hỏi: 1. Làm cái gì? \t+ Topic \t+ từ khóa: 5 2. Tại sao phải làm? \t+ khảo sát tài liệu  \t=> hạn chế hiện tại \t=> Mục tiêu đặt ra => Research Question 3. Làm như thế nào? \t+ thiết kế: input/output/components/flow \t+ hiện thực/triển khai 4. Đánh giá ra sao? \t"
+  },
+  {
+    "filename": "25521452_SV_2_2025_2026_pdf.txt",
+    "char_len": 28532,
+    "type": "Exam",
+    "reliability": "Official Exam",
+    "it003_relevance": "High",
+    "exam_relevance": "CRITICAL",
+    "topics": [
+      "Stack & Queue",
+      "Trees & Binary Trees"
+    ],
+    "snippet": "--- PAGE 1 --- ĐẠI HỌC QUỐC GIA TP.HCM TRƯỜNG ĐẠI HỌC CÔNG NGHỆ THÔNG TIN __________________ CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM Độc lập - Tự do - Hạnh phúc _________________________ Tp.Hồ Chí Minh ngày 10 tháng 08 năm 2026 Chi Tiết Điểm Rèn Luyện Bảng Điểm SV-2-2025-2026 Tổng điểm phong trào : 15 1 "
+  },
+  {
+    "filename": "28_tb_dhcntt_12_01_2026_pdf.txt",
+    "char_len": 15,
+    "type": "Secondary UIT",
+    "reliability": "High",
+    "it003_relevance": "High",
+    "exam_relevance": "Medium",
+    "topics": [],
+    "snippet": "--- PAGE 1 --- "
+  },
+  {
+    "filename": "28_tb_dhcntt_12_01_2026__1__pdf.txt",
+    "char_len": 15,
+    "type": "Secondary UIT",
+    "reliability": "High",
+    "it003_relevance": "High",
+    "exam_relevance": "Medium",
+    "topics": [],
+    "snippet": "--- PAGE 1 --- "
+  },
+  {
+    "filename": "300_cau_hoi_dung_sai_phap_luat_dai_cuong_FIXED_md_pdf.txt",
+    "char_len": 60698,
+    "type": "Exam",
+    "reliability": "Official Exam",
+    "it003_relevance": "High",
+    "exam_relevance": "CRITICAL",
+    "topics": [
+      "Graphs & Representations"
+    ],
+    "snippet": "--- PAGE 1 --- 300 câu h ỏ i đúng/sai môn Pháp luật đại c ươ ng (có đáp án) Nguồn: covanphaply.vn — Phần đã công bố (câu 1–196; trang gốc ghi \"tiếp tục cập nhật\" cho các câu còn lại). File PDF gốc bị lỗi font khiến toàn bộ dấu tiếng Việt hi ể n thị sai; b ả n này đã đ ượ c gi ả i mã v"
+  },
+  {
+    "filename": "4b8b93c2b3e7bf2e_pdf.txt",
+    "char_len": 69289,
+    "type": "Secondary UIT",
+    "reliability": "High",
+    "it003_relevance": "High",
+    "exam_relevance": "Medium",
+    "topics": [
+      "Graphs & Representations"
+    ],
+    "snippet": "--- PAGE 1 ---   NHẬN ĐỊNH ĐÚNG SAI MÔN PHÁP LUẬT ĐẠI CƯƠNG Cau 1: tập quá !\" #$% t& '()u t* %(á+ t,+% t#-( ./ 0% 23 %u45 t#64 0#&# 7\" p#áp 7uật 89( ' 0#&# 7\" #$% qu4 t;0 <= 2> #/# t#\"# t,ật t> 06a <? #(@ Sai: pl chỉ ra đời trong xã hội có nhà nước. nn và pl là 2 phạm trù lun lu"
+  },
+  {
+    "filename": "51_câu_PLĐC_docx_pdf.txt",
+    "char_len": 161,
+    "type": "Secondary UIT",
+    "reliability": "High",
+    "it003_relevance": "High",
+    "exam_relevance": "Medium",
+    "topics": [],
+    "snippet": "--- PAGE 1 ---        --- PAGE 2 ---    --- PAGE 3 ---    --- PAGE 4 ---  --- PAGE 5 ---    --- PAGE 6 ---    --- PAGE 7 ---  --- PAGE 8 ---    --- PAGE 9 ---   "
+  },
+  {
+    "filename": "9961_INIS_pdf.txt",
+    "char_len": 51871,
+    "type": "Exam",
+    "reliability": "Official Exam",
+    "it003_relevance": "High",
+    "exam_relevance": "CRITICAL",
+    "topics": [
+      "Linked Lists",
+      "Stack & Queue",
+      "Binary Search Trees (BST)",
+      "B-Trees",
+      "Graphs & Representations"
+    ],
+    "snippet": "--- PAGE 1 --- EAI Endorsed Transactions  on Industrial Networks and Intelligent Systems Research Article A Multimodal Swarm Learning Approach for DDoS Detection in Internet of Things Infrastructure Thuat Nguyen-Khanh1,2,∗, Anh Pham-Nguyen-Hai1,2, Luan Van-Thien1,2, Quan Le-Trung1,2 1Faculty of Comp"
+  },
+  {
+    "filename": "ACNO_DT_pdf.txt",
+    "char_len": 26610,
+    "type": "Exam",
+    "reliability": "Official Exam",
+    "it003_relevance": "High",
+    "exam_relevance": "CRITICAL",
+    "topics": [
+      "Linked Lists",
+      "Trees & Binary Trees",
+      "AVL Trees",
+      "Graphs & Representations"
+    ],
+    "snippet": "--- PAGE 1 --- ĐẠI HỌC QUỐC GIA TP . HỒ CHÍ MINH TRƯỜNG ĐẠI HỌC CÔNG NGHỆ THÔNG TIN KHOA MẠNG MÁY TÍNH V À TRUYỀN THÔNG CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM Độc lập - Tự do - Hạnh phúc ĐỀ CƯƠNG CHI TIẾT TÊN ĐỀ TÀI TIẾNG VIỆT: ACNO-DT LITE: BẢN SAO SỐ PM 2.5 HAI CHIỀU TỪ CẢM BIẾN THƯA BẰNG NEURAL OPERA"
+  }
+]

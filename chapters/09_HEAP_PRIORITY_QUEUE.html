@@ -1,0 +1,98 @@
+<section class="chapter" id="ch09">
+    <div class="chapter-header">
+        <span class="badge badge-core">PART IX</span>
+        <h1>HEAPS VÀ HÀNG ĐỢI ƯU TIÊN (HEAP & PRIORITY QUEUE)</h1>
+    </div>
+
+    <h2>1. Intuition (Trực giác & Động lực)</h2>
+    <p>Hàng đợi ưu tiên (Priority Queue) là hàng đợi mà phần tử có độ ưu tiên cao nhất luôn được phục vụ trước. Cấu trúc dữ liệu Heap biểu diễn hoàn hảo hàng đợi ưu tiên nhờ khả năng tìm phần tử cực đại/cực tiểu trong $\mathcal{O}(1)$ và cập nhật lại cây trong $\mathcal{O}(\log n)$.</p>
+
+    <h2>2. Formal Model & Invariants</h2>
+    <p><strong>Max-Heap</strong> là Cây nhị phân hoàn chỉnh (Complete Binary Tree) thỏa mãn bất biến: Khóa của nút cha luôn $\ge$ khóa của các nút con.</p>
+
+    <h2>3. Visual Diagram (Biểu diễn Heap bằng Mảng)</h2>
+    <div class="diagram-container">
+        <svg width="550" height="130" viewBox="0 0 550 130" xmlns="http://www.w3.org/2000/svg">
+            <rect width="550" height="130" fill="#f8fafc" rx="8"/>
+            <g transform="translate(50, 40)">
+                <rect x="0" y="0" width="45" height="40" fill="#0f172a" rx="4"/>
+                <text x="22" y="25" fill="#ffffff" font-family="Inter" font-size="12" font-weight="bold" text-anchor="middle">90</text>
+                <text x="22" y="55" font-family="Inter" font-size="10" fill="#64748b" text-anchor="middle">0 (Root)</text>
+                <rect x="45" y="0" width="45" height="40" fill="#1e40af" rx="4"/>
+                <text x="67" y="25" fill="#ffffff" font-family="Inter" font-size="12" font-weight="bold" text-anchor="middle">75</text>
+                <text x="67" y="55" font-family="Inter" font-size="10" fill="#64748b" text-anchor="middle">1 (Left)</text>
+                <rect x="90" y="0" width="45" height="40" fill="#1e40af" rx="4"/>
+                <text x="112" y="25" fill="#ffffff" font-family="Inter" font-size="12" font-weight="bold" text-anchor="middle">60</text>
+                <text x="112" y="55" font-family="Inter" font-size="10" fill="#64748b" text-anchor="middle">2 (Right)</text>
+            </g>
+        </svg>
+    </div>
+
+    <h2>4. Algorithm & Mechanics (Công thức Chỉ số Mảng)</h2>
+    <p><span class="badge badge-uit-convention">IT003 CONVENTION</span>: Với mảng bắt đầu từ index <code>0</code>:</p>
+    <ul>
+        <li>$\text{parent}(i) = \lfloor (i - 1) / 2 \rfloor$</li>
+        <li>$\text{left}(i) = 2i + 1$</li>
+        <li>$\text{right}(i) = 2i + 2$</li>
+    </ul>
+
+    <h2>5. C++ Educational & STL Implementation</h2>
+    <pre><code>void heapify(int a[], int n, int i) {
+    int largest = i;
+    int left = 2 * i + 1, right = 2 * i + 2;
+    if (left &lt; n && a[left] &gt; a[largest]) largest = left;
+    if (right &lt; n && a[right] &gt; a[largest]) largest = right;
+    if (largest != i) {
+        std::swap(a[i], a[largest]);
+        heapify(a, n, largest);
+    }
+}
+
+// C++ STL Priority Queue
+#include &lt;queue&gt;
+void stlPriorityQueue() {
+    std::priority_queue&lt;int&gt; maxHeap; // Max Heap mặc định
+    maxHeap.push(50); maxHeap.push(80);
+    int topVal = maxHeap.top(); // 80
+}</code></pre>
+
+    <h2>6. Complexity Analysis</h2>
+    <p>Tìm Max: $\Theta(1)$. Chèn / Xóa Max (Heapify): $\Theta(\log n)$. Thuật toán <code>buildHeap</code> tạo Heap từ mảng ngẫu nhiên đạt độ phức tạp tuyến tính <strong>$\Theta(n)$</strong>.</p>
+    <p><strong>Giải thích trực giác vì sao buildHeap là $\Theta(n)$:</strong> Hầu hết các nút nằm ở đáy cây (mức lá). Lá không cần heapify (chiều cao $h=0$). Chỉ có một vài nút ở đỉnh cây mới cần rớt xuống sâu. Tổng số thao tác rớt của tất cả các nút tạo thành một chuỗi giảm dần hội tụ về $\Theta(n)$. Heap Sort (Build Heap + Extract Max liên tục) đạt $\Theta(n \log n)$.</p>
+
+    <h2>7. Dry Run Table (Trace Heap Sort)</h2>
+    <p>Thuật toán Heap Sort thực hiện các bước: BuildHeap $\rightarrow$ Extract Max $\rightarrow$ Swap với phần tử cuối $\rightarrow$ Shrink kích thước $\rightarrow$ Heapify root.</p>
+    <p>Sắp xếp $A = [10, 50, 40]$ (đã là Max-Heap sau buildHeap với kết quả $A=[50, 10, 40]$):</p>
+    <table>
+        <thead>
+            <tr><th>Bước</th><th>Mảng hiện tại</th><th>Hành động</th><th>Kích thước Heap</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>1</td><td>[50, 10, 40]</td><td>Đổi chỗ A[0] (50) và A[2] (40)</td><td>Giảm xuống n=2</td></tr>
+            <tr><td>2</td><td>[40, 10, <strong>50</strong>]</td><td>Heapify(A, 2, 0): 40 > 10, giữ nguyên</td><td>n=2</td></tr>
+            <tr><td>3</td><td>[40, 10, <strong>50</strong>]</td><td>Đổi chỗ A[0] (40) và A[1] (10)</td><td>Giảm xuống n=1</td></tr>
+            <tr><td>4</td><td>[10, <strong>40</strong>, <strong>50</strong>]</td><td>Hoàn thành, mảng đã sắp xếp tăng dần</td><td>n=1</td></tr>
+        </tbody>
+    </table>
+
+    <h2>8. Common Errors & IT003 Exam Style</h2>
+    <div class="callout callout-warning">
+        <span class="badge badge-exam-style">IT003 EXAM STYLE</span>
+        <p><strong>Bẫy Đề Thi:</strong> Cây nhị phân hoàn chỉnh phải được điền đầy từ trái sang phải ở mức cuối cùng. Đừng nhầm lẫn giữa Max-Heap và Cây BST!</p>
+    </div>
+
+    <h2>9. Quick Recall & Exercise Ladder</h2>
+    <ul>
+        <li><strong>Level 0:</strong> Trong Max-Heap dạng mảng, nút tại vị trí index 3 có nút con trái ở index bao nhiêu?
+            <br><em>Đáp án:</em> Index $2(3) + 1 = 7$.
+        </li>
+        <li><strong>Level 1:</strong> Cho mảng $A = [4, 10, 3, 5, 1]$. Chạy tay <code>buildHeap</code> để biến $A$ thành Max-Heap.
+            <br><em>Gợi ý:</em> Gọi Heapify từ vị trí $i = \lfloor n/2 \rfloor - 1 = 1 \Rightarrow A = [10, 5, 3, 4, 1]$.
+        </li>
+    </ul>
+
+    <div class="callout">
+        <div class="callout-title">📝 Tóm kết Chương 9</div>
+        <p>Heap cung cấp cấu trúc ưu tiên hiệu quả nhất với chi phí $\mathcal{O}(\log n)$ cho thao tác cập nhật và $\mathcal{O}(1)$ cho thao tác xem phần tử ưu tiên nhất.</p>
+    </div>
+</section>
